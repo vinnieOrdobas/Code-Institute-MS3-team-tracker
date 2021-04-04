@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team Tracker</title>
+</head>
+<body>
+    {% for training in trainings %}
+        {{ training.team_name }}<br>
+        {{ training.training_name }}<br>
+        {{ training.training_description }}<br>
+        {{ training.training_date }}<br>
+    {% endfor %}
+</body>
+</html>
