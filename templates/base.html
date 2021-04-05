@@ -11,7 +11,38 @@
     {% endblock %}
     <title>Team Tracker</title>
 </head>
-<body> 
+<body>
+    <!-- top navbar -->
+    <header>
+        <nav class="nav-extended">
+            <div class="nav-wrapper blue-grey darken-2">
+                <a href="#!" class="brand-logo">Team Tracker</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="fas fa-bars"></i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Profile</a></li>
+                    <li><a href="{{ url_for('get_teams') }}">Teams</a></li>
+                    <li><a href="{{ url_for('get_trainings') }}">Training</a></li>
+                    <li><a href="#">Metrics</a></li>
+                    <li><a href="#">Log In</a></li>
+                    <li><a href="#">Log Out</a></li>
+                    <li><a href="#">Register</a></li>
+                </ul>
+            </div>
+        </nav>
+        <!-- mobile sidenav -->
+        <ul class="sidenav" id="mobile-demo">
+            <li><h4 class="center-align text-blue-grey text-darken-2">Team Tracker</h4></li>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Profile</a></li>
+            <li><a href="{{ url_for('get_teams') }}">Teams</a></li>
+            <li><a href="{{ url_for('get_trainings') }}">Training</a></li>
+            <li><a href="#">Metrics</a></li>
+            <li><a href="#">Log In</a></li>
+            <li><a href="#">Log Out</a></li>
+            <li><a href="#">Register</a></li>
+        </ul>
+    </header>
     {% block content %}
 
     {% endblock %}

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+
+    {% for team in teams %}
+        {{ team.team_name }}<br>
+        {{ team.team_region }}<br>
+        {{ team.team_description }}<br>
+    {% endfor %}
+
+{% endblock %}
