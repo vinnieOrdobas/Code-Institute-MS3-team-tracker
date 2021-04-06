@@ -1,3 +1,7 @@
 .register-card {
     margin-top: 50px;
 }
+
+.flashes h4 {
+    line-height: 2;
+}
