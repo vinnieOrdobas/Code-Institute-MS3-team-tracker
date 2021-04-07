@@ -1,26 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
 
-    {% for training in trainings %}
-        {{ training.team_name }}<br>
-        {{ training.training_name }}<br>
-        {{ training.training_description }}<br>
-        {{ training.training_date }}<br>
-    {% endfor %}
+    <h3 class="center-align">My trainings</h3>
 
-  <ul class="collapsible">
+    <ul class="collapsible">
+    {% for training in trainings %}
         <li>
-            <div class="collapsible-header yellow-text blue-grey darken-4"><i class="fas fa-caret-down"></i>First</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+            <div class="collapsible-header yellow-text blue-grey darken-4">
+                <i class="fas fa-caret-down"></i>
+                <strong>{{ training.training_name }}</strong> : {{ training.training_date }}
+            </div>
+            <div class="collapsible-body">
+                  <div class="row center-align">
+                    <div class="col s12 m6">
+                        <div class="card yellow-text blue-grey darken-4">
+                            <div class="card-content white-text">
+                                <span class="card-title">{{ training.team_name }}</span>
+                                <p>{{ training.training_description }}</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">This is a link</a>
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col s12 m6">
+                        <div class="card yellow-text blue-grey darken-4">
+                            <div class="card-content white-text">
+                                <span class="card-title">{{ training.instructor }}</span>
+                                <p>Instructor</p>
+                            </div>
+                            <div class="card-action">
+                                <a href="#">This is a link</a>
+                                <a href="#">This is a link</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </li>
-        <li>
-            <div class="collapsible-header yellow-text blue-grey darken-4"><i class="fas fa-caret-down"></i>Second</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-        <li>
-            <div class="collapsible-header yellow-text blue-grey darken-4"><i class="fas fa-caret-down"></i>Third</div>
-            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
-        </li>
-  </ul>
+       {% endfor %} 
+    </ul>
+        
 
 {% endblock %}

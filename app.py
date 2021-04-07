@@ -26,7 +26,7 @@ def get_teams():
 
 @app.route("/get_trainings")
 def get_trainings():
-    trainings = mongo.db.trainings.find()
+    trainings = list(mongo.db.trainings.find())
     return render_template("trainings.html", trainings=trainings)
 
 
@@ -104,7 +104,7 @@ def logout():
     flash('You have been logged out')
     session.pop('user')
     return redirect(url_for('login'))
-    
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
