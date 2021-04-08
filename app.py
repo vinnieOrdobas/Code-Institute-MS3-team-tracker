@@ -109,9 +109,27 @@ def logout():
     return redirect(url_for('login'))
 
 
-@app.route("/add_training")
+@app.route("/add_training", methods=['GET', 'POST'])
 def add_training():
-    return render_template('add_training.html')
+    if request.method == 'POST':
+        training = {
+            "team_name": request.form.get('training_team'),
+            "training_name": request.form.get('training_name'),
+            "training_description": request.form.get('training_description'),
+            "training_date": request.form.get('due_date'),
+            "instructor": request.form.get('instructor_name'),
+            "training_type": request.form.get('training_type'),
+            "created_by": session['user']
+        }
+        mongo.db.trainings.insert_one(training)
+        flash("Training Successfully Created")
+        return redirect(url_for('get_trainings'))
+    teams = mongo.db.teams.find().sort('team_name', 1)
+    training_types = mongo.db.training_types.find().sort('training_type', 1)
+    instructors = mongo.db.instructors.find().sort('instructor_name', 1)
+    return render_template('add_training.html',
+        instructors=instructors, training_types=training_types,
+        teams=teams)
 
 
 if __name__ == "__main__":
