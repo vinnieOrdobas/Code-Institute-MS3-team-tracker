@@ -12,6 +12,18 @@
                     maxlength="25" minlength="5" type="text" class="validate" required>
                     <label for="training_name">Training Name</label>
                 </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-clipboard prefix"></i>
+                        <select id="training_types" name="training_types" class="validate" required>
+                            <option value="" disabled selected>Choose training type</option>
+                            <option value="Deck Training">Deck Training</option>
+                            <option value="Shadowing">Shadowing</option>
+                            <option value="Reverse Shadowing">Reverse Shadowing</option>
+                        </select>
+                        <label for="training_types">Training Type</label>
+                    </div>
+                </div>
                 <div class="input-field col s12">
                     <i class="fas fa-align-left prefix"></i>
                     <textarea id="training_description" name="training_description" 
