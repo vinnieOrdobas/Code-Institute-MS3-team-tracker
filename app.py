@@ -1,6 +1,6 @@
 import os
 from flask import (
-    Flask, flash, render_template, 
+    Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
@@ -16,6 +16,7 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
+
 
 @app.route("/")
 @app.route("/get_teams")
@@ -71,10 +72,11 @@ def login():
             # ensure hashed password matches user input
             if check_password_hash(
                 existing_user['password'], request.form.get('password')):
-                    session['user'] = request.form.get('username').lower()
-                    alias = existing_user['alias']
-                    flash(f'Welcome, {alias}')
-                    return redirect(url_for('profile', username=session['user']))
+                session['user'] = request.form.get('username').lower()
+                alias = existing_user['alias']
+                flash(f'Welcome, {alias}')
+                return redirect(url_for(
+                    'profile', username=session['user']))
             else:
                 # invalid password match
                 flash('Incorrect Username and/or Password')
@@ -87,7 +89,7 @@ def login():
     return render_template('login.html')
 
 
-@app.route("/profile/<username>", methods=['GET','POST'])
+@app.route("/profile/<username>", methods=['GET', 'POST'])
 def profile(username):
     # grab the session's user's username from db
     username = mongo.db.users.find_one(
@@ -95,8 +97,9 @@ def profile(username):
 
     if session['user']:
         return render_template('profile.html', username=username)
-    
+
     return redirect(url_for('login'))
+
 
 @app.route('/logout')
 def logout():
@@ -104,6 +107,7 @@ def logout():
     flash('You have been logged out')
     session.pop('user')
     return redirect(url_for('login'))
+
 
 @app.route("/add_training")
 def add_training():
