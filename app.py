@@ -132,6 +132,17 @@ def add_training():
         teams=teams)
 
 
+@app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
+def edit_training(training_id):
+    training = mongo.db.tasks.find_one({'_id': ObjectId(training_id)})
+    teams = mongo.db.teams.find().sort('team_name', 1)
+    training_types = mongo.db.training_types.find().sort('training_type', 1)
+    instructors = mongo.db.instructors.find().sort('instructor_name', 1)
+    return render_template('edit_training.html',
+        instructors=instructors, training_types=training_types,
+        teams=teams, training=training)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
