@@ -9,9 +9,13 @@
             <div class="input-field col s12">
                 <i class="fas fas fa-skull prefix"></i>
                 <select id="training_team" name="training_team" class="validate" required>
-                    <option value="" disabled selected>Choose the team</option>
+                    <option value="" disabled>Choose the team</option>
                     {% for team in teams %}
-                        <option value="{{ team.team_name }}">{{ team.team_name }}</option>
+                        {% if team.team_name == training.team_name %}
+                            <option value="{{ team.team_name }}" selected>{{ team.team_name }}</option>
+                        {% else %}
+                            <option value="{{ team.team_name }}">{{ team.team_name }}</option>
+                        {% endif %}
                     {% endfor %}
                 </select>
                 <label for="training_type">Training type</label>
@@ -21,7 +25,7 @@
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix"></i>
                     <input id="training_name" name="training_name" 
-                    maxlength="25" minlength="5" type="text" class="validate" required>
+                        maxlength="25" minlength="5" value="{{ training.training_name }}" type="text" class="validate" required>
                     <label for="training_name">Training Name</label>
                 </div>
                 <!-- training description -->
@@ -29,13 +33,14 @@
                     <i class="fas fa-align-left prefix"></i>
                     <textarea id="training_description" name="training_description" 
                         maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required>
+                        {{- training.training_description -}}
                     </textarea>
                     <label for="training_description">Training Description</label>
                 </div>
                 <!-- due date -->
                 <div class="input-field col s12">
                     <i class="fas fa-calendar alt prefix"></i>
-                    <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
+                    <input id="due_date" name="due_date" type="text" value="{{ training.training_date }}" class="datepicker validate" required>
                     <label for="due_date">Due date</label>
                 </div>
                 <!-- training type -->
@@ -45,7 +50,11 @@
                         <select id="training_type" name="training_type" class="validate" required>
                             <option value="" disabled selected>Training type</option>
                             {% for training_type in training_types %}
-                                <option value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
+                                {% if training_type.training_type == training.training_type %}
+                                    <option value="{{ training_type.training_type }}" selected>{{ training_type.training_type }}</option>
+                                {% else %}
+                                    <option value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
+                                {% endif %}
                             {% endfor %}
                         </select>
                         <label for="training_type">Training type</label>
@@ -58,8 +67,13 @@
                         <select id="instructor_name" name="instructor_name" class="validate" required>
                             <option value="" disabled selected>Choose instructor</option>
                             {% for instructor in instructors %}
-                                <option value="{{ instructor.instructor_name }}">{{ instructor.instructor_name }}</option>
+                                {% if instructor.instructor_name == training.instructor %}
+                                    <option value="{{ instructor.instructor_name }}" selected>{{ instructor.instructor_name }}</option>
+                                {% else %}
+                                    <option value="{{ instructor.instructor_name }}">{{ instructor.instructor_name }}</option>
+                                {% endif %}
                             {% endfor %}
+                            
                         </select>
                         <label for="instructor_name">Instructor</label>
                     </div>
@@ -68,6 +82,9 @@
             <!-- submit button -->
             <div class="row">
                 <div class="col s12 center-align">
+                    <a href="{{ url_for('get_trainings') }}" class="waves-effect waves-light red btn">
+                        Cancel <i class="fas fa-exclamation-circle"></i>
+                    </a>
                     <button class="btn waves-effect waves-light  green accent-3" type="submit">Submit
                         <i class="fas fa-paper-plane"></i>
                     </button>

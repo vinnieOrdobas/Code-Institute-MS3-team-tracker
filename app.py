@@ -134,7 +134,7 @@ def add_training():
 
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
 def edit_training(training_id):
-    training = mongo.db.tasks.find_one({'_id': ObjectId(training_id)})
+    training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
     teams = mongo.db.teams.find().sort('team_name', 1)
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     instructors = mongo.db.instructors.find().sort('instructor_name', 1)

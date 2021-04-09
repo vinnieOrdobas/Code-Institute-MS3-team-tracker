@@ -1,16 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="center-align">My trainings</h3>
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large yellow darken-4">
-            <i class="fas fa-caret-up"></i>
+    <h3 class="center-align">My Trainings</h3>
+    <div class="row right-align">
+        <a href="{{ url_for('add_training') }}"class="waves-effect green waves-light btn-large">
+            Add Training <i class="fas fa-plus-circle"></i>
         </a>
-        <ul>
-            <li><a class="btn-floating red"><i class="fas fa-minus"></i></a></li>
-            <li><a href="{{ url_for('add_training') }}" class="btn-floating green"><i class="fas fa-plus"></i></a></li>
-            <li><a class="btn-floating blue"><i class="fas fa-edit fa-xs"></i></a></li>
-        </ul>
     </div>
     <ul class="collapsible">
     {% for training in trainings %}
