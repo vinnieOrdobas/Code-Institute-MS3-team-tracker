@@ -157,6 +157,13 @@ def edit_training(training_id):
         teams=teams, training=training)
 
 
+@app.route('/delete_training/<training_id>')
+def delete_training():
+
+
+
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
