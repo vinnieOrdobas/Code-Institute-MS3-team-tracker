@@ -121,7 +121,8 @@ def add_training():
             "training_date": request.form.get('due_date'),
             "instructor": request.form.get('instructor_name'),
             "training_type": request.form.get('training_type'),
-            "created_by": session['user']
+            "created_by": session['user'],
+            "complete_training": "False"
         }
         mongo.db.trainings.insert_one(training)
         flash("Training Successfully Created")
@@ -144,7 +145,8 @@ def edit_training(training_id):
             "training_date": request.form.get('due_date'),
             "instructor": request.form.get('instructor_name'),
             "training_type": request.form.get('training_type'),
-            "created_by": session['user']
+            "created_by": session['user'],
+            "complete_training": "False"
         }
         mongo.db.trainings.update({'_id': ObjectId(training_id)}, update)
         flash("Training Successfully Edited")
@@ -157,11 +159,19 @@ def edit_training(training_id):
         teams=teams, training=training)
 
 
-@app.route('/delete_training/<training_id>')
-def delete_training():
+@app.route("/delete_training/<training_id>")
+def delete_training(training_id):
+    mongo.db.trainings.remove({'_id': ObjectId(training_id)})
+    flash("Training successfully removed")
+    return redirect(url_for('get_trainings'))
 
 
-
+@app.route("/complete_training/<training_id>", methods=['GET', 'POST'])
+def complete_training(training_id):
+    if request.method == 'POST':
+        submit = {"$set": {"complete_training": "True"}}
+        mongo.db.trainings.update({'_id': ObjectId(training_id)}, submit)
+    return redirect(url_for('get_trainings'))
 
 
 if __name__ == "__main__":
