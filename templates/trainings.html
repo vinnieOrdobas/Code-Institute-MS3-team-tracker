@@ -2,19 +2,23 @@
 {% block content %}
 
     <h3 class="center-align">My Trainings</h3>
-    <div class="row right-align">
-        <a href="{{ url_for('add_training') }}"class="waves-effect green waves-light btn-large">
-            Add Training <i class="fas fa-plus-circle"></i>
-        </a>
-    </div>
+    {% if username.team_leader == 'on' %}
+        <div class="row right-align">
+            <a href="{{ url_for('add_training') }}"class="waves-effect green waves-light btn-large">
+                Add Training <i class="fas fa-plus-circle"></i>
+            </a>
+        </div>
+    {% endif %}
     <ul class="collapsible">
     {% for training in trainings %}
         <li>
             <div class="collapsible-header yellow-text blue-grey darken-4">
                 <div class="col s3">
-                    <i class="fas fa-caret-down"></i>
-                    <a href="{{ url_for('edit_training', training_id=training._id) }}" class="waves-effect waves-light btn-small">Edit</a>
-                    <a href="" class="waves-effect red waves-light btn-small">Delete</a>
+                    {% if username.team_leader == 'on' %}
+                        <i class="fas fa-caret-down"></i>
+                        <a href="{{ url_for('edit_training', training_id=training._id) }}" class="waves-effect waves-light btn-small">Edit</a>
+                        <a href="" class="waves-effect red waves-light btn-small">Delete</a>
+                    {% endif %}
                 </div>
                 <div class="col s9">
                     <strong>{{ training.training_name }}</strong>: {{ training.training_date }}

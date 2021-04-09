@@ -28,7 +28,9 @@ def get_teams():
 @app.route("/get_trainings")
 def get_trainings():
     trainings = list(mongo.db.trainings.find())
-    return render_template("trainings.html", trainings=trainings)
+    username = mongo.db.users.find_one(
+        {'username': session['user']})
+    return render_template("trainings.html", trainings=trainings, username=username)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -134,6 +136,18 @@ def add_training():
 
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
 def edit_training(training_id):
+    if request.method == 'POST':
+        update = {
+            "team_name": request.form.get('training_team'),
+            "training_name": request.form.get('training_name'),
+            "training_description": request.form.get('training_description'),
+            "training_date": request.form.get('due_date'),
+            "instructor": request.form.get('instructor_name'),
+            "training_type": request.form.get('training_type'),
+            "created_by": session['user']
+        }
+        mongo.db.trainings.update({'_id': ObjectId(training_id)}, update)
+        flash("Training Successfully Edited")
     training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
     teams = mongo.db.teams.find().sort('team_name', 1)
     training_types = mongo.db.training_types.find().sort('training_type', 1)
