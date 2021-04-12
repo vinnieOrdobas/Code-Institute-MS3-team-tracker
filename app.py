@@ -126,6 +126,7 @@ def add_training():
             "training_date": request.form.get('due_date'),
             "instructor": request.form.get('instructor_name'),
             "training_type": request.form.get('training_type'),
+            "assigned_to": request.form.get('assign_to'),
             "created_by": session['user'],
             "complete_training": "False"
         }
@@ -135,9 +136,10 @@ def add_training():
     teams = mongo.db.teams.find().sort('team_name', 1)
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     instructors = mongo.db.instructors.find().sort('instructor_name', 1)
+    students = mongo.db.users.find().sort('alias', 1)
     return render_template('add_training.html',
         instructors=instructors, training_types=training_types,
-        teams=teams)
+        teams=teams, students=students)
 
 
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
