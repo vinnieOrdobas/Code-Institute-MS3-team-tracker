@@ -14,3 +14,8 @@
     margin-right: 5px;
     line-height: 42px;
 }
+
+.form-wrapper form {
+    display: inline-block;
+    margin-bottom: 5px;
+}

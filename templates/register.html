@@ -50,16 +50,16 @@
                             </label>
                         </div>
                     </div>
-                    <div class="input-field col s12">
-                        <div class="switch">
-                            <i class="fas fa-exclamation-circle prefix"></i>
-                            <label for="admin">
-                                <input type="checkbox" id="admin" name="admin">
-                                <span class="lever"></span>
-                                I'm an Admin
-                            </label>
-                        </div>
-                    </div>
+                </div>
+                <div class="input-field col s12">
+                    <i class="fas fas fa-skull prefix"></i>
+                    <select id="team_name" name="team_name" class="validate" required>
+                        <option value="" disabled selected>Choose the team</option>
+                        {% for team in teams %}
+                            <option value="{{ team.team_name }}">{{ team.team_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="team_name">Training type</label>
                 </div>
                 <!-- register button-->
                 <div class="row">

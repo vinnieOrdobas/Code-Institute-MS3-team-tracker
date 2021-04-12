@@ -47,11 +47,14 @@ def register():
         check_password = request.form.get('check_password')
 
         if password == check_password:
+            team_leader = "on" if request.form.get('team_leader') else "off"
             register = {
                 'username': request.form.get('username').lower(),
                 'password': generate_password_hash(
                             request.form.get('password'), salt_length=7),
-                'alias': request.form.get('alias').lower()
+                'alias': request.form.get('alias').lower(),
+                'team_name': request.form.get('team_name'),
+                'team_leader': team_leader
             }
             mongo.db.users.insert_one(register)
             # put the new user into 'session' cookie
@@ -61,7 +64,8 @@ def register():
         else:
             flash("Password doesn't match!")
             return redirect(url_for('register'))
-    return render_template("register.html")
+    teams = mongo.db.teams.find().sort('team_name', 1)
+    return render_template("register.html", teams=teams)
 
 
 @app.route("/login", methods=['GET', 'POST'])
@@ -113,6 +117,7 @@ def logout():
 
 @app.route("/add_training", methods=['GET', 'POST'])
 def add_training():
+    # adds training to the database
     if request.method == 'POST':
         training = {
             "team_name": request.form.get('training_team'),
@@ -137,6 +142,7 @@ def add_training():
 
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
 def edit_training(training_id):
+    # edit trainings in the database
     if request.method == 'POST':
         update = {
             "team_name": request.form.get('training_team'),
@@ -161,6 +167,7 @@ def edit_training(training_id):
 
 @app.route("/delete_training/<training_id>")
 def delete_training(training_id):
+    # deletes training from database
     mongo.db.trainings.remove({'_id': ObjectId(training_id)})
     flash("Training successfully removed")
     return redirect(url_for('get_trainings'))
@@ -168,8 +175,18 @@ def delete_training(training_id):
 
 @app.route("/complete_training/<training_id>", methods=['GET', 'POST'])
 def complete_training(training_id):
+    # marks training as complete
     if request.method == 'POST':
         submit = {"$set": {"complete_training": "True"}}
+        mongo.db.trainings.update({'_id': ObjectId(training_id)}, submit)
+    return redirect(url_for('get_trainings'))
+
+
+@app.route("/incomplete_training/<training_id>", methods=['GET', 'POST'])
+def incomplete_training(training_id):
+    # marks training as pending
+    if request.method == 'POST':
+        submit = {"$set": {"complete_training": "False"}}
         mongo.db.trainings.update({'_id': ObjectId(training_id)}, submit)
     return redirect(url_for('get_trainings'))
 
