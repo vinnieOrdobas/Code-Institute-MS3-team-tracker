@@ -30,7 +30,10 @@ def get_trainings():
     trainings = list(mongo.db.trainings.find())
     username = mongo.db.users.find_one(
         {'username': session['user']})
-    return render_template("trainings.html", trainings=trainings, username=username)
+    is_instructor = True if mongo.db.instructors.find_one(
+        {'username': session['user']}) else False
+    return render_template("trainings.html", 
+        trainings=trainings, username=username, is_instructor=is_instructor)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -48,15 +51,24 @@ def register():
 
         if password == check_password:
             team_leader = "on" if request.form.get('team_leader') else "off"
+            instructor = "on" if request.form.get('instructor') else "off"
             register = {
                 'username': request.form.get('username').lower(),
                 'password': generate_password_hash(
                             request.form.get('password'), salt_length=7),
-                'alias': request.form.get('alias').lower(),
+                'alias': request.form.get('alias'),
                 'team_name': request.form.get('team_name'),
                 'team_leader': team_leader
             }
+            if team_leader and instructor == 'off':
+                register['student'] = True
             mongo.db.users.insert_one(register)
+            if instructor == "on":
+                submit = {
+                    "instructor_name": request.form.get('alias'),
+                    "username": request.form.get('username').lower()
+                }
+                mongo.db.instructors.insert_one(submit)
             # put the new user into 'session' cookie
             session["user"] = request.form.get('username').lower()
             flash('Registration Successful!')
@@ -136,7 +148,7 @@ def add_training():
     teams = mongo.db.teams.find().sort('team_name', 1)
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     instructors = mongo.db.instructors.find().sort('instructor_name', 1)
-    students = mongo.db.users.find().sort('alias', 1)
+    students = mongo.db.users.find({"student": True}).sort('alias', 1)
     return render_template('add_training.html',
         instructors=instructors, training_types=training_types,
         teams=teams, students=students)
