@@ -65,13 +65,13 @@
                     </div>
                 </div>
                 <div class="input-field col s12">
-                    <select id="assign_to" name="assign_to" class="validate" multiple>
-                        <option value="" disabled selected>Assign training to:</option>
+                    <i class="fas fa-user-graduate prefix"></i>
+                    <select id="assign_to" name="assign_to" class="validate" multiple required>
                         {% for student in students %}
                             <option value="{{ student.alias }}">{{ student.alias }}</option>
                         {% endfor %}
                     </select>
-                    <label>Assign training to:</label>
+                    <label for="assign_to">Assign training to:</label>
                 </div>
             </div>
             <!-- submit button -->

@@ -204,7 +204,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 ### Bugs and turnarounds
 
-> - API request returned with a 404 code status, when requesting the recipe from the home page. API's endpoint was not referenced properly in the url. To solve the problem, I copied the URL from code snippet found in the  API's website [Spoonacular](https://rapidapi.com/user/spoonacular) and used string interpolation to solve the bug.
+> - Add training endpoint only writing to database first option of the "assign_to" form - request.form.get('assign_to') is only writing the first item (it is supposed to write an array).
 > - Ingredient list printed units without decimal precision and incorrect format when looping through data["ingredients"]. I found the solution combining two functions found in these websites: [Rounding Decimals in JavaScript](https://www.jacklmoore.com/notes/rounding-in-javascript/), [How to transform integers with decimal points into fractions](https://gist.github.com/redteam-snippets/3934258) 
 > - Star rating for each recipe were not accessing pseudo-classes in CSS (:after) to change width and fill color(yellow) according to property returned from the request. Found solution on: [A Simple JavaScript Technique for Filling Star Ratings](https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450).
 > -  Script file wasn't able to find DOM Id's to be to render the recipe to another HTML page. The turnaround was offered by Victor (my mentor), by saving the target HTML element(the JSON object returned by the API and renderized as HTML) to 'localStorage', changing to another page using 'window.location.href' property and loading the saved content from 'localStorage'. 
