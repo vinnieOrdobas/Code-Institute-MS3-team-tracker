@@ -131,6 +131,7 @@ def logout():
 def add_training():
     # adds training to the database
     if request.method == 'POST':
+        print("CHECKING FORM OUTPUT - Added by Jo: ", request.form.to_dict())
         training = {
             "team_name": request.form.get('training_team'),
             "training_name": request.form.get('training_name'),
@@ -138,10 +139,12 @@ def add_training():
             "training_date": request.form.get('due_date'),
             "instructor": request.form.get('instructor_name'),
             "training_type": request.form.get('training_type'),
-            "assigned_to": request.form.get('assign_to'),
+            "assigned_to": request.form.getlist('assign_to'),
             "created_by": session['user'],
             "complete_training": "False"
         }
+        testdata = request.form.getlist('assign_to')
+        print(testdata)
         mongo.db.trainings.insert_one(training)
         flash("Training Successfully Created")
         return redirect(url_for('get_trainings'))
@@ -149,6 +152,7 @@ def add_training():
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     instructors = mongo.db.instructors.find().sort('instructor_name', 1)
     students = mongo.db.users.find({"student": True}).sort('alias', 1)
+    print(request.form.get('assign_to'))
     return render_template('add_training.html',
         instructors=instructors, training_types=training_types,
         teams=teams, students=students)

@@ -64,9 +64,10 @@
                         <label for="instructor_name">Instructor</label>
                     </div>
                 </div>
+                <!-- assign to -->
                 <div class="input-field col s12">
                     <i class="fas fa-user-graduate prefix"></i>
-                    <select id="assign_to" name="assign_to" class="validate" multiple required>
+                    <select id="assign_to" name="assign_to" class="validate" multiple>
                         {% for student in students %}
                             <option value="{{ student.alias }}">{{ student.alias }}</option>
                         {% endfor %}
