@@ -32,8 +32,11 @@ def get_trainings():
         {'username': session['user']})
     is_instructor = True if mongo.db.instructors.find_one(
         {'username': session['user']}) else False
+    assigned_to = mongo.db.trainings.find_one(
+        {}, {'_id': 0, 'assigned_to': 1})['assigned_to']
     return render_template("trainings.html", 
-        trainings=trainings, username=username, is_instructor=is_instructor)
+        trainings=trainings, username=username,
+        is_instructor=is_instructor, assigned_to=assigned_to)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -131,7 +134,10 @@ def logout():
 def add_training():
     # adds training to the database
     if request.method == 'POST':
-        print("CHECKING FORM OUTPUT - Added by Jo: ", request.form.to_dict())
+        if request.form.getlist('assign_to') <= 1:
+            assigned_to = request.form.get('assign_to')
+        else:
+            assigned_to = request.form.getlist('assign_to')
         training = {
             "team_name": request.form.get('training_team'),
             "training_name": request.form.get('training_name'),
@@ -139,12 +145,10 @@ def add_training():
             "training_date": request.form.get('due_date'),
             "instructor": request.form.get('instructor_name'),
             "training_type": request.form.get('training_type'),
-            "assigned_to": request.form.getlist('assign_to'),
+            "assigned_to": assigned_to,
             "created_by": session['user'],
             "complete_training": "False"
         }
-        testdata = request.form.getlist('assign_to')
-        print(testdata)
         mongo.db.trainings.insert_one(training)
         flash("Training Successfully Created")
         return redirect(url_for('get_trainings'))
@@ -152,7 +156,6 @@ def add_training():
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     instructors = mongo.db.instructors.find().sort('instructor_name', 1)
     students = mongo.db.users.find({"student": True}).sort('alias', 1)
-    print(request.form.get('assign_to'))
     return render_template('add_training.html',
         instructors=instructors, training_types=training_types,
         teams=teams, students=students)
@@ -161,7 +164,13 @@ def add_training():
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
 def edit_training(training_id):
     # edit trainings in the database
+    assigned_to = mongo.db.trainings.find_one(
+        {}, {'_id': 0, 'assigned_to': 1})['assigned_to']
     if request.method == 'POST':
+        if len(request.form.getlist('assign_to')) <= 1:
+            assign_to = request.form.get('assign_to')
+        else:
+            assign_to = request.form.getlist('assign_to')
         update = {
             "team_name": request.form.get('training_team'),
             "training_name": request.form.get('training_name'),
@@ -169,6 +178,7 @@ def edit_training(training_id):
             "training_date": request.form.get('due_date'),
             "instructor": request.form.get('instructor_name'),
             "training_type": request.form.get('training_type'),
+            "assigned_to": assign_to,
             "created_by": session['user'],
             "complete_training": "False"
         }
@@ -178,9 +188,11 @@ def edit_training(training_id):
     teams = mongo.db.teams.find().sort('team_name', 1)
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     instructors = mongo.db.instructors.find().sort('instructor_name', 1)
+    students = mongo.db.users.find({"student": True}).sort('alias', 1)
     return render_template('edit_training.html',
         instructors=instructors, training_types=training_types,
-        teams=teams, training=training)
+        teams=teams, training=training,
+        assigned_to=assigned_to, students=students)
 
 
 @app.route("/delete_training/<training_id>")
