@@ -3,7 +3,9 @@ from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
 from flask_pymongo import PyMongo
+import bson
 from bson.objectid import ObjectId
+
 from werkzeug.security import generate_password_hash, check_password_hash
 if os.path.exists("env.py"):
     import env
@@ -27,16 +29,15 @@ def get_teams():
 
 @app.route("/get_trainings")
 def get_trainings():
-    trainings = list(mongo.db.trainings.find())
     username = mongo.db.users.find_one(
         {'username': session['user']})
     is_instructor = True if mongo.db.instructors.find_one(
         {'username': session['user']}) else False
-    assigned_to = mongo.db.trainings.find_one(
-        {}, {'_id': 0, 'assigned_to': 1})['assigned_to']
-    return render_template("trainings.html", 
-        trainings=trainings, username=username,
-        is_instructor=is_instructor, assigned_to=assigned_to)
+    trainings = list(mongo.db.trainings.find())
+    students = mongo.db.users.find({'student': True})
+    return render_template("trainings.html",
+    trainings=trainings, username=username,
+    is_instructor=is_instructor, students=students)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -134,10 +135,6 @@ def logout():
 def add_training():
     # adds training to the database
     if request.method == 'POST':
-        if request.form.getlist('assign_to') <= 1:
-            assigned_to = request.form.get('assign_to')
-        else:
-            assigned_to = request.form.getlist('assign_to')
         training = {
             "team_name": request.form.get('training_team'),
             "training_name": request.form.get('training_name'),
@@ -145,10 +142,20 @@ def add_training():
             "training_date": request.form.get('due_date'),
             "instructor": request.form.get('instructor_name'),
             "training_type": request.form.get('training_type'),
-            "assigned_to": assigned_to,
             "created_by": session['user'],
             "complete_training": "False"
         }
+        assigned_to = request.form.getlist('assign_to')
+        if len(assigned_to) > 1:
+            for user in assigned_to:
+                training_schema = {
+                    request.form.get('training_name'): {
+                        "type": request.form.get('training_type'),
+                        "completed": False
+                    }
+                }
+                mongo.db.users.update_one(
+                    {'alias': user}, {'$set': {'trainings': training_schema}})
         mongo.db.trainings.insert_one(training)
         flash("Training Successfully Created")
         return redirect(url_for('get_trainings'))
@@ -164,13 +171,7 @@ def add_training():
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
 def edit_training(training_id):
     # edit trainings in the database
-    assigned_to = mongo.db.trainings.find_one(
-        {}, {'_id': 0, 'assigned_to': 1})['assigned_to']
     if request.method == 'POST':
-        if len(request.form.getlist('assign_to')) <= 1:
-            assign_to = request.form.get('assign_to')
-        else:
-            assign_to = request.form.getlist('assign_to')
         update = {
             "team_name": request.form.get('training_team'),
             "training_name": request.form.get('training_name'),
@@ -178,7 +179,6 @@ def edit_training(training_id):
             "training_date": request.form.get('due_date'),
             "instructor": request.form.get('instructor_name'),
             "training_type": request.form.get('training_type'),
-            "assigned_to": assign_to,
             "created_by": session['user'],
             "complete_training": "False"
         }
@@ -191,8 +191,7 @@ def edit_training(training_id):
     students = mongo.db.users.find({"student": True}).sort('alias', 1)
     return render_template('edit_training.html',
         instructors=instructors, training_types=training_types,
-        teams=teams, training=training,
-        assigned_to=assigned_to, students=students)
+        teams=teams, training=training, students=students)
 
 
 @app.route("/delete_training/<training_id>")

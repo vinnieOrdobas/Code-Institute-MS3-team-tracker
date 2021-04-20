@@ -54,10 +54,12 @@
                         <ul class="collection">
                             <li class="collection-item avatar">
                                 <span class="title">Assigned to:</span>
-                                {% for student in assigned_to %}
-                                    <p>
-                                        <i class="fas fa-user-circle red-text"></i> <strong>{{ student }}</strong>
-                                    </p>
+                                {% for student in students %}
+                                    {% if training.training_name in student.trainings %}
+                                        <p>
+                                            <i class="fas fa-user-circle red-text"></i> <strong>{{ student.alias }}</strong>
+                                        </p>
+                                    {% endif %}
                                 {% endfor %}
                             </li>
                         </ul>
