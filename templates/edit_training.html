@@ -83,7 +83,7 @@
                 <i class="fas fa-user-graduate prefix"></i>
                 <select id="assign_to" name="assign_to" class="validate" multiple required>
                     {% for student in students %}
-                        {% if student.alias in assigned_to %}
+                        {% if training.training_name in student.trainings %}
                             <option disabled value="{{ student.alias }}">{{ student.alias }}</option>
                         {% else %}
                             <option value="{{ student.alias }}">{{ student.alias }}</option>

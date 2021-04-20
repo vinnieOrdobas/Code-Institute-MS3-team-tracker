@@ -51,18 +51,22 @@
                 </div>
                 <div class="row center-align">
                     <div class="col s12 m6">
-                        <ul class="collection">
-                            <li class="collection-item avatar">
-                                <span class="title">Assigned to:</span>
-                                {% for student in students %}
-                                    {% if training.training_name in student.trainings.keys() %}
-                                        <p>
-                                            <i class="fas fa-user-circle red-text"></i> <strong>{{ student.alias }}</strong>
-                                        </p>
-                                    {% endif %}
-                                {% endfor %}
-                            </li>
-                        </ul>
+                        <div class="card blue-grey darken-4">
+                            <div class="card-content">
+                                <span class="card-title white-text darken-4">Assigned to:</span>
+                                <ul class="collection">
+                                    {% for student in students %}
+                                        {% if training.training_name in student.trainings.keys() %}
+                                            <li class="collection-item">
+                                                <span>
+                                                    <i class="fas fa-user-circle red-text"></i> <strong>{{ student.alias }}</strong>
+                                                </span>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <div class="col s12 m6">
                         {% if username.team_leader == 'on' or is_instructor == True %}
@@ -104,6 +108,14 @@
                                     </a>
                                 </div>
                             </div>
+                        {% else %}
+                            {% if training.training_name not in username.trainings.keys() %}
+                                <form method="POST" action="{{ url_for('enroll', training_id=training._id) }}">
+                                    <button type="submit" class="waves-effect waves-light indigo lighten-2 btn-large tooltipped" data-position="top" data-tooltip="Enroll in this training">
+                                        <i class="fas fa-play-circle"></i>
+                                    </button>
+                                </form>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
