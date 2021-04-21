@@ -66,6 +66,7 @@ def register():
             }
             if team_leader and instructor == 'off':
                 register['student'] = True
+                register['trainings'] = {}
             mongo.db.users.insert_one(register)
             if instructor == "on":
                 submit = {
@@ -155,14 +156,29 @@ def add_training():
                 if student['trainings']:
                     # checks if there are trainings assigned to a student
                     trainings = student['trainings']
-                    # appends new training to returning dictionary
-                    training_schema = {
-                        request.form.get('training_name'): {
-                            "type": request.form.get('training_type'),
-                            "completed": False
-                        }
-                    }
-                    trainings.update(training_schema)
+                    # check which types of training the student has
+                    for key in trainings.keys():
+                        if key == request.form.get('training_name'):
+                            type_update = {
+                                request.form.get('training_type'): {
+                                    "completed": False,
+                                    "training_date":
+                                        request.form.get('due_date')
+                                }
+                            }
+                            trainings[key].update(type_update)
+                        else:
+                            # appends new training to returning dictionary
+                            training_schema = {
+                                request.form.get('training_name'): {
+                                    request.form.get('training_type'): {
+                                        "completed": False,
+                                        "training_date":
+                                            request.form.get('due_date')
+                                    }
+                                }
+                            }
+                            trainings.update(training_schema)
                     # updates training dictionary to push to student
                     mongo.db.users.update_one(
                         {'alias': user},
@@ -171,8 +187,10 @@ def add_training():
                     # creates new dictionary with the current training
                     training_schema = {
                         request.form.get('training_name'): {
-                            "type": request.form.get('training_type'),
-                            "completed": False
+                            request.form.get('training_type'): {
+                                "completed": False,
+                                "training_date": request.form.get('due_date')
+                            }
                         }
                     }
                     mongo.db.users.update_one(
@@ -255,6 +273,23 @@ def edit_training(training_id):
 
 @app.route("/delete_training/<training_id>")
 def delete_training(training_id):
+    training_name = mongo.db.trainings.find_one(
+        {'_id': ObjectId(training_id)})['training_name']
+    training_type = mongo.db.trainings.find_one(
+        {'_id': ObjectId(training_id)})['training_type']
+    students = mongo.db.users.find(
+        {'student': True})
+    for student in students:
+        trainings = student['trainings']
+        user = student['alias']
+        if training_name in trainings.keys():
+            current_training = trainings.get(training_name)
+            current_training.pop(training_type)
+            trainings.update(current_training)
+            mongo.db.users.update_one(
+                    {'alias': user},
+                    {'$set': {'trainings': trainings}})
+
     # deletes training from database
     mongo.db.trainings.remove({'_id': ObjectId(training_id)})
     flash("Training successfully removed")
