@@ -230,36 +230,37 @@ def edit_training(training_id):
             students = mongo.db.users.find({'alias': user})
             # find students on the database
             for student in students:
-                # loops through the students found
-                if student['trainings']:
-                    # checks if there are trainings assigned to a student
-                    trainings = student['trainings']
-                    # appends new training to returning dictionary
-                    training_schema = {
-                        request.form.get('training_name'): {
-                            "type": request.form.get('training_type'),
-                            "completed": False
+                trainings = student['trainings']
+                # check which types of training the student has
+                for key in list(trainings.keys()):
+                    if key == request.form.get('training_name'):
+                        type_update = {
+                            request.form.get('training_type'): {
+                                "completed": False,
+                                "training_date":
+                                    request.form.get('due_date')
+                            }
                         }
-                    }
-                    trainings.update(training_schema)
-                    # updates training dictionary to push to student
-                    mongo.db.users.update_one(
-                        {'alias': user},
-                        {'$set': {'trainings': trainings}})
-                else:
-                    # push training to database
-                    training_schema = {
-                        request.form.get('training_name'): {
-                            "type": request.form.get('training_type'),
-                            "completed": False
+                        trainings[key].update(type_update)
+                    else:
+                        # appends new training to returning dictionary
+                        training_schema = {
+                            request.form.get('training_name'): {
+                                request.form.get('training_type'): {
+                                    "completed": False,
+                                    "training_date":
+                                        request.form.get('due_date')
+                                }
+                            }
                         }
-                    }
-                    mongo.db.users.update_one(
-                        {'alias': user},
-                        {'$set': {'trainings': training_schema}})
-        # updates training on database
+                        trainings.update(training_schema)
+                mongo.db.users.update_one(
+                    {'alias': user},
+                    {'$set': {'trainings': training_schema}})
+        # # updates training on database
         mongo.db.trainings.update({'_id': ObjectId(training_id)}, update)
         flash("Training Successfully Edited")
+        return redirect(url_for('get_trainings'))
     # variables to be rendered by the template
     training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
     teams = mongo.db.teams.find().sort('team_name', 1)
@@ -273,14 +274,18 @@ def edit_training(training_id):
 
 @app.route("/delete_training/<training_id>")
 def delete_training(training_id):
+    # finds training name
     training_name = mongo.db.trainings.find_one(
         {'_id': ObjectId(training_id)})['training_name']
+    # finds training type
     training_type = mongo.db.trainings.find_one(
         {'_id': ObjectId(training_id)})['training_type']
+    # finds students
     students = mongo.db.users.find(
         {'student': True})
     for student in students:
         trainings = student['trainings']
+        # finds if training is already in student's classes
         if training_name in trainings.keys():
             current_training = trainings.get(training_name)
             user = student['alias']
@@ -296,7 +301,6 @@ def delete_training(training_id):
                         {'$set': {'trainings': trainings}})
             else:
                 del trainings[training_name][training_type]
-                print(trainings)
                 mongo.db.users.update_one(
                         {'alias': user},
                         {'$set': {'trainings': trainings}})
@@ -333,8 +337,10 @@ def enroll(training_id):
         student_training = username['trainings']
         training_schema = {
             training['training_name']: {
-                "type": training['training_type'],
-                "completed": False
+                training['training_type']: {
+                    "completed": False,
+                    "training_date": training.get('training_date')
+                }
             }
         }
         student_training.update(training_schema)
