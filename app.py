@@ -157,7 +157,7 @@ def add_training():
                     # checks if there are trainings assigned to a student
                     trainings = student['trainings']
                     # check which types of training the student has
-                    for key in trainings.keys():
+                    for key in list(trainings.keys()):
                         if key == request.form.get('training_name'):
                             type_update = {
                                 request.form.get('training_type'): {
@@ -281,15 +281,25 @@ def delete_training(training_id):
         {'student': True})
     for student in students:
         trainings = student['trainings']
-        user = student['alias']
         if training_name in trainings.keys():
             current_training = trainings.get(training_name)
-            current_training.pop(training_type)
-            trainings.update(current_training)
-            mongo.db.users.update_one(
-                    {'alias': user},
-                    {'$set': {'trainings': trainings}})
-
+            user = student['alias']
+            if len(current_training.keys()) == 1 and len(trainings.keys()) == 1:
+                trainings.clear()
+                mongo.db.users.update_one(
+                        {'alias': user},
+                        {'$set': {'trainings': trainings}})
+            elif len(current_training.keys()) == 1:
+                del trainings[training_name]
+                mongo.db.users.update_one(
+                        {'alias': user},
+                        {'$set': {'trainings': trainings}})
+            else:
+                del trainings[training_name][training_type]
+                print(trainings)
+                mongo.db.users.update_one(
+                        {'alias': user},
+                        {'$set': {'trainings': trainings}})
     # deletes training from database
     mongo.db.trainings.remove({'_id': ObjectId(training_id)})
     flash("Training successfully removed")
