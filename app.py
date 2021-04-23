@@ -314,8 +314,29 @@ def delete_training(training_id):
 def complete_training(training_id):
     # marks training as complete
     if request.method == 'POST':
-        submit = {"$set": {"complete_training": "True"}}
-        mongo.db.trainings.update({'_id': ObjectId(training_id)}, submit)
+        # finds training name
+        training_name = mongo.db.trainings.find_one(
+            {'_id': ObjectId(training_id)})['training_name']
+        # finds training type
+        training_type = mongo.db.trainings.find_one(
+            {'_id': ObjectId(training_id)})['training_type']
+        # finds students
+        students = mongo.db.users.find(
+            {'student': True})
+        for student in students:
+            trainings = student['trainings']
+            current_training = trainings.get(training_name)
+            if current_training is not None:
+                user = student['alias']
+                current_training[training_type]['completed'] = True
+                trainings.update(current_training)
+                # sets training to complete on user's history
+                mongo.db.users.update_one(
+                        {'alias': user},
+                        {'$set': {'trainings': trainings}})
+                # sets training to complete on training's record
+                submit = {"$set": {"complete_training": "True"}}
+                mongo.db.trainings.update_one({'_id': ObjectId(training_id)}, submit)
     return redirect(url_for('get_trainings'))
 
 
@@ -323,8 +344,29 @@ def complete_training(training_id):
 def incomplete_training(training_id):
     # marks training as pending
     if request.method == 'POST':
-        submit = {"$set": {"complete_training": "False"}}
-        mongo.db.trainings.update({'_id': ObjectId(training_id)}, submit)
+        # finds training name
+        training_name = mongo.db.trainings.find_one(
+            {'_id': ObjectId(training_id)})['training_name']
+        # finds training type
+        training_type = mongo.db.trainings.find_one(
+            {'_id': ObjectId(training_id)})['training_type']
+        # finds students
+        students = mongo.db.users.find(
+            {'student': True})
+    for student in students:
+        trainings = student['trainings']
+        current_training = trainings.get(training_name)
+        if current_training is not None:
+            user = student['alias']
+            current_training[training_type]['completed'] = False
+            trainings.update(current_training)
+            # sets training to pending on user's history
+            mongo.db.users.update_one(
+                    {'alias': user},
+                    {'$set': {'trainings': trainings}})
+            # sets training to pending on training's record
+            submit = {"$set": {"complete_training": "False"}}
+            mongo.db.trainings.update_one({'_id': ObjectId(training_id)}, submit)
     return redirect(url_for('get_trainings'))
 
 
