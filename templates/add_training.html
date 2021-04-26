@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="light-blue-text text-darken-4 center-align">Add Training</h3>
+    <h3 class="light-blue-text text-darken-4 center-align">Create Training</h3>
 
       <div class="row card-panel grey lighten-5">
         <form class="col s12" method="POST" action="{{ url_for('add_training') }}">
@@ -37,44 +37,6 @@
                     <i class="fas fa-calendar alt prefix"></i>
                     <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
                     <label for="due_date">Due date</label>
-                </div>
-                <!-- training type -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-clipboard-list prefix"></i>
-                        <select id="training_type" name="training_type" class="validate" required>
-                            <option value="" disabled selected>Training type</option>
-                            {% for training_type in training_types %}
-                                <option value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
-                            {% endfor %}
-                        </select>
-                        <label for="training_type">Training type</label>
-                    </div>
-                </div>
-                <!-- instructor -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-clipboard prefix"></i>
-                        <select id="instructor_name" name="instructor_name" class="validate" required>
-                            <option value="" disabled selected>Choose instructor</option>
-                            {% for instructor in instructors %}
-                                <option value="{{ instructor.instructor_name }}">{{ instructor.instructor_name }}</option>
-                            {% endfor %}
-                        </select>
-                        <label for="instructor_name">Instructor</label>
-                    </div>
-                </div>
-                <!-- assign to -->
-                <div class="input-field col s12">
-                    <i class="fas fa-user-graduate prefix"></i>
-                    <select id="assign_to" name="assign_to" class="validate" multiple>
-                        {% for student in students %}
-                            <option value="{{ student.alias }}">
-                                {{ student.alias }}
-                            </option>
-                        {% endfor %}
-                    </select>
-                    <label for="assign_to">Assign training to:</label>
                 </div>
             </div>
             <!-- submit button -->

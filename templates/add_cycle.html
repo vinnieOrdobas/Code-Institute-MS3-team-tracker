@@ -1,0 +1,97 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="light-blue-text text-darken-4 center-align">Add Training Cycle </h3>
+
+      <div class="row card-panel grey lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('add_training') }}">
+            <!-- team name -->
+            <div class="input-field col s12">
+                <i class="fas fas fa-skull prefix"></i>
+                <select id="training_team" name="training_team" class="validate" required>
+                    <option value="" disabled selected>{{ training.team_name }}</option>
+                </select>
+                <label for="training_team">Team</label>
+            </div>
+            <!-- training name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fa-pencil-alt prefix"></i>
+                    <select id="training_name" name="training_name" class="validate" required>
+                        <option value="" disabled selected>{{ training.training_name }}</option>
+                    </select>
+                    <label for="training_name">Training Name</label>
+                </div>
+                <!-- training description -->
+                <div class="input-field col s12">
+                    <i class="fas fa-align-left prefix"></i>
+                    <textarea id="training_link" name="training_link" 
+                        maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required>
+                    </textarea>
+                    <label for="training_description">Training Link</label>
+                </div>
+                <!-- due date -->
+                <div class="input-field col s12">
+                    <i class="fas fa-calendar alt prefix"></i>
+                    <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
+                    <label for="due_date">Due date</label>
+                </div>
+                <!-- training type -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-clipboard-list prefix"></i>
+                        <select id="training_type" name="training_type" class="validate" required>
+                            <option value="" disabled selected>Training type</option>
+                            {% for training_type in training_types %}
+                                {% if training_type in training_cycle %}
+                                    <option disabled value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
+                                {% else %}
+                                    <option value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                        <label for="training_type">Training type</label>
+                    </div>
+                </div>
+                <!-- instructor -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-clipboard prefix"></i>
+                        <select id="instructor_name" name="instructor_name" class="validate" required>
+                            <option value="" disabled selected>Choose instructor</option>
+                            {% for instructor in instructors %}
+                                <option value="{{ instructor.instructor_name }}">{{ instructor.instructor_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="instructor_name">Instructor</label>
+                    </div>
+                </div>
+                <!-- assign to -->
+                <div class="input-field col s12">
+                    <i class="fas fa-user-graduate prefix"></i>
+                    <select id="assign_to" name="assign_to" class="validate" multiple>
+                        {% for student in students %}
+                            <option value="{{ student.alias }}">
+                                {{ student.alias }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <label for="assign_to">Assign training to:</label>
+                </div>
+            </div>
+            <!-- submit button -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <a href="{{ url_for('get_trainings') }}" class="waves-effect waves-light red btn">
+                        Cancel <i class="fas fa-exclamation-circle"></i>
+                    </a>
+                    <button class="btn waves-effect waves-light  green accent-3" type="submit">Submit
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+  </div>
+        
+
+{% endblock %}

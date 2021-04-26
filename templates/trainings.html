@@ -4,7 +4,7 @@
     <h3 class="center-align">My Trainings</h3>
     {% if username.team_leader == 'on' or is_instructor == True %}
         <div class="row center-align">
-            <a href="{{ url_for('add_training') }}"class="waves-effect green waves-light btn-large">
+            <a href="{{ url_for('add_training') }}" class="waves-effect green waves-light btn-large">
                 Add Training <i class="fas fa-plus-circle"></i>
             </a>
         </div>
@@ -82,7 +82,7 @@
                                     </button>
                                 </form>
                             </div>
-                            <a href="{{ url_for('edit_training', training_id=training._id) }}" 
+                            <a href="{{ url_for('add_cycle', training_id=training._id) }}" 
                             class="waves-effect waves-light blue btn-large tooltipped" data-position="top" data-tooltip="Edit Training">
                                 <i class="fas fa-pen-square"></i>
                             </a>

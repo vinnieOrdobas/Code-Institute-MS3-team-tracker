@@ -24,9 +24,11 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix"></i>
-                    <input id="training_name" name="training_name" 
+                    {% if training.training_type in training_types %}
+                    <input disabled id="training_name" name="training_name" 
                         maxlength="25" minlength="5" value="{{ training.training_name }}" type="text" class="validate" required>
                     <label for="training_name">Training Name</label>
+                    {% endif %}
                 </div>
                 <!-- training description -->
                 <div class="input-field col s12">
@@ -49,13 +51,15 @@
                         <i class="fas fa-clipboard-list prefix"></i>
                         <select id="training_type" name="training_type" class="validate" required>
                             <option value="" disabled selected>Training type</option>
-                            {% for training_type in training_types %}
-                                {% if training_type.training_type == training.training_type %}
-                                    <option value="{{ training_type.training_type }}" selected>{{ training_type.training_type }}</option>
+                                {% if training.training_type not in training_types %}
+                                    <option value="Training Deck" disabled>Training Deck</option>
                                 {% else %}
-                                    <option value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
+                                    {% for training_type in training_types %}
+                                    <!-- conditional -->
+                                        <option value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
+                                    <!-- conditional -->
+                                    {% endfor %}
                                 {% endif %}
-                            {% endfor %}
                         </select>
                         <label for="training_type">Training type</label>
                     </div>
@@ -83,7 +87,7 @@
                 <i class="fas fa-user-graduate prefix"></i>
                 <select id="assign_to" name="assign_to" class="validate" multiple required>
                     {% for student in students %}
-                        {% if training.training_name in student.trainings %}
+                        {% if training.training_type in student.trainings[training.training_name] %}
                             <option disabled value="{{ student.alias }}">{{ student.alias }}</option>
                         {% else %}
                             <option value="{{ student.alias }}">{{ student.alias }}</option>
