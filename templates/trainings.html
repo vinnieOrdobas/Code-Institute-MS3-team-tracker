@@ -82,13 +82,18 @@
                                     </button>
                                 </form>
                             </div>
-                            <a href="{{ url_for('add_cycle', training_id=training._id) }}" 
+                            <a href="{{ url_for('edit_training', training_id=training._id) }}" 
                             class="waves-effect waves-light blue btn-large tooltipped" data-position="top" data-tooltip="Edit Training">
                                 <i class="fas fa-pen-square"></i>
                             </a>
                             <button data-target="modal_{{ training.training_name }}" 
                             class="btn waves-effect red waves-light btn-large tooltipped modal-trigger"
                             data-position="top" data-tooltip="Delete Training">
+                                <i class="fas fa-minus-circle"></i>
+                            </button>
+                            <button data-target="modal_cycle_{{ training.training_name }}" 
+                            class="btn waves-effect yellow darken-2 waves-light btn-large tooltipped modal-trigger"
+                            data-position="top" data-tooltip="Add Cycle">
                                 <i class="fas fa-minus-circle"></i>
                             </button>
                             <!-- Modal -->
@@ -99,6 +104,33 @@
                                 </div>
                                 <div class="button-wrapper">
                                     <a href="{{ url_for('delete_training', training_id=training._id) }}"
+                                        class="waves-effect green waves-light btn-large">
+                                        Yes
+                                    </a>
+                                    <a href="#"
+                                        class="modal-close waves-effect red waves-light btn-large">
+                                        No
+                                    </a>
+                                </div>
+                            </div>
+                            <div id="modal_cycle_{{ training.training_name }}" class="modal">
+                                <div class="modal-content">
+                                    <h4>Choose cycle type:</h4>
+                                    <div class="row">
+                                        <div class="input-field col s12">
+                                            <i class="fas fa-clipboard-list prefix"></i>
+                                            <select id="training_type" name="training_type" class="validate" required>
+                                                <option value="" disabled selected>Cycle type</option>
+                                                {% for training_type in training_types %}
+                                                    <option value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
+                                                {% endfor %}
+                                            </select>
+                                            <label for="training_type">Cycle type</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="button-wrapper">
+                                    <a href="{{ url_for('add_cycle', training_id=training._id, cycle_type=training_type.training_type) }}"
                                         class="waves-effect green waves-light btn-large">
                                         Yes
                                     </a>
