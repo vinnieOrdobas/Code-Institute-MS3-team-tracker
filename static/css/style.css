@@ -15,7 +15,9 @@
     line-height: 42px;
 }
 
+.form-wrapper {
+    margin-bottom: 20px;
+}
 .form-wrapper form {
     display: inline-block;
-    margin-bottom: 5px;
 }
