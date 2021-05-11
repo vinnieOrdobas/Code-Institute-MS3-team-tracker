@@ -36,9 +36,9 @@ def get_trainings():
     trainings = list(mongo.db.trainings.find())
     if trainings:
         for training in trainings:
-            if training['training_cycle'].keys():
-                for cycle in training['training_cycle']:
-                    training_cycle = training['training_cycle'][cycle]
+            if training['training_cycle']:
+                training_cycle = training['training_cycle']
+                print(type(training_cycle))
             else:
                 training_cycle = []
     else:
@@ -49,7 +49,7 @@ def get_trainings():
     return render_template("trainings.html",
     trainings=trainings, username=username,
     is_instructor=is_instructor, students=students,
-    training_types=training_types, training_cycle= training_cycle)
+    training_types=training_types, training_cycle=training_cycle)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -200,7 +200,6 @@ def add_cycle(training_id):
             new_cycle = request.form.get('training_type')
             students = list(mongo.db.users.find(
                 {f"trainings.{training_name}": {'$exists': "true"}}))
-            print(students)
             cycle = {
                 request.form.get('training_type'): {
                     "training_link": request.form.get('training_link'),
