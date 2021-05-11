@@ -35,11 +35,11 @@ def get_trainings():
         {'username': session['user']}) else False
     trainings = list(mongo.db.trainings.find())
     for training in trainings:
-        current_training = training['training_name']
-        training_cycle = training['training_cycle']
-        print(type(training_cycle))
+        if training['training_cycle'].keys():
+            for cycle in training['training_cycle']:
+                training_cycle = training['training_cycle'][cycle]
     students = list(mongo.db.users.find(
-        {"trainings": {current_training: {"$exists": True}}}))
+        {"students": True}))
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template("trainings.html",
     trainings=trainings, username=username,
@@ -193,7 +193,8 @@ def add_cycle(training_id):
             training_name = mongo.db.trainings.find_one(
                 {'_id': ObjectId(training_id)})['training_name']
             students = list(mongo.db.users.find(
-                {"trainings": {training_name: {}}}))
+                {f"trainings.{training_name}": {'$exists': "true"}}))
+            print(students)
             cycle = {
                 request.form.get('training_type'): {
                     "training_link": request.form.get('training_link'),
@@ -207,10 +208,13 @@ def add_cycle(training_id):
                 current_cycle.update(cycle)
                 mongo.db.users.update_one(
                     {'username': student['username']},
-                    {'$set': {'trainings': current_cycle}})
-            mongo.db.trainings.update(
+                    {'$set': {f'trainings.{training_name}':
+                        current_cycle}}, upsert= True)
+            mongo.db.trainings.update_one(
                 {'_id': ObjectId(training_id)},
-                {"$set": {"training_cycle": current_cycle}})
+                {'$set':
+                    {f'training_cycle.{training_name}':
+                        cycle}}, upsert= True)
             flash("Training Cycle Successfully Created")
             return redirect(url_for('get_trainings'))
     training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
