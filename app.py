@@ -34,17 +34,22 @@ def get_trainings():
     is_instructor = True if mongo.db.instructors.find_one(
         {'username': session['user']}) else False
     trainings = list(mongo.db.trainings.find())
-    for training in trainings:
-        if training['training_cycle'].keys():
-            for cycle in training['training_cycle']:
-                training_cycle = training['training_cycle'][cycle]
+    if trainings:
+        for training in trainings:
+            if training['training_cycle'].keys():
+                for cycle in training['training_cycle']:
+                    training_cycle = training['training_cycle'][cycle]
+            else:
+                training_cycle = []
+    else:
+        training_cycle = []
     students = list(mongo.db.users.find(
         {"students": True}))
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template("trainings.html",
     trainings=trainings, username=username,
     is_instructor=is_instructor, students=students,
-    training_types=training_types, training_cycle=training_cycle)
+    training_types=training_types, training_cycle= training_cycle)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -192,6 +197,7 @@ def add_cycle(training_id):
         else:
             training_name = mongo.db.trainings.find_one(
                 {'_id': ObjectId(training_id)})['training_name']
+            new_cycle = request.form.get('training_type')
             students = list(mongo.db.users.find(
                 {f"trainings.{training_name}": {'$exists': "true"}}))
             print(students)
@@ -210,11 +216,11 @@ def add_cycle(training_id):
                     {'username': student['username']},
                     {'$set': {f'trainings.{training_name}':
                         current_cycle}}, upsert= True)
+            training_folder[new_cycle] = cycle[new_cycle]
             mongo.db.trainings.update_one(
                 {'_id': ObjectId(training_id)},
                 {'$set':
-                    {f'training_cycle.{training_name}':
-                        cycle}}, upsert= True)
+                    {'training_cycle': training_folder}})
             flash("Training Cycle Successfully Created")
             return redirect(url_for('get_trainings'))
     training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
