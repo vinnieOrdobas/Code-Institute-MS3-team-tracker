@@ -9,13 +9,9 @@
             <div class="input-field col s12">
                 <i class="fas fas fa-skull prefix"></i>
                 <select id="training_team" name="training_team" class="validate" required>
-                    <option value="" disabled>Choose the team</option>
+                    <option value="" disabled selected>Choose the team</option>
                     {% for team in teams %}
-                        {% if team.team_name == training.team_name %}
-                            <option value="{{ team.team_name }}" selected>{{ team.team_name }}</option>
-                        {% else %}
-                            <option value="{{ team.team_name }}">{{ team.team_name }}</option>
-                        {% endif %}
+                        <option value="{{ team.team_name }}">{{ team.team_name }}</option>
                     {% endfor %}
                 </select>
                 <label for="training_type">Training type</label>
@@ -24,77 +20,36 @@
             <div class="row">
                 <div class="input-field col s12">
                     <i class="fas fa-pencil-alt prefix"></i>
-                    {% if training.training_type in training_types %}
-                    <input disabled id="training_name" name="training_name" 
-                        maxlength="25" minlength="5" value="{{ training.training_name }}" type="text" class="validate" required>
+                    <input id="training_name" name="training_name" 
+                    maxlength="25" minlength="5" type="text" class="validate" required>
                     <label for="training_name">Training Name</label>
-                    {% endif %}
                 </div>
                 <!-- training description -->
                 <div class="input-field col s12">
                     <i class="fas fa-align-left prefix"></i>
                     <textarea id="training_description" name="training_description" 
                         maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required>
-                        {{- training.training_description -}}
                     </textarea>
                     <label for="training_description">Training Description</label>
                 </div>
                 <!-- due date -->
                 <div class="input-field col s12">
                     <i class="fas fa-calendar alt prefix"></i>
-                    <input id="due_date" name="due_date" type="text" value="{{ training.training_date }}" class="datepicker validate" required>
+                    <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
                     <label for="due_date">Due date</label>
                 </div>
-                <!-- training type -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-clipboard-list prefix"></i>
-                        <select id="training_type" name="training_type" class="validate" required>
-                            <option value="" disabled selected>Training type</option>
-                                {% if training.training_type not in training_types %}
-                                    <option value="Training Deck" disabled>Training Deck</option>
-                                {% else %}
-                                    {% for training_type in training_types %}
-                                    <!-- conditional -->
-                                        <option value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
-                                    <!-- conditional -->
-                                    {% endfor %}
-                                {% endif %}
-                        </select>
-                        <label for="training_type">Training type</label>
-                    </div>
-                </div>
-                <!-- instructor -->
-                <div class="row">
-                    <div class="input-field col s12">
-                        <i class="fas fa-clipboard prefix"></i>
-                        <select id="instructor_name" name="instructor_name" class="validate" required>
-                            <option value="" disabled selected>Choose instructor</option>
-                            {% for instructor in instructors %}
-                                {% if instructor.instructor_name == training.instructor %}
-                                    <option value="{{ instructor.instructor_name }}" selected>{{ instructor.instructor_name }}</option>
-                                {% else %}
-                                    <option value="{{ instructor.instructor_name }}">{{ instructor.instructor_name }}</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-                        <label for="instructor_name">Instructor</label>
-                    </div>
-                </div>
-            </div>
-            <!-- assign to -->
-            <div class="input-field col s12">
-                <i class="fas fa-user-graduate prefix"></i>
-                <select id="assign_to" name="assign_to" class="validate" multiple required>
-                    {% for student in students %}
-                        {% if training.training_type in student.trainings[training.training_name] %}
-                            <option disabled value="{{ student.alias }}">{{ student.alias }}</option>
-                        {% else %}
-                            <option value="{{ student.alias }}">{{ student.alias }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>
-                <label for="assign_to">Assign training to:</label>
+                <!-- assign to -->
+                <!-- <div class="input-field col s12">
+                    <i class="fas fa-user-graduate prefix"></i>
+                    <select id="assign_to" name="assign_to" class="validate" multiple>
+                        {% for student in students %}
+                            <option value="{{ student.alias }}">
+                                {{ student.alias }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    <label for="assign_to">Assign training to:</label>
+                </div> -->
             </div>
             <!-- submit button -->
             <div class="row">

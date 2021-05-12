@@ -108,22 +108,22 @@
                         </div>
                     </div>
                 </div> -->
-                {% for cycle in training_cycle %}
+                {% for cycle in training.training_cycle %}
                     <div class="row center-align">
-                        <div class="col s12 m4">
+                        <div class="col m6">
                             <div class="card yellow-text blue-grey darken-4">
                                 <div class="card-title">
                                     <span>{{ cycle }}</span>
                                 </div>
                                 <ul class="card-content black-text">
                                     <ul class="collection">
-                                        <li class="collection-item">Instructor: {{ training_cycle[cycle].instructor }}</li>
-                                        <li class="collection-item">Date: {{ training_cycle[cycle].training_date }}</li>
-                                        <li class="collection-item">Link: {{ training_cycle[cycle].training_link }}</li>
-                                        {% if training_cycle[cycle].completed == False %}
-                                            <li class="collection-item red-text">Pendent</li>
-                                        {% else %}
+                                        <li class="collection-item">Instructor: {{ cycle.instructor }}</li>
+                                        <li class="collection-item">Date: {{ cycle.training_date }}</li>
+                                        <li class="collection-item">Link: {{ cycle.training_link }}</li>
+                                        {% if cycle.completed == True %}
                                             <li class="collection-item green-text">Completed</li>
+                                        {% else %}
+                                            <li class="collection-item red-text">Pendent</li>
                                         {% endif %}
                                     </ul>
                                 </ul>
@@ -133,7 +133,7 @@
                 {% endfor %}
             </div>
         </li>
-       {% endfor %}
+    {% endfor %}
     </ul> 
     
         

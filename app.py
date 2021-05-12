@@ -27,6 +27,7 @@ def get_teams():
     return render_template("teams.html", teams=teams)
 
 
+# --------------------------------User functions---------------------- #
 @app.route("/get_trainings")
 def get_trainings():
     username = mongo.db.users.find_one(
@@ -34,22 +35,13 @@ def get_trainings():
     is_instructor = True if mongo.db.instructors.find_one(
         {'username': session['user']}) else False
     trainings = list(mongo.db.trainings.find())
-    if trainings:
-        for training in trainings:
-            if training['training_cycle']:
-                training_cycle = training['training_cycle']
-                print(type(training_cycle))
-            else:
-                training_cycle = []
-    else:
-        training_cycle = []
     students = list(mongo.db.users.find(
         {"students": True}))
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template("trainings.html",
     trainings=trainings, username=username,
-    is_instructor=is_instructor, students=students,
-    training_types=training_types, training_cycle=training_cycle)
+        is_instructor=is_instructor, students=students,
+            training_types=training_types)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -144,6 +136,7 @@ def logout():
     return redirect(url_for('login'))
 
 
+# --------------------------------Training functions---------------------- #
 @app.route("/add_training", methods=['GET', 'POST'])
 def add_training():
     # adds training to the database
@@ -187,128 +180,59 @@ def add_training():
     return render_template('add_training.html', teams=teams, students=students)
 
 
-@app.route("/add_cycle/<training_id>", methods=['GET', 'POST'])
-def add_cycle(training_id):
-    if request.method == 'POST':
-        training_folder = mongo.db.trainings.find_one(
-            {'_id': ObjectId(training_id)})['training_cycle']
-        if request.form.get('training_type') in training_folder.keys():
-            flash(f"{request.form.get('training_type')} cycle already exists")
-        else:
-            training_name = mongo.db.trainings.find_one(
-                {'_id': ObjectId(training_id)})['training_name']
-            new_cycle = request.form.get('training_type')
-            students = list(mongo.db.users.find(
-                {f"trainings.{training_name}": {'$exists': "true"}}))
-            cycle = {
-                request.form.get('training_type'): {
-                    "training_link": request.form.get('training_link'),
-                    "instructor": request.form.get('instructor_name'),
-                    "completed": False,
-                    "training_date": request.form.get('due_date')
-                    }
-                }
-            for student in students:
-                current_cycle = student['trainings'][training_name]
-                current_cycle.update(cycle)
-                mongo.db.users.update_one(
-                    {'username': student['username']},
-                    {'$set': {f'trainings.{training_name}':
-                        current_cycle}}, upsert= True)
-            training_folder[new_cycle] = cycle[new_cycle]
-            mongo.db.trainings.update_one(
-                {'_id': ObjectId(training_id)},
-                {'$set':
-                    {'training_cycle': training_folder}})
-            flash("Training Cycle Successfully Created")
-            return redirect(url_for('get_trainings'))
-    training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
-    instructors = mongo.db.instructors.find().sort('instructor_name', 1)
-    training_types = mongo.db.training_types.find().sort('training_type', 1)
-    return render_template('add_cycle.html',
-        instructors=instructors, training=training,
-        training_types=training_types)
-
-
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
 def edit_training(training_id):
-    # edit trainings in the database
+    # Edit trainings in the database
     if request.method == 'POST':
         training_name = mongo.db.trainings.find_one(
             {'_id': ObjectId(training_id)})['training_name']
-        training_type = mongo.db.trainings.find_one(
-            {'_id': ObjectId(training_id)})['training_type']
-        assigned_to = request.form.getlist('assign_to')
-        update = {
+        training_cycle = mongo.db.trainings.find_one(
+            {'_id': ObjectId(training_id)})['training_cycle']
+        training = {
             "team_name": request.form.get('training_team'),
             "training_name": request.form.get('training_name'),
             "training_description": request.form.get('training_description'),
             "training_date": request.form.get('due_date'),
-            "instructor": request.form.get('instructor_name'),
-            "training_type": {
-                request.form.get('training_type'): {
-                    "completed": False,
-                    "training_date": request.form.get('due_date')
-                }
-            },
+            "training_cycle": training_cycle,
             "created_by": session['user'],
             "complete_training": "False"
         }
-        if training_type == 'Training Deck':
-            for user in assigned_to:
-                # get students alias from the form
-                student = mongo.db.users.find_one({'alias': user})
-                # find students on the database
-                trainings = student['trainings']
-                # appends new training to returning dictionary
-                training_schema = {
-                    request.form.get('training_name'): {
-                        request.form.get('training_type'): {
-                            "completed": False,
-                            "training_date":
-                                request.form.get('due_date')
-                        }
-                    }
-                }
-                trainings.update(training_schema)
-                # updates training dictionary to push to student
-                mongo.db.users.update_one(
-                    {'alias': user},
-                    {'$set': {'trainings': trainings}})
-        else:
-            for user in assigned_to:
-                # get students alias from the form
-                student = mongo.db.users.find_one({'alias': user})
-                # find students on the database
-                trainings = student['trainings']
-                current_training = trainings[training_name]
-                # appends new training to returning dictionary
-                update_type = {
-                    request.form.get('training_type'): {
-                        "completed": False,
-                        "training_date":
-                            request.form.get('due_date')
-                        }
-                    }
-                current_training.update(update_type)
-                trainings.update(current_training)
-                # updates training dictionary to push to student
-                mongo.db.users.update_one(
-                    {'alias': user},
-                    {'$set': {'trainings': trainings}})
-    # updates training on database
-            mongo.db.trainings.update({'_id': ObjectId(training_id)}, update)
-            flash("Training Successfully Edited")
-            return redirect(url_for('get_trainings'))
+        # --> Assigns training for new students <--
+        # assigned_to = request.form.getlist('assign_to')
+        # for user in assigned_to:
+        #     # get students alias from the form
+        #     student = mongo.db.users.find_one({'alias': user})
+        #     # find students on the database
+        #     trainings = student['trainings']
+        #     # appends new training to returning dictionary
+        #     training_schema = {
+        #         request.form.get('training_name'): training_cycle
+        #         }
+        #     trainings.update(training_schema)
+        #     # updates training dictionary to push to student
+        #     mongo.db.users.update_one(
+        #         {'alias': user},
+        #         {'$set': {'trainings': trainings}})
+        # --> Edits training for enrolled students <--
+        # Find students on the database
+        students = mongo.db.users.find(
+            {f"trainings.{training_name}": {'$exists': "true"}})
+        for student in students:
+            mongo.db.users.update(
+                {'username': student.get("username")},
+                {'$rename':
+                    {f"trainings.{training_name}":
+                        f"trainings.{request.form.get('training_name')}"}})
+    # Updates training on database
+        mongo.db.trainings.update({'_id': ObjectId(training_id)}, training)
+        flash("Training Successfully Edited")
+        return redirect(url_for('get_trainings'))
     # variables to be rendered by the template
     training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
     teams = mongo.db.teams.find().sort('team_name', 1)
-    training_types = mongo.db.training_types.find().sort('training_type', 1)
-    instructors = mongo.db.instructors.find().sort('instructor_name', 1)
     students = list(mongo.db.users.find({"student": True}).sort('alias', 1))
     return render_template('edit_training.html',
-        instructors=instructors, training_types=training_types,
-        teams=teams, training=training, students=students)
+            teams=teams, training=training, students=students)
 
 
 @app.route("/delete_training/<training_id>")
@@ -432,6 +356,50 @@ def enroll(training_id):
             {'$set': {'trainings': student_training}})
         flash(f"You are now enrolled in {training['training_name']}!")
     return redirect(url_for('get_trainings'))
+
+
+# --------------------------------Cycle functions---------------------- #
+@app.route("/add_cycle/<training_id>", methods=['GET', 'POST'])
+def add_cycle(training_id):
+    if request.method == 'POST':
+        training_folder = mongo.db.trainings.find_one(
+            {'_id': ObjectId(training_id)})['training_cycle']
+        if request.form.get('training_type') in training_folder.keys():
+            flash(f"{request.form.get('training_type')} cycle already exists")
+        else:
+            training_name = mongo.db.trainings.find_one(
+                {'_id': ObjectId(training_id)})['training_name']
+            new_cycle = request.form.get('training_type')
+            students = list(mongo.db.users.find(
+                {f"trainings.{training_name}": {'$exists': "true"}}))
+            cycle = {
+                request.form.get('training_type'): {
+                    "training_link": request.form.get('training_link'),
+                    "instructor": request.form.get('instructor_name'),
+                    "completed": False,
+                    "training_date": request.form.get('due_date')
+                    }
+                }
+            for student in students:
+                current_cycle = student['trainings'][training_name]
+                current_cycle.update(cycle)
+                mongo.db.users.update_one(
+                    {'username': student['username']},
+                    {'$set': {f'trainings.{training_name}':
+                        current_cycle}}, upsert= True)
+            training_folder[new_cycle] = cycle[new_cycle]
+            mongo.db.trainings.update_one(
+                {'_id': ObjectId(training_id)},
+                {'$set':
+                    {'training_cycle': training_folder}})
+            flash("Training Cycle Successfully Created")
+            return redirect(url_for('get_trainings'))
+    training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
+    instructors = mongo.db.instructors.find().sort('instructor_name', 1)
+    training_types = mongo.db.training_types.find().sort('training_type', 1)
+    return render_template('add_cycle.html',
+        instructors=instructors, training=training,
+        training_types=training_types)
 
 
 if __name__ == "__main__":
