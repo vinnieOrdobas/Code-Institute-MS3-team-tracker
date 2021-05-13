@@ -35,13 +35,15 @@ def get_trainings():
     is_instructor = True if mongo.db.instructors.find_one(
         {'username': session['user']}) else False
     trainings = list(mongo.db.trainings.find())
+    for training in trainings:
+        training_cycle = training['training_cycle']
     students = list(mongo.db.users.find(
         {"students": True}))
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template("trainings.html",
     trainings=trainings, username=username,
         is_instructor=is_instructor, students=students,
-            training_types=training_types)
+            training_types=training_types, training_cycle=training_cycle)
 
 
 @app.route("/register", methods=['GET', 'POST'])
