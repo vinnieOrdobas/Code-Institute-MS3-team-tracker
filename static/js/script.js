@@ -1,10 +1,12 @@
 $(document).ready(function(){
     $('.sidenav').sidenav({edge:"right"});
-    $('select').formSelect();
+    var elems_select = document.querySelectorAll('select');
+    var instances_select = M.FormSelect.init(elems_select);
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible();
     $('.tabs').tabs();
-    $('.modal').modal();
+    var elems = document.querySelectorAll('.modal');
+    var instances = M.Modal.init(elems);
     $('select').formSelect();
     $('.datepicker').datepicker({
       format: "dd mmmm, yyyy",
