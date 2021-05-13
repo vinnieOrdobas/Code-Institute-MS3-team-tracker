@@ -35,15 +35,18 @@ def get_trainings():
     is_instructor = True if mongo.db.instructors.find_one(
         {'username': session['user']}) else False
     trainings = list(mongo.db.trainings.find())
-    for training in trainings:
-        training_cycle = training['training_cycle']
+    # for training in trainings:
+    #     if training['training_cycle']:
+    #         training_cycle = training['training_cycle']
+    #     else:
+    #         training_cycle = None
     students = list(mongo.db.users.find(
         {"students": True}))
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template("trainings.html",
     trainings=trainings, username=username,
         is_instructor=is_instructor, students=students,
-            training_types=training_types, training_cycle=training_cycle)
+            training_types=training_types)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -242,33 +245,16 @@ def delete_training(training_id):
     # finds training name
     training_name = mongo.db.trainings.find_one(
         {'_id': ObjectId(training_id)})['training_name']
-    # finds training type
-    training_type = mongo.db.trainings.find_one(
-        {'_id': ObjectId(training_id)})['training_type']
     # finds students
     students = mongo.db.users.find(
-        {'student': True})
+        {f"trainings.{training_name}": {'$exists': "true"}})
     for student in students:
-        trainings = student['trainings']
-        # finds if training is already in student's classes
-        if training_name in trainings.keys():
-            current_training = trainings.get(training_name)
-            user = student['alias']
-            if len(current_training.keys()) == 1 and len(trainings.keys()) == 1:
-                trainings.clear()
-                mongo.db.users.update_one(
-                        {'alias': user},
-                        {'$set': {'trainings': trainings}})
-            elif len(current_training.keys()) == 1:
-                del trainings[training_name]
-                mongo.db.users.update_one(
-                        {'alias': user},
-                        {'$set': {'trainings': trainings}})
-            else:
-                del trainings[training_name][training_type]
-                mongo.db.users.update_one(
-                        {'alias': user},
-                        {'$set': {'trainings': trainings}})
+        user = student['alias']
+        training_folder = student['trainings']
+        del training_folder[training_name]
+        mongo.db.users.update_one(
+                {'alias': user},
+                {'$set': {'trainings': training_folder}})
     # deletes training from database
     mongo.db.trainings.remove({'_id': ObjectId(training_id)})
     flash("Training successfully removed")

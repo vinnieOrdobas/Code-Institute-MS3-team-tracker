@@ -56,7 +56,7 @@
                         <div id="modal_{{ training.training_name }}" class="modal">
                             <div class="modal-content">
                                 <h4>Please confirm:</h4>
-                                <p>Are you sure you want to delete this training?</p>
+                                <p>Are you sure you want to delete this training? Cycles will be deleted as well.</p>
                             </div>
                             <div class="button-wrapper">
                                 <a href="{{ url_for('delete_training', training_id=training._id) }}"
@@ -108,7 +108,7 @@
                         </div>
                     </div>
                 </div> -->
-                {% for cycle in training_cycle %}
+                {% for cycle in training.training_cycle %}
                     <div class="row center-align">
                         <div class="col m6">
                             <div class="card yellow-text blue-grey darken-4">
@@ -117,10 +117,10 @@
                                 </div>
                                 <ul class="card-content black-text">
                                     <ul class="collection">
-                                        <li class="collection-item">Instructor: {{ training_cycle[cycle].instructor }}</li>
-                                        <li class="collection-item">Date: {{ training_cycle[cycle].training_date }}</li>
-                                        <li class="collection-item">Link: {{ training_cycle[cycle].training_link }}</li>
-                                        {% if cycle.completed == True %}
+                                        <li class="collection-item">Instructor: {{ training.training_cycle[cycle].instructor }}</li>
+                                        <li class="collection-item">Date: {{ training.training_cycle[cycle].training_date }}</li>
+                                        <li class="collection-item">Link: {{ training.training_cycle[cycle].training_link }}</li>
+                                        {% if training.training_cycle[cycle].completed == True %}
                                             <li class="collection-item green-text">Completed</li>
                                         {% else %}
                                             <li class="collection-item red-text">Pendent</li>
