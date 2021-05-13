@@ -2,6 +2,8 @@ $(document).ready(function(){
     $('.sidenav').sidenav({edge:"right"});
     var elems_select = document.querySelectorAll('select');
     var instances_select = M.FormSelect.init(elems_select);
+    var elemsCarousel = document.querySelectorAll('.carousel');
+    var instancesCarousel = M.Carousel.init(elemsCarousel);
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible();
     $('.tabs').tabs();

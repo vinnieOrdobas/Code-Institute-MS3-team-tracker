@@ -118,7 +118,7 @@
                     {% endif %}
                 </div>
                 <!-- team -->
-                <div class="row center-align">
+                <!-- <div class="row center-align">
                     <div class="col s12 m6 offset-m3">
                         <div class="card yellow-text blue-grey darken-4">
                             <div class="card-content white-text">
@@ -126,7 +126,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> -->
                 <!-- assigned to -->
                 <!-- <div class="row center-align">
                     <div class="col s12 m6">
@@ -148,6 +148,31 @@
                 </div> -->
                 {% for cycle in training.training_cycle %}
                     <div class="row center-align">
+                        <div class="col s12 m6 offset-m3">
+                            <div class="card">
+                                <div class="carousel carousel-slider center" data-indicators="true">
+                                    <div class="carousel-fixed-item center">
+                                        <a class="btn waves-effect white grey-text darken-text-2">button</a>
+                                    </div>
+                                    <div class="carousel-item yellow-text blue-grey darken-4">
+                                        <h2>{{ cycle }}</h2>
+                                        <p>{{ training.team_name }}</p>
+                                        <ul class="collection black-text">
+                                            <li class="collection-item">Instructor: {{ training.training_cycle[cycle].instructor }}</li>
+                                            <li class="collection-item">Date: {{ training.training_cycle[cycle].training_date }}</li>
+                                            <li class="collection-item">Link: {{ training.training_cycle[cycle].training_link }}</li>
+                                            {% if training.training_cycle[cycle].completed == True %}
+                                                <li class="collection-item green-text">Completed</li>
+                                            {% else %}
+                                                <li class="collection-item red-text">Pendent</li>
+                                            {% endif %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row center-align">
                         <div class="col m6">
                             <div class="card yellow-text blue-grey darken-4">
                                 <div class="card-title">
@@ -167,7 +192,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div> 
+                    </div>  -->
                 {% endfor %}
             </div>
         </li>
