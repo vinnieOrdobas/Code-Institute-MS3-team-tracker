@@ -37,6 +37,11 @@
                             data-position="top" data-tooltip="Enroll Students">
                                 <i class="fas fa-user-edit"></i>
                             </button>
+                            <button data-target="modal_student_list_{{ training.training_name }}" 
+                            class="btn waves-effect deep-purple lighten-2 waves-light btn tooltipped modal-trigger"
+                            data-position="top" data-tooltip="Get Student list">
+                                <i class="fas fa-clipboard-list"></i>
+                            </button>
                             <a href="{{ url_for('edit_training', training_id=training._id) }}" 
                             class="waves-effect waves-light blue btn tooltipped" data-position="top" data-tooltip="Edit Training">
                                 <i class="fas fa-pen-square"></i>
@@ -77,7 +82,8 @@
                         <!-- Enrolled Students Modal -->
                         <div id="modal_enroll_{{ training.training_name }}" class="modal">
                             <div class="modal-content">
-                              <h4><i class="fas fa-user-graduate"></i> Enroll Students</h4>
+                              <h4>Enroll Students
+                                  <i class="fas fa-user-graduate"></i></h4>
                                 <form class="col s12" method="POST" action="{{ url_for('enroll_training', training_id=training._id) }}">
                                     <div class="input-field col s12">
                                         <select id="assign_to" name="assign_to" class="validate" multiple>
@@ -105,6 +111,32 @@
                             </div>
                             <div class="modal-footer">
                               <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            </div>
+                        </div>
+                        <!-- Get student list Modal -->
+                        <div id="modal_student_list_{{ training.training_name }}" class="modal">
+                            <div class="modal-content">
+                                <h4>Student list
+                                    <i class="fas fa-clipboard-list"></i>
+                                </h4>
+                                <div class="row">
+                                    <div class="col s12 m6 offset-m3">
+                                        <div class="collection">
+                                            {% for student in students %}
+                                                {% if training.training_name in student.trainings.keys() %}
+                                                    <a href="#!" class="collection-item">{{ student.alias }}</a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col s12 center-align">
+                                        <a href="#!" class="modal-close waves-effect green waves-light btn">Agree</a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     {% else %}
@@ -158,13 +190,13 @@
                                         <h2>{{ cycle }}</h2>
                                         <p>{{ training.team_name }}</p>
                                         <ul class="collection black-text">
-                                            <li class="collection-item">Instructor: {{ training.training_cycle[cycle].instructor }}</li>
-                                            <li class="collection-item">Date: {{ training.training_cycle[cycle].training_date }}</li>
-                                            <li class="collection-item">Link: {{ training.training_cycle[cycle].training_link }}</li>
+                                            <li class="collection-item"><b>Instructor:</b> {{ training.training_cycle[cycle].instructor }}</li>
+                                            <li class="collection-item"><b>Date:</b> {{ training.training_cycle[cycle].training_date }}</li>
+                                            <li class="collection-item"><b>Link:</b> {{ training.training_cycle[cycle].training_link }}</li>
                                             {% if training.training_cycle[cycle].completed == True %}
-                                                <li class="collection-item green-text">Completed</li>
+                                                <li class="collection-item green-text"><b>Completed</b></li>
                                             {% else %}
-                                                <li class="collection-item red-text">Pendent</li>
+                                                <li class="collection-item red-text"><b>Pendent</b></li>
                                             {% endif %}
                                         </ul>
                                     </div>
@@ -172,27 +204,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- <div class="row center-align">
-                        <div class="col m6">
-                            <div class="card yellow-text blue-grey darken-4">
-                                <div class="card-title">
-                                    <span>{{ cycle }}</span>
-                                </div>
-                                <ul class="card-content black-text">
-                                    <ul class="collection">
-                                        <li class="collection-item">Instructor: {{ training.training_cycle[cycle].instructor }}</li>
-                                        <li class="collection-item">Date: {{ training.training_cycle[cycle].training_date }}</li>
-                                        <li class="collection-item">Link: {{ training.training_cycle[cycle].training_link }}</li>
-                                        {% if training.training_cycle[cycle].completed == True %}
-                                            <li class="collection-item green-text">Completed</li>
-                                        {% else %}
-                                            <li class="collection-item red-text">Pendent</li>
-                                        {% endif %}
-                                    </ul>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>  -->
                 {% endfor %}
             </div>
         </li>

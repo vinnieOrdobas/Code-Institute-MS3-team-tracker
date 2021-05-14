@@ -35,11 +35,6 @@ def get_trainings():
     is_instructor = True if mongo.db.instructors.find_one(
         {'username': session['user']}) else False
     trainings = list(mongo.db.trainings.find())
-    # for training in trainings:
-    #     if training['training_cycle']:
-    #         training_cycle = training['training_cycle']
-    #     else:
-    #         training_cycle = None
     students = list(mongo.db.users.find(
         {"student": True}))
     training_types = mongo.db.training_types.find().sort('training_type', 1)
@@ -331,29 +326,6 @@ def incomplete_training(training_id):
                 # sets training to pending on training's record
                 submit = {"$set": {"complete_training": "False"}}
                 mongo.db.trainings.update_one({'_id': ObjectId(training_id)}, submit)
-    return redirect(url_for('get_trainings'))
-
-
-@app.route("/enroll/<training_id>", methods=['GET', 'POST'])
-def enroll(training_id):
-    if request.method == 'POST':
-        username = mongo.db.users.find_one(
-            {'username': session['user']})
-        training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
-        student_training = username['trainings']
-        training_schema = {
-            training['training_name']: {
-                training['training_type']: {
-                    "completed": False,
-                    "training_date": training.get('training_date')
-                }
-            }
-        }
-        student_training.update(training_schema)
-        mongo.db.users.update_one(
-            {'username': session['user']},
-            {'$set': {'trainings': student_training}})
-        flash(f"You are now enrolled in {training['training_name']}!")
     return redirect(url_for('get_trainings'))
 
 
