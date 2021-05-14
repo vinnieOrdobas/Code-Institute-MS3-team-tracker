@@ -105,12 +105,12 @@
                                             <button class="btn waves-effect waves-light green" type="submit">Enroll
                                                 <i class="fas fa-check-circle"></i>
                                             </button>
+                                            <a href="#"
+                                            class="modal-close waves-effect red waves-light btn">
+                                            Cancel</a>
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                            <div class="modal-footer">
-                              <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
                             </div>
                         </div>
                         <!-- Get student list Modal -->
@@ -134,7 +134,7 @@
                             <div class="modal-footer">
                                 <div class="row">
                                     <div class="col s12 center-align">
-                                        <a href="#!" class="modal-close waves-effect green waves-light btn">Agree</a>
+                                        <a href="#!" class="modal-close waves-effect green waves-light btn">OK</a>
                                     </div>
                                 </div>
                             </div>
@@ -182,24 +182,39 @@
                     <div class="row center-align">
                         <div class="col s12 m6 offset-m3">
                             <div class="card">
-                                <div class="carousel carousel-slider center" data-indicators="true">
-                                    <div class="carousel-fixed-item center">
-                                        <a class="btn waves-effect white grey-text darken-text-2">button</a>
+                                <!-- <div class="card-title yellow-text blue-grey darken-4">
+                                    <p>
+                                        {{ cycle }}<br>
+                                        {{ training.team_name }}
+                                    </p>
+                                </div> -->
+                                <div class="card-content blue-grey darken-4">
+                                    <div class="yellow-text blue-grey darken-4">
+                                        <h5>
+                                            {{ cycle }}
+                                        </h5>
                                     </div>
-                                    <div class="carousel-item yellow-text blue-grey darken-4">
-                                        <h2>{{ cycle }}</h2>
-                                        <p>{{ training.team_name }}</p>
-                                        <ul class="collection black-text">
-                                            <li class="collection-item"><b>Instructor:</b> {{ training.training_cycle[cycle].instructor }}</li>
-                                            <li class="collection-item"><b>Date:</b> {{ training.training_cycle[cycle].training_date }}</li>
-                                            <li class="collection-item"><b>Link:</b> {{ training.training_cycle[cycle].training_link }}</li>
-                                            {% if training.training_cycle[cycle].completed == True %}
-                                                <li class="collection-item green-text"><b>Completed</b></li>
-                                            {% else %}
-                                                <li class="collection-item red-text"><b>Pendent</b></li>
-                                            {% endif %}
-                                        </ul>
-                                    </div>
+                                    <ul class="collection black-text">
+                                        <li class="collection-item"><b>Instructor:</b> {{ training.training_cycle[cycle].instructor }}</li>
+                                        <li class="collection-item"><b>Team:</b> {{ training.team_name }}</li>
+                                        <li class="collection-item"><b>Date:</b> {{ training.training_cycle[cycle].training_date }}</li>
+                                        <li class="collection-item"><b>Link:</b> {{ training.training_cycle[cycle].training_link }}</li>
+                                        {% if training.training_cycle[cycle].completed == True %}
+                                            <li class="collection-item green-text"><b>Completed</b></li>
+                                        {% else %}
+                                            <li class="collection-item red-text"><b>Pendent</b></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                                <div class="card-action blue-grey darken-4">
+                                    <form method="POST" action="{{ url_for('complete_training', training_id=training._id) }}">
+                                        <div class="input-field col s12">
+                                            <input hidden id="cycle_name_{{ cycle }}" name="cycle_name" value="{{ cycle }}">
+                                        </div>
+                                        <button type="submit" class="waves-effect waves-light green btn tooltipped" data-position="top" data-tooltip="Mark as Complete">
+                                            <i class="fas fa-check-circle"></i>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
