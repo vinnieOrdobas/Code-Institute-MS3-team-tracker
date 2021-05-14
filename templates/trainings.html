@@ -69,23 +69,6 @@
                                 </a>
                             </div>
                         </div>
-                        <!-- Delete cycle Modal -->
-                        <div id="modal_delete_cycle_{{ training.training_name }}" class="modal">
-                            <div class="modal-content">
-                                <h4>Please confirm:</h4>
-                                <p>Are you sure you want to delete this cycle?</p>
-                            </div>
-                            <div class="button-wrapper">
-                                <a href="{{ url_for('delete_training', training_id=training._id) }}"
-                                    class="waves-effect green waves-light btn">
-                                    Yes
-                                </a>
-                                <a href="#"
-                                    class="modal-close waves-effect red waves-light btn">
-                                    No
-                                </a>
-                            </div>
-                        </div>
                         <!-- Enrolled Students Modal -->
                         <div id="modal_enroll_{{ training.training_name }}" class="modal">
                             <div class="modal-content">
@@ -199,16 +182,30 @@
                                             </button>
                                         </form>
                                         <!-- Delete button -->
-                                        <form method="POST" action="{{ url_for('incomplete_cycle', training_id=training._id) }}">
-                                            <div class="input-field col s12">
-                                                <input hidden id="cycle_name_delete_{{ cycle }}" name="cycle_name_switch" value="{{ cycle }}">
+                                        <button data-target="modal_delete_cycle_{{ training.training_name }}"
+                                            class="btn waves-effect red waves-light btn tooltipped modal-trigger" data-position="top"
+                                            data-tooltip="Delete Cycle">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </button>
+                                        <!-- Delete cycle Modal -->
+                                        <div id="modal_delete_cycle_{{ training.training_name }}" class="modal">
+                                            <div class="modal-content">
+                                                <h4>Please confirm:</h4>
+                                                <p>Are you sure you want to delete this cycle?</p>
                                             </div>
-                                            <button data-target="modal_delete_cycle_{{ training.training_name }}"
-                                                class="btn waves-effect red waves-light btn tooltipped modal-trigger" data-position="top"
-                                                data-tooltip="Delete Cycle">
-                                                <i class="fas fa-minus-circle"></i>
-                                            </button>
-                                        </form>
+                                            <form method="POST" action="{{ url_for('delete_cycle', training_id=training._id) }}">
+                                                <div class="input-field col s12">
+                                                    <input hidden id="cycle_name_delete_{{ cycle }}" name="cycle_name_delete" value="{{ cycle }}">
+                                                </div>
+                                                <button class="waves-effect green waves-light btn" type="submit">Yes
+                                                </button>
+                                                <div class="button-wrapper">
+                                                    <a href="#" class="modal-close waves-effect red waves-light btn">
+                                                        No
+                                                    </a>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

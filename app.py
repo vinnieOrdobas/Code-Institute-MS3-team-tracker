@@ -334,10 +334,11 @@ def complete_cycle(training_id):
                 {'_id': ObjectId(training_id)},
                 {'$set':
                     {f'training_cycle.{current_cycle}.completed': True}})
+    flash("Cycle updated")
     return redirect(url_for('get_trainings'))
 
 
-@app.route("/incomplete_training/<training_id>", methods=['GET', 'POST'])
+@app.route("/incomplete_cycle/<training_id>", methods=['GET', 'POST'])
 def incomplete_cycle(training_id):
     if request.method == 'POST':
         # finds training name
@@ -359,6 +360,33 @@ def incomplete_cycle(training_id):
                 {'_id': ObjectId(training_id)},
                 {'$set':
                     {f'training_cycle.{current_cycle}.completed': False}})
+    flash("Cycle updated")
+    return redirect(url_for('get_trainings'))
+
+
+@app.route("/delete_cycle/<training_id>", methods=['GET', 'POST'])
+def delete_cycle(training_id):
+    if request.method == 'POST':
+        # finds training name
+        training_name = mongo.db.trainings.find_one(
+            {'_id': ObjectId(training_id)})['training_name']
+        current_cycle = request.form.get('cycle_name_delete')
+        students = mongo.db.users.find(
+            {f"trainings.{training_name}": {'$exists': "true"}})
+        # finds students
+        for student in students:
+            user = student['alias']
+            mongo.db.users.update_one(
+                {'alias': user},
+                {'$unset':
+                    {f'trainings.{training_name}.{current_cycle}':
+                        ""}})
+#       sets training to complete on training's record
+        mongo.db.trainings.update_one(
+                {'_id': ObjectId(training_id)},
+                {'$unset':
+                    {f'training_cycle.{current_cycle}': ""}})
+    flash("Cycle deleted")
     return redirect(url_for('get_trainings'))
 
 
