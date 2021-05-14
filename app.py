@@ -390,6 +390,32 @@ def delete_cycle(training_id):
     return redirect(url_for('get_trainings'))
 
 
+@app.route("/edit_cycle/<training_id>", methods=['GET', 'POST'])
+def edit_cycle(training_id):
+    if request.method == 'POST':
+        # finds training name
+        training_name = mongo.db.trainings.find_one(
+            {'_id': ObjectId(training_id)})['training_name']
+        current_cycle = request.form.get('cycle_name_edit')
+        students = mongo.db.users.find(
+            {f"trainings.{training_name}": {'$exists': "true"}})
+        # finds students
+        for student in students:
+            user = student['alias']
+            mongo.db.users.update_one(
+                {'alias': user},
+                {'$unset':
+                    {f'trainings.{training_name}.{current_cycle}':
+                        ""}})
+#       sets training to complete on training's record
+        mongo.db.trainings.update_one(
+                {'_id': ObjectId(training_id)},
+                {'$unset':
+                    {f'training_cycle.{current_cycle}': ""}})
+    flash("Cycle deleted")
+    return redirect(url_for('get_trainings'))
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

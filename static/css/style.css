@@ -19,5 +19,9 @@
     margin-bottom: 20px;
 }
 .form-wrapper form {
-    display: inline-block;
+    display: inline;
+}
+
+.form-wrapper button {
+    display: inline;
 }
