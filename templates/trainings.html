@@ -164,7 +164,7 @@
                                 <div class="card-action blue-grey darken-4">
                                     <div class="form-wrapper">
                                         <!-- Complete cycle button -->
-                                        <form method="POST" action="{{ url_for('complete_cycle', training_id=training._id) }}">
+                                        <form method="POST" action="{{ url_for('complete_cycle', training_id=training._id, cycle=cycle) }}">
                                             <div class="input-field col s12">
                                                 <input hidden id="cycle_name_{{ cycle }}" name="cycle_name" value="{{ cycle }}">
                                             </div>
@@ -182,57 +182,10 @@
                                             </button>
                                         </form>
                                         <!-- Edit cycle button -->
-                                        <button data-target="modal_edit_cycle_{{ training.training_name }}"
-                                            class="waves-effect waves-light blue btn tooltipped modal-trigger" data-position="top"
-                                            data-tooltip="Edit Cycle">
+                                        <a href="{{ url_for('edit_cycle', training_id=training._id, cycle=cycle) }}" class="waves-effect waves-light blue btn tooltipped"
+                                            data-position="top" data-tooltip="Edit Cycle">
                                             <i class="fas fa-pen-square"></i>
-                                        </button>
-                                        <!-- Edit cycle Modal -->
-                                        <div id="modal_edit_cycle_{{ training.training_name }}" class="modal modal-fixed-footer">
-                                            <div class="modal-content">
-                                                <h4>Edit Cycle:</h4>
-                                                <div class="form-wrapper">
-                                                    <form method="POST" action="{{ url_for('delete_cycle', training_id=training._id) }}">
-                                                        <div class="input-field col s12">
-                                                            <input hidden id="cycle_name_edit_{{ cycle }}" name="cycle_name_edit" value="{{ cycle }}">
-                                                        </div>
-                                                        <!-- training link -->
-                                                        <div class="input-field col s12">
-                                                            <i class="fas fa-align-left prefix"></i>
-                                                            <textarea id="training_link" name="training_link" 
-                                                                maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required>
-                                                            </textarea>
-                                                            <label for="training_link">Training Link</label>
-                                                        </div>
-                                                        <!-- due date -->
-                                                        <div class="input-field col s12">
-                                                            <i class="fas fa-calendar alt prefix"></i>
-                                                            <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
-                                                            <label for="due_date">Due date</label>
-                                                        </div>
-                                                        <!-- instructor -->
-                                                        <div class="row">
-                                                            <div class="input-field col s12">
-                                                                <select id="instructor_name" name="instructor_name" class="validate" required>
-                                                                    <option value="" disabled selected>Choose instructor</option>
-                                                                    {% for instructor in instructors %}
-                                                                        <option value="{{ instructor.instructor_name }}">{{ instructor.instructor_name }}</option>
-                                                                    {% endfor %}
-                                                                </select>
-                                                                <label for="instructor_name">Instructor</label>
-                                                            </div>
-                                                        </div>
-                                                        <button class="waves-effect green waves-light btn" type="submit">Submit
-                                                        </button>
-                                                        <div class="button-wrapper">
-                                                            <a href="#" class="modal-close waves-effect red waves-light btn">
-                                                                No
-                                                            </a>
-                                                        </div>
-                                                    </form>
-                                            </div>
-                                            </div>
-                                        </div>
+                                        </a>
                                         <!-- Delete button -->
                                         <button data-target="modal_delete_cycle_{{ training.training_name }}"
                                             class="btn waves-effect red waves-light btn tooltipped modal-trigger" data-position="top"

@@ -393,27 +393,42 @@ def delete_cycle(training_id):
 @app.route("/edit_cycle/<training_id>", methods=['GET', 'POST'])
 def edit_cycle(training_id):
     if request.method == 'POST':
-        # finds training name
+        training_folder = mongo.db.trainings.find_one(
+            {'_id': ObjectId(training_id)})['training_cycle']
         training_name = mongo.db.trainings.find_one(
             {'_id': ObjectId(training_id)})['training_name']
-        current_cycle = request.form.get('cycle_name_edit')
-        students = mongo.db.users.find(
-            {f"trainings.{training_name}": {'$exists': "true"}})
-        # finds students
+        students = list(mongo.db.users.find(
+            {f"trainings.{training_name}": {'$exists': "true"}}))
+        cycle = {
+                request.form.get('training_type'): {
+                    "training_link": request.form.get('training_link'),
+                    "instructor": request.form.get('instructor_name'),
+                    "completed": False,
+                    "training_date": request.form.get('due_date')
+                }
+            }
+        cycle_name = request.form.get('training_type')
         for student in students:
-            user = student['alias']
+            current_cycle = student['trainings'][training_name]
+            current_cycle.update(cycle)
             mongo.db.users.update_one(
-                {'alias': user},
-                {'$unset':
-                    {f'trainings.{training_name}.{current_cycle}':
-                        ""}})
-#       sets training to complete on training's record
+                {'username': student['username']},
+                {'$set': {f'trainings.{training_name}':
+                    current_cycle}}, upsert= True)
+        training_folder[cycle_name] = cycle[cycle_name]
         mongo.db.trainings.update_one(
-                {'_id': ObjectId(training_id)},
-                {'$unset':
-                    {f'training_cycle.{current_cycle}': ""}})
-    flash("Cycle deleted")
-    return redirect(url_for('get_trainings'))
+            {'_id': ObjectId(training_id)},
+            {'$set':
+                {'training_cycle': training_folder}})
+        flash("Cycle Successfully Edited")
+        return redirect(url_for('get_trainings'))
+    training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
+    instructors = mongo.db.instructors.find().sort('instructor_name', 1)
+    training_types = mongo.db.training_types.find().sort('training_type', 1)
+    cycle = request.args.get('cycle')
+    return render_template('edit_cycle.html',
+        instructors=instructors, training=training,
+        training_types=training_types, cycle=cycle)
 
 
 if __name__ == "__main__":

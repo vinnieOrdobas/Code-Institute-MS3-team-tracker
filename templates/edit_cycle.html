@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="light-blue-text text-darken-4 center-align">Edit Cycle </h3>
+
+      <div class="row card-panel grey lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('edit_cycle', training_id=training._id) }}">
+            <!-- training name -->
+            <div class="row">
+                <!-- training cycle -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input hidden id="training_type" name="training_type" value="{{ cycle }}">
+                    </div>
+                </div>
+                <!-- training link -->
+                <div class="input-field col s12">
+                    <i class="fas fa-align-left prefix"></i>
+                    <textarea id="training_link" name="training_link" 
+                        maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required>
+                    </textarea>
+                    <label for="training_link">Training Link</label>
+                </div>
+                <!-- due date -->
+                <div class="input-field col s12">
+                    <i class="fas fa-calendar alt prefix"></i>
+                    <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
+                    <label for="due_date">Due date</label>
+                </div>
+                <!-- instructor -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="fas fa-clipboard prefix"></i>
+                        <select id="instructor_name" name="instructor_name" class="validate" required>
+                            <option value="" disabled selected>Choose instructor</option>
+                            {% for instructor in instructors %}
+                                <option value="{{ instructor.instructor_name }}">{{ instructor.instructor_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="instructor_name">Instructor</label>
+                    </div>
+                </div>
+            </div>
+            <!-- submit button -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <a href="{{ url_for('get_trainings') }}" class="waves-effect waves-light red btn">
+                        Cancel <i class="fas fa-exclamation-circle"></i>
+                    </a>
+                    <button class="btn waves-effect waves-light  green accent-3" type="submit">Submit
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+  </div>
+        
+
+{% endblock %}
