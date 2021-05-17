@@ -3,12 +3,109 @@
 
 
     <div class="row register-card">
-        <div class="col s12 m8 offset-m2">
-            <div class="card-panel blue-grey darken-2 white-text">
-                <h3 class="center-align">{{ username.alias }}'s Profile </h3>
+        <div class="col s12 m6 offset-m3">
+            <div class="card">
+                <div class="card-content blue-grey darken-4">
+                    <div class="yellow-text blue-grey darken-4 center-align">
+                        {% if username.student == True %}
+                            <i class="fas fa-user fa-2x yellow-text"></i>
+                            <h3>
+                                {{ username.alias }}
+                            </h3>
+                        {% elif username.team_leader == 'on' %}
+                            <i class="fas fa-user-secret fa-2x yellow-text"></i>
+                            <h3>
+                                {{ username.alias }}
+                            </h3>
+                        {% else %}
+                            <i class="fas fa-chalkboard-teacher fa-2x yellow-text"></i>
+                            <h3>
+                                {{ username.alias }}
+                            </h3>
+                        {% endif %}
+                    </div>
+                    <ul class="collection black-text center-align">
+                        <li class="collection-item">
+                            <b>Username</b>: {{ username.username }}<i class="fas fa-user fa-lg secondary-content black-text"></i>
+                        </li>
+                        <li class="collection-item">
+                            <b>Team: </b>{{ username.team_name }}<i class="fas fas fa-skull secondary-content black-text"></i>
+                        </li>
+                        {% if username.student == True %}
+                            <li class="collection-item"><b>Access level: </b> Student<i class="fas fa-key fa-lg secondary-content black-text"></i></li>
+                        {% elif username.team_leader == 'on' %}
+                            <li class="collection-item"><b>Access level: </b> Team Leader<i class="fas fa-key fa-lg secondary-content black-text"></i></li>
+                        {% else %}
+                            <li class="collection-item"><b>Access level: </b> Instructor<i class="fas fa-key fa-lg secondary-content black-text"></i></li>
+                        {% endif %}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-
-
+    {% if username.student == True %}
+        {% for training in username.trainings %}
+            <div class="col s12 m6 offset-m3">
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header yellow-text blue-grey darken-4">
+                            <div class="col s6">
+                                <i class="fas fa-caret-down"></i>
+                                <strong>  {{ training }}: </strong>
+                                {% for course in courses %}
+                                    {% if training in course.training_name %}
+                                        : {{ course.training_date }}
+                                        {% if course.complete_training == 'False' %}
+                                            <i class="fas fa-times-circle red-text"></i>
+                                        {% else %}
+                                            <i class="fas fa-check-circle green-text"></i>
+                                        {% endif %}
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        {% if username.trainings[training] %}
+                            {% for cycle in username.trainings[training] %}
+                            <div class="collapsible-body">
+                                <div class="row center-align">
+                                    <div class="col s12 m6 offset-m3">
+                                        <div class="card">
+                                            <div class="card-content blue-grey darken-4">
+                                                <div class="yellow-text blue-grey darken-4">
+                                                    <h5>
+                                                        {{ cycle }}
+                                                    </h5>
+                                                </div>
+                                                <ul class="collection black-text">
+                                                    <li class="collection-item">
+                                                        <b>Instructor:</b>
+                                                        <a href="{{ url_for('profile', username=session['user'], alias=username.trainings[training][cycle].instructor) }}">
+                                                            {{ username.trainings[training][cycle].instructor }}
+                                                        </a>
+                                                    </li>
+                                                    <li class="collection-item"><b>Date:</b> {{ username.trainings[training][cycle].training_date }}</li>
+                                                    <li class="collection-item"><b>Link:</b> {{ username.trainings[training][cycle].training_link }}</li>
+                                                    {% if username.trainings[training][cycle].completed == True %}
+                                                        <li class="collection-item green-text"><b>Completed</b></li>
+                                                    {% else %}
+                                                        <li class="collection-item red-text"><b>Pendent</b></li>
+                                                    {% endif %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="collapsible-body">
+                                
+                            </div>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        {% endfor %}
+    {% endif %}
+    
 {% endblock %}

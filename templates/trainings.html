@@ -51,6 +51,13 @@
                             data-position="top" data-tooltip="Delete Training">
                                 <i class="fas fa-minus-circle"></i>
                             </button>
+                            <p>
+                                <b>Created by:</b> 
+                                    <a href="{{ url_for('profile', username=session['user'], alias=username.alias) }}">{{ username.alias }}</a>
+                            </p>
+                            {% if training.training_cycle %}
+                                <h4>Cycles</h4>
+                            {% endif %}
                         </div>
                         <!-- Delete Modal -->
                         <div id="modal_delete_{{ training.training_name }}" class="modal">
@@ -168,7 +175,12 @@
                                         </h5>
                                     </div>
                                     <ul class="collection black-text">
-                                        <li class="collection-item"><b>Instructor:</b> {{ training.training_cycle[cycle].instructor }}</li>
+                                        <li class="collection-item">
+                                            <b>Instructor:</b>
+                                            <a href="{{ url_for('profile', username=session['user'], alias=training.training_cycle[cycle].instructor) }}">
+                                                {{ training.training_cycle[cycle].instructor }}
+                                            </a>
+                                        </li>
                                         <li class="collection-item"><b>Team:</b> {{ training.team_name }}</li>
                                         <li class="collection-item"><b>Date:</b> {{ training.training_cycle[cycle].training_date }}</li>
                                         <li class="collection-item"><b>Link:</b> {{ training.training_cycle[cycle].training_link }}</li>

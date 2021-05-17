@@ -126,8 +126,9 @@ def profile(username):
         # grab the session's user's username from db
         username = mongo.db.users.find_one(
             {'username': session['user']})
-
-    return render_template('profile.html', username=username)
+    courses = list(mongo.db.trainings.find())
+    return render_template('profile.html', username=username,
+    courses=courses)
 
 
 @app.route('/logout')
@@ -145,6 +146,8 @@ def add_training():
     if request.method == 'POST':
         existing_training = mongo.db.users.find_one(
             {'training_name': request.form.get('training_name')})
+        alias = mongo.db.users.find_one(
+            {'username': session['user']})['alias']
         if existing_training:
             flash('Training already exists')
             return redirect(url_for('add_training'))
@@ -154,7 +157,7 @@ def add_training():
             "training_description": request.form.get('training_description'),
             "training_date": request.form.get('due_date'),
             "training_cycle": {},
-            "created_by": session['user'],
+            "created_by": alias,
             "complete_training": "False"
         }
         assigned_to = request.form.getlist('assign_to')
