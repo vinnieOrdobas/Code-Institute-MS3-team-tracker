@@ -115,7 +115,7 @@
                                         <div class="collection">
                                             {% for student in students %}
                                                 {% if training.training_name in student.trainings.keys() %}
-                                                    <a href="#!" class="collection-item">{{ student.alias }}</a>
+                                                    <a href="{{ url_for('profile', username=session['user'], alias=student.alias) }}" class="collection-item">{{ student.alias }}</a>
                                                 {% endif %}
                                             {% endfor %}
                                         </div>

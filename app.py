@@ -116,16 +116,18 @@ def login():
     return render_template('login.html')
 
 
-@app.route("/profile/<username>", methods=['GET', 'POST'])
+@app.route("/profile/<username>")
 def profile(username):
-    # grab the session's user's username from db
-    username = mongo.db.users.find_one(
-        {'username': session['user']})['alias']
+    if request.args.get('alias') is not None:
+        username = mongo.db.users.find_one({
+            'alias': request.args.get('alias')
+        })
+    else:
+        # grab the session's user's username from db
+        username = mongo.db.users.find_one(
+            {'username': session['user']})
 
-    if session['user']:
-        return render_template('profile.html', username=username)
-
-    return redirect(url_for('login'))
+    return render_template('profile.html', username=username)
 
 
 @app.route('/logout')
