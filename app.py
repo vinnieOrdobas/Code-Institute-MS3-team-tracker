@@ -158,7 +158,7 @@ def add_training():
             "training_date": request.form.get('due_date'),
             "training_cycle": {},
             "created_by": alias,
-            "complete_training": "False"
+            "complete_training": False
         }
         assigned_to = request.form.getlist('assign_to')
         for user in assigned_to:
@@ -269,6 +269,38 @@ def enroll_training(training_id):
                 {'alias': user},
                 {'$set': {'trainings': training_folder}})
     flash("Student enrolled")
+    return redirect(url_for('get_trainings'))
+
+
+@app.route("/complete_training/<training_id>", methods=['GET', 'POST'])
+def complete_training(training_id):
+    # marks training as complete
+    if request.method == 'POST':
+        # finds training name
+        mongo.db.trainings.update({
+            '_id': ObjectId(training_id)}, {
+                "$set": {
+                    "complete_training": True
+                }
+            }
+        )
+    flash("Training updated")
+    return redirect(url_for('get_trainings'))
+
+
+@app.route("/incomplete_training/<training_id>", methods=['GET', 'POST'])
+def incomplete_training(training_id):
+    # marks training as complete
+    if request.method == 'POST':
+        # finds training name
+        mongo.db.trainings.update({
+            '_id': ObjectId(training_id)}, {
+                "$set": {
+                    "complete_training": False
+                }
+            }
+        )
+    flash("Training updated")
     return redirect(url_for('get_trainings'))
 
 

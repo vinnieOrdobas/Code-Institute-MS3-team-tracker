@@ -40,6 +40,49 @@
                         {% endif %}
                     </ul>
                 </div>
+                <!-- Profile card control panel -->
+                {% if username.student == True %}
+                    <div class="card-action blue-grey darken-4 center-align">
+                        <button data-target="modal_certifications" 
+                            class="btn waves-effect green darken-1 waves-light btn tooltipped modal-trigger"
+                            data-position="top" data-tooltip="See certifications">
+                                <i class="fas fa-user-graduate"></i>
+                        </button>
+                        <div id="modal_certifications" class="modal">
+                            <div class="modal-content">
+                                <h4>{{ username.alias }}'s Certifications
+                                    <i class="fas fa-graduation-cap"></i>
+                                </h4>
+                                <div class="row">
+                                    <div class="col s12 m6 offset-m3">
+                                        <div class="collection">
+                                            {% for training in username.trainings %}
+                                                {% for cycle in username.trainings[training] %}
+                                                    {% if username.trainings[training][cycle].completed == True %}
+                                                    <ul class="collection">
+                                                        <li class="collection-item">
+                                                            <div>
+                                                                <b>{{ training }}</b> - <strong>{{ cycle }}</strong><i class="fas fa-certificate fa-lg secondary-content"></i>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <div class="row">
+                                    <div class="col s12 center-align">
+                                        <a href="#!" class="modal-close waves-effect green waves-light btn">OK</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </div>
             </div>
         </div>
     </div>
@@ -55,10 +98,12 @@
                                 {% for course in courses %}
                                     {% if training in course.training_name %}
                                         : {{ course.training_date }}
-                                        {% if course.complete_training == 'False' %}
+                                        {% if course.complete_training == False %}
                                             <i class="fas fa-times-circle red-text"></i>
+                                            <span class="red-text"><strong>Pendent</strong></span>
                                         {% else %}
                                             <i class="fas fa-check-circle green-text"></i>
+                                            <span class="green-text"><strong>Completed</strong></span>
                                         {% endif %}
                                     {% endif %}
                                 {% endfor %}
@@ -98,8 +143,9 @@
                             </div>
                             {% endfor %}
                         {% else %}
-                            <div class="collapsible-body">
-                                
+                            <div class="collapsible-body center-align">
+                                <i class="fas fa-paper-plane fa-2x"></i>
+                                <h5>No cycle information yet!</h5>
                             </div>
                         {% endif %}
                     </li>

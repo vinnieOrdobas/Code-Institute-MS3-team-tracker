@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <h3 class="center-align">Trainings</h3>
+    <h2 class="center-align">Trainings</h2>
     {% if username.team_leader == 'on' or is_instructor == True %}
         <div class="row center-align">
-            <a href="{{ url_for('add_training') }}" class="waves-effect green waves-light btn-large">
-                Add Training <i class="fas fa-plus-circle"></i>
+            <a href="{{ url_for('add_training') }}" class="waves-effect green waves-light btn-large tooltipped" data-position="top" data-tooltip="Add Training">
+                <i class="fas fa-plus-circle prefix"></i>
             </a>
         </div>
     {% endif %}
@@ -16,7 +16,7 @@
                 <div class="col s6">
                     <i class="fas fa-caret-down"></i>
                     <strong>{{ training.training_name }}</strong>: {{ training.training_date }}
-                    {% if training.complete_training == 'True' %}
+                    {% if training.complete_training == True %}
                         <i class="fas fa-check-circle green-text"></i>
                     {% else %}
                         <i class="fas fa-times-circle red-text"></i>
@@ -42,6 +42,16 @@
                             data-position="top" data-tooltip="Get Student list">
                                 <i class="fas fa-clipboard-list"></i>
                             </button>
+                            <form method="POST" action="{{ url_for('complete_training', training_id=training._id) }}">
+                                <button type="submit" class="waves-effect waves-light green btn tooltipped" data-position="top" data-tooltip="Mark as Complete">
+                                    <i class="fas fa-check-circle"></i>
+                                </button>
+                            </form>
+                            <form method="POST" action="{{ url_for('incomplete_training', training_id=training._id) }}">
+                                <button type="submit" class="waves-effect waves-light yellow darken-3 btn tooltipped" data-position="top" data-tooltip="Mark as Incomplete">
+                                    <i class="fas fa-times-circle"></i>
+                                </button>
+                            </form>
                             <a href="{{ url_for('edit_training', training_id=training._id) }}" 
                             class="waves-effect waves-light blue btn tooltipped" data-position="top" data-tooltip="Edit Training">
                                 <i class="fas fa-pen-square"></i>
