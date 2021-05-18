@@ -34,7 +34,7 @@
                         <select id="instructor_name" name="instructor_name" class="validate" required>
                             <option value="" disabled selected>Choose instructor</option>
                             {% for instructor in instructors %}
-                                <option value="{{ instructor.instructor_name }}">{{ instructor.instructor_name }}</option>
+                                <option value="{{ instructor.alias }}">{{ instructor.alias }}</option>
                             {% endfor %}
                         </select>
                         <label for="instructor_name">Instructor</label>

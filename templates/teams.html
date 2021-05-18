@@ -1,10 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
-
-    {% for team in teams %}
-        {{ team.team_name }}<br>
-        {{ team.team_region }}<br>
-        {{ team.team_description }}<br>
-    {% endfor %}
+    <div class="row">
+        <div class="col s12 m6 offset-m3">
+            {% for team in teams %}
+            <div class="card">
+                <div class="card-title center-align">
+                    <h4>{{ team.team_name }}</h4>
+                    <h5>{{ team.team_region }}</h5>
+                </div>
+                <div class="card-content center-align">
+                  <p>{{ team.team_description }}</p>
+                </div>
+                <div class="card-tabs blue-grey darken-2 yellow-text">
+                  <ul class="tabs tabs-fixed-width">
+                    <li class="tab"><a href="#tl">Team Leader</a></li>
+                    <li class="tab"><a class="active" href="#test5">Instructors</a></li>
+                    <li class="tab"><a href="#students">Students</a></li>
+                  </ul>
+                </div>
+                <div class="card-content grey lighten-4">
+                    <div id="tl">
+                        <div class="collection">
+                            {% for user in team_leader %}
+                                {% if team.team_name == user.team_name %}
+                                    <a href="{{ url_for('profile', username=session['user'], alias=user.alias) }}" class="collection-item">{{ user.alias }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div id="test5">Test 2</div>
+                    <div id="students">
+                        <div class="collection">
+                            {% for student in students %}
+                                {% if team.team_name == student.team_name %}
+                                    <a href="{{ url_for('profile', username=session['user'], alias=student.alias) }}" class="collection-item">{{ student.alias }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+              </div>
+            {% endfor %}
+        </div>
+    </div>
 
 {% endblock %}

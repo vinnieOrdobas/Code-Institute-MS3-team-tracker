@@ -24,7 +24,19 @@ mongo = PyMongo(app)
 @app.route("/get_teams")
 def get_teams():
     teams = mongo.db.teams.find()
-    return render_template("teams.html", teams=teams)
+    students = list(mongo.db.users.find({
+        'student': True
+    }))
+    team_leader = list(mongo.db.users.find({
+        'team_leader': True
+    }))
+    instructors = list(mongo.db.users.find({
+        'instructor': True
+    }))
+    print(students, team_leader, instructors)
+    return render_template("teams.html", teams=teams,
+        students=students,
+            team_leader=team_leader, instructors=instructors)
 
 
 # --------------------------------User functions---------------------- #
@@ -32,16 +44,13 @@ def get_teams():
 def get_trainings():
     username = mongo.db.users.find_one(
         {'username': session['user']})
-    is_instructor = True if mongo.db.instructors.find_one(
-        {'username': session['user']}) else False
     trainings = list(mongo.db.trainings.find())
     students = list(mongo.db.users.find(
         {"student": True}))
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template("trainings.html",
     trainings=trainings, username=username,
-        is_instructor=is_instructor, students=students,
-            training_types=training_types)
+        students=students,training_types=training_types)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -58,26 +67,21 @@ def register():
         check_password = request.form.get('check_password')
 
         if password == check_password:
-            team_leader = "on" if request.form.get('team_leader') else "off"
-            instructor = "on" if request.form.get('instructor') else "off"
+            team_leader = True if request.form.get('team_leader') else False
+            instructor = True if request.form.get('instructor') else False
             register = {
                 'username': request.form.get('username').lower(),
                 'password': generate_password_hash(
                             request.form.get('password'), salt_length=7),
                 'alias': request.form.get('alias'),
                 'team_name': request.form.get('team_name'),
-                'team_leader': team_leader
+                'team_leader': team_leader,
+                'instructor': instructor
             }
-            if team_leader and instructor == 'off':
+            if not team_leader and instructor:
                 register['student'] = True
                 register['trainings'] = {}
             mongo.db.users.insert_one(register)
-            if instructor == "on":
-                submit = {
-                    "instructor_name": request.form.get('alias'),
-                    "username": request.form.get('username').lower()
-                }
-                mongo.db.instructors.insert_one(submit)
             # put the new user into 'session' cookie
             session["user"] = request.form.get('username').lower()
             flash('Registration Successful!')
@@ -341,7 +345,9 @@ def add_cycle(training_id):
             flash("Training Cycle Successfully Created")
             return redirect(url_for('get_trainings'))
     training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
-    instructors = mongo.db.instructors.find().sort('instructor_name', 1)
+    instructors = mongo.db.users.find(
+        {'instructor': True}).sort('alias', 1)
+    print(instructors)
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template('add_cycle.html',
         instructors=instructors, training=training,
@@ -381,7 +387,8 @@ def edit_cycle(training_id):
         flash("Cycle Successfully Edited")
         return redirect(url_for('get_trainings'))
     training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
-    instructors = mongo.db.instructors.find().sort('instructor_name', 1)
+    instructors = mongo.db.users.find(
+        {'instructor': True}).sort('alias', 1)
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     cycle = request.args.get('cycle')
     return render_template('edit_cycle.html',
