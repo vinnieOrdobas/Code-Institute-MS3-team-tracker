@@ -27,48 +27,57 @@
                 <!--  Training control Panel -->
                 <div class="col s12 m6 center-align">
                     {% if username.team_leader == 'on' or is_instructor == True %}
-                        <div class="form-wrapper">
-                            <a href="{{ url_for('add_cycle', training_id=training._id) }}" 
-                            class="waves-effect waves-light green btn tooltipped" data-position="top" data-tooltip="Add Cycle">
-                                <i class="fas fa-plus-square"></i>
-                            </a>
-                            <button data-target="modal_enroll_{{ training.training_name }}" 
-                            class="btn waves-effect yellow darken-4 waves-light btn tooltipped modal-trigger"
-                            data-position="top" data-tooltip="Enroll Students">
-                                <i class="fas fa-user-edit"></i>
-                            </button>
-                            <button data-target="modal_student_list_{{ training.training_name }}" 
-                            class="btn waves-effect deep-purple lighten-2 waves-light btn tooltipped modal-trigger"
-                            data-position="top" data-tooltip="Get Student list">
-                                <i class="fas fa-clipboard-list"></i>
-                            </button>
-                            <form method="POST" action="{{ url_for('complete_training', training_id=training._id) }}">
-                                <button type="submit" class="waves-effect waves-light green btn tooltipped" data-position="top" data-tooltip="Mark as Complete">
-                                    <i class="fas fa-check-circle"></i>
-                                </button>
-                            </form>
-                            <form method="POST" action="{{ url_for('incomplete_training', training_id=training._id) }}">
-                                <button type="submit" class="waves-effect waves-light yellow darken-3 btn tooltipped" data-position="top" data-tooltip="Mark as Incomplete">
-                                    <i class="fas fa-times-circle"></i>
-                                </button>
-                            </form>
-                            <a href="{{ url_for('edit_training', training_id=training._id) }}" 
-                            class="waves-effect waves-light blue btn tooltipped" data-position="top" data-tooltip="Edit Training">
-                                <i class="fas fa-pen-square"></i>
-                            </a>
-                            <button data-target="modal_delete_{{ training.training_name }}" 
-                            class="btn waves-effect red waves-light btn tooltipped modal-trigger"
-                            data-position="top" data-tooltip="Delete Training">
-                                <i class="fas fa-minus-circle"></i>
-                            </button>
-                            <p>
-                                <b>Created by:</b> 
-                                    <a href="{{ url_for('profile', username=session['user'], alias=username.alias) }}">{{ username.alias }}</a>
-                            </p>
-                            {% if training.training_cycle %}
-                                <h4>Cycles</h4>
-                            {% endif %}
+                    <div class="row">
+                        <div class="col s12 m6 offset-m3">
+                            <div class="card">
+                                <div class="card-title">
+                                    <h5>Training control panel</h5>
+                                </div>
+                                <div class="card-content blue-grey darken-4">
+                                    <div class="form-wrapper">
+                                        <a href="{{ url_for('add_cycle', training_id=training._id) }}" 
+                                        class="waves-effect waves-light green btn tooltipped" data-position="top" data-tooltip="Add Cycle">
+                                            <i class="fas fa-plus-square"></i>
+                                        </a>
+                                        <button data-target="modal_enroll_{{ training.training_name }}" 
+                                        class="btn waves-effect yellow darken-4 waves-light btn tooltipped modal-trigger"
+                                        data-position="top" data-tooltip="Enroll Students">
+                                            <i class="fas fa-user-edit"></i>
+                                        </button>
+                                        <button data-target="modal_student_list_{{ training.training_name }}" 
+                                        class="btn waves-effect deep-purple lighten-2 waves-light btn tooltipped modal-trigger"
+                                        data-position="top" data-tooltip="Get Student list">
+                                            <i class="fas fa-clipboard-list"></i>
+                                        </button>
+                                    </div>
+                                    <div class="form-wrapper">
+                                        <form method="POST" action="{{ url_for('complete_training', training_id=training._id) }}">
+                                            <button type="submit" class="waves-effect waves-light green btn tooltipped" data-position="top" data-tooltip="Mark {{ training.training_name }} as Complete">
+                                                <i class="fas fa-check-circle"></i>
+                                            </button>
+                                        </form>
+                                        <form method="POST" action="{{ url_for('incomplete_training', training_id=training._id) }}">
+                                            <button type="submit" class="waves-effect waves-light yellow darken-3 btn tooltipped" data-position="top" data-tooltip="Mark {{ training.training_name }} as Incomplete">
+                                                <i class="fas fa-times-circle"></i>
+                                            </button>
+                                        </form>
+                                        <a href="{{ url_for('edit_training', training_id=training._id) }}" 
+                                        class="waves-effect waves-light blue btn tooltipped" data-position="top" data-tooltip="Edit Training">
+                                            <i class="fas fa-pen-square"></i>
+                                        </a>
+                                        <button data-target="modal_delete_{{ training.training_name }}" 
+                                        class="btn waves-effect red waves-light btn tooltipped modal-trigger"
+                                        data-position="top" data-tooltip="Delete Training">
+                                            <i class="fas fa-minus-circle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                        {% if training.training_cycle %}
+                            <h4>Cycles</h4>
+                        {% endif %}
                         <!-- Delete Modal -->
                         <div id="modal_delete_{{ training.training_name }}" class="modal">
                             <div class="modal-content">
@@ -153,6 +162,13 @@
                         data-position="top" data-tooltip="Get training description">
                             <i class="fas fa-info-circle"></i>
                         </button>
+                        <p>
+                            <b>Created by:</b> 
+                                <a href="{{ url_for('profile', username=session['user'], alias=training.created_by) }}">{{ training.created_by }}</a>
+                        </p>
+                        {% if training.training_cycle %}
+                            <h4>Cycles</h4>
+                        {% endif %}
                         <div id="modal_description_{{ training.training_name }}" class="modal">
                             <div class="modal-content">
                                 <h4>Training Description
@@ -204,6 +220,7 @@
                                 <!-- Cycle control panel -->
                                 {% if username.team_leader == 'on' or is_instructor == True %}
                                     <div class="card-action blue-grey darken-4">
+                                        <h5 class="white-text">Cycle control panel</h5>
                                         <div class="form-wrapper">
                                             <!-- Complete cycle button -->
                                             <form method="POST" action="{{ url_for('complete_cycle', training_id=training._id, cycle=cycle) }}">
@@ -259,6 +276,10 @@
                         </div>
                     </div>
                 {% endfor %}
+                <p>
+                    <b>Created by:</b> 
+                    <a href="{{ url_for('profile', username=session['user'], alias=training.created_by) }}">{{ training.created_by }}</a>
+                </p>
             </div>
         </li>
     {% endfor %}
