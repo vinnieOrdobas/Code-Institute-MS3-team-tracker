@@ -17,8 +17,13 @@
                             <h3>
                                 {{ username.alias }}
                             </h3>
-                        {% else %}
+                        {% elif username.instructor == True %}
                             <i class="fas fa-chalkboard-teacher fa-2x yellow-text"></i>
+                            <h3>
+                                {{ username.alias }}
+                            </h3>
+                        {% else %}
+                            <i class="fas fa-user-tie fa-2x yellow-text"></i>
                             <h3>
                                 {{ username.alias }}
                             </h3>
@@ -35,8 +40,10 @@
                             <li class="collection-item"><b>Access level: </b> Student<i class="fas fa-key fa-lg secondary-content black-text"></i></li>
                         {% elif username.team_leader == True %}
                             <li class="collection-item"><b>Access level: </b> Team Leader<i class="fas fa-key fa-lg secondary-content black-text"></i></li>
-                        {% else %}
+                        {% elif username.instructor == True %}
                             <li class="collection-item"><b>Access level: </b> Instructor<i class="fas fa-key fa-lg secondary-content black-text"></i></li>
+                        {% else %}
+                            <li class="collection-item"><b>Access level: </b> System Admin<i class="fas fa-key fa-lg secondary-content black-text"></i></li>
                         {% endif %}
                     </ul>
                 </div>

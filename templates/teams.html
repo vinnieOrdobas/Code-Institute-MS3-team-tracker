@@ -1,6 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="row">
+    <div class="row register-card">
+        {% if username.admin == True %}
+            <div class="row right-align">
+                <a href="{{ url_for('add_training') }}" class="waves-effect green waves-light btn-large tooltipped" data-position="top" data-tooltip="Add Training">
+                    <i class="fas fa-plus-circle prefix"></i>
+                </a>
+            </div>
+        {% endif %}
         <div class="col s12 m6 offset-m3">
             {% for team in teams %}
             <div class="card yellow-text blue-grey darken-4">
@@ -13,37 +20,55 @@
                 </div>
                 <div class="card-tabs blue-grey darken-2 yellow-text">
                   <ul class="tabs tabs-fixed-width">
-                    <li class="tab"><a href="#tl">Team Leader</a></li>
-                    <li class="tab"><a href="#instructors">Instructors</a></li>
-                    <li class="tab"><a href="#students">Students</a></li>
+                    <li class="tab"><a href="#tl_{{ team.team_name }}">Team Leader</a></li>
+                    <li class="tab"><a href="#instructors_{{ team.team_name }}">Instructors</a></li>
+                    <li class="tab"><a href="#students_{{ team.team_name }}">Students</a></li>
                   </ul>
                 </div>
                 <div class="card-content grey lighten-4">
-                    <div id="tl">
+                    <div id="tl_{{ team.team_name }}">
                         <div class="collection">
-                            {% for user in team_leader %}
-                                {% if team.team_name == user.team_name %}
+                            {% if username.admin == True %}
+                                {% for user in team.users %}
+                                    {% if user.team_leader == True %}
+                                        <a href="{{ url_for('profile', username=session['user'], alias=user.alias) }}" class="collection-item">{{ user.alias }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {% for user in team_leader %}
                                     <a href="{{ url_for('profile', username=session['user'], alias=user.alias) }}" class="collection-item">{{ user.alias }}</a>
-                                {% endif %}
-                            {% endfor %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
-                    <div id="instructors">
+                    <div id="instructors_{{ team.team_name }}">
                         <div class="collection">
-                            {% for instructor in instructors %}
-                                {% if team.team_name == instructor.team_name %}
+                            {% if username.admin == True %}
+                                {% for user in team.users %}
+                                    {% if user.instructor == True %}
+                                        <a href="{{ url_for('profile', username=session['user'], alias=user.alias) }}" class="collection-item">{{ user.alias }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {% for instructor in instructors %}
                                     <a href="{{ url_for('profile', username=session['user'], alias=instructor.alias) }}" class="collection-item">{{ instructor.alias }}</a>
-                                {% endif %}
-                            {% endfor %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
-                    <div id="students">
+                    <div id="students_{{ team.team_name }}">
                         <div class="collection">
-                            {% for student in students %}
-                                {% if team.team_name == student.team_name %}
+                            {% if username.admin == True %}
+                                {% for user in team.users %}
+                                    {% if user.student == True %}
+                                        <a href="{{ url_for('profile', username=session['user'], alias=user.alias) }}" class="collection-item">{{ user.alias }}</a>
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                {% for student in students %}
                                     <a href="{{ url_for('profile', username=session['user'], alias=student.alias) }}" class="collection-item">{{ student.alias }}</a>
-                                {% endif %}
-                            {% endfor %}
+                                {% endfor %}
+                            {% endif %}
                         </div>
                     </div>
                 </div>

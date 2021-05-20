@@ -23,20 +23,43 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_teams")
 def get_teams():
-    teams = mongo.db.teams.find()
+    username = mongo.db.users.find_one(
+        {'username': session['user']})
+    if username.get('admin'):
+        teams = list(mongo.db.teams.aggregate([
+            {'$lookup': {
+                'from': 'users',
+                'localField': 'team_name',
+                'foreignField': 'team_name',
+                'as': 'users'
+            }},
+            {'$project': {'_id': 0,
+                'team_name': 1, 'team_region': 1, 'team_description': 1,
+                    'users.alias': 1, 'users.team_leader': 1,
+                        'users.student': 1, 'users.instructor': 1}}
+        ]))
+        for document in teams:
+            print(document)
+    else:
+        teams = mongo.db.teams.find({
+            'team_name': username['team_name']
+        })
     students = list(mongo.db.users.find({
-        'student': True
+        'student': True,
+        'team_name': username['team_name']
     }))
     team_leader = list(mongo.db.users.find({
-        'team_leader': True
+        'team_leader': True,
+        'team_name': username['team_name']
     }))
     instructors = list(mongo.db.users.find({
-        'instructor': True
+        'instructor': True,
+        'team_name': username['team_name']
     }))
-    print(students, team_leader, instructors)
     return render_template("teams.html", teams=teams,
         students=students,
-            team_leader=team_leader, instructors=instructors)
+            team_leader=team_leader, instructors=instructors,
+            username=username)
 
 
 # --------------------------------User functions---------------------- #
@@ -78,7 +101,7 @@ def register():
                 'team_leader': team_leader,
                 'instructor': instructor
             }
-            if not team_leader and instructor:
+            if not team_leader and not instructor:
                 register['student'] = True
                 register['trainings'] = {}
             mongo.db.users.insert_one(register)
