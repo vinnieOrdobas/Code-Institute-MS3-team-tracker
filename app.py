@@ -78,6 +78,29 @@ def get_teams():
             username=username)
 
 
+@app.route("/add_team", methods=['GET', 'POST'])
+def add_team():
+    # adds team to the database
+    if request.method == 'POST':
+        existing_team = mongo.db.users.find_one(
+            {'team_name': request.form.get('team_name')})
+        alias = mongo.db.users.find_one(
+            {'username': session['user']})['alias']
+        if existing_team:
+            flash('Team already exists')
+            return redirect(url_for('add_team'))
+        team = {
+            "team_name": request.form.get('team_name'),
+            "team_region": request.form.get('team_region'),
+            "team_description": request.form.get('team_description'),
+            "created_by": alias
+        }
+        mongo.db.teams.insert_one(team)
+        flash("Team Successfully Created")
+        return redirect(url_for('get_teams'))
+    # variables to be rendered by the template
+    return render_template('add_team.html')
+
 # --------------------------------User functions---------------------- #
 @app.route("/get_trainings")
 def get_trainings():
