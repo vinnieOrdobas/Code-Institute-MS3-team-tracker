@@ -48,122 +48,165 @@
                     </ul>
                 </div>
                 <!-- Profile card control panel -->
-                {% if username.student == True %}
-                    <div class="card-action blue-grey darken-4 center-align">
+                <div class="card-action blue-grey darken-4 center-align">
+                    {% if username.student == True %}
                         <button data-target="modal_certifications" 
                             class="btn waves-effect green darken-1 waves-light btn tooltipped modal-trigger"
                             data-position="top" data-tooltip="See certifications">
                                 <i class="fas fa-user-graduate"></i>
                         </button>
-                        <div id="modal_certifications" class="modal">
-                            <div class="modal-content">
-                                <h4>{{ username.alias }}'s Certifications
-                                    <i class="fas fa-graduation-cap"></i>
-                                </h4>
-                                <div class="row">
-                                    <div class="col s12 m6 offset-m3">
-                                        <div class="collection">
-                                            {% for training in username.trainings %}
-                                                <ul class="collection with-header">
-                                                    <li class="collection-header">
-                                                        <b>{{ training }}</b>
-                                                    </li>
-                                                    {% for cycle in username.trainings[training] %}
-                                                        {% if username.trainings[training][cycle].completed == True %}
-                                                            <li class="collection-item">
-                                                                <div>
-                                                                    <strong>{{ cycle }}</strong><i class="fas fa-certificate fa-lg secondary-content"></i>
-                                                                </div>
-                                                            </li>
-                                                        {% endif %}
-                                                    {% endfor %}
-                                                </ul>
-                                            {% endfor %}
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <div class="row">
-                                    <div class="col s12 center-align">
-                                        <a href="#!" class="modal-close waves-effect green waves-light btn">OK</a>
+                    {% endif %}
+                    {% if access.admin == True %}
+                        <button data-target="modal_access" 
+                        class="btn waves-effect yellow darken-3 waves-light btn tooltipped modal-trigger"
+                        data-position="top" data-tooltip="Change access">
+                            <i class="fas fa-key"></i>
+                        </button>
+                    {% endif %}
+                    <!-- Access modal -->
+                    <div id="modal_access" class="modal">
+                        <div class="modal-content">
+                            <h4>{{ username.alias }}'s Certifications
+                                <i class="fas fa-graduation-cap"></i>
+                            </h4>
+                            <div class="row">
+                                <div class="col s12 m6 offset-m3">
+                                    <div class="collection">
+                                        {% for training in username.trainings %}
+                                            <ul class="collection with-header">
+                                                <li class="collection-header">
+                                                    <b>{{ training }}</b>
+                                                </li>
+                                                {% for cycle in username.trainings[training] %}
+                                                    {% if username.trainings[training][cycle].completed == True %}
+                                                        <li class="collection-item">
+                                                            <div>
+                                                                <strong>{{ cycle }}</strong><i class="fas fa-certificate fa-lg secondary-content"></i>
+                                                            </div>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    {% endif %}
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col s12 center-align">
+                                    <a href="#!" class="modal-close waves-effect green waves-light btn">OK</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Certification modal -->
+                    <div id="modal_certifications" class="modal">
+                        <div class="modal-content">
+                            <h4>{{ username.alias }}'s Certifications
+                                <i class="fas fa-graduation-cap"></i>
+                            </h4>
+                            <div class="row">
+                                <div class="col s12 m6 offset-m3">
+                                    <div class="collection">
+                                        {% for training in username.trainings %}
+                                            <ul class="collection with-header">
+                                                <li class="collection-header">
+                                                    <b>{{ training }}</b>
+                                                </li>
+                                                {% for cycle in username.trainings[training] %}
+                                                    {% if username.trainings[training][cycle].completed == True %}
+                                                        <li class="collection-item">
+                                                            <div>
+                                                                <strong>{{ cycle }}</strong><i class="fas fa-certificate fa-lg secondary-content"></i>
+                                                            </div>
+                                                        </li>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </ul>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col s12 center-align">
+                                    <a href="#!" class="modal-close waves-effect green waves-light btn">OK</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    {% if username.student == True %}
-        {% for training in username.trainings %}
-            <div id="training_folder">
-                <div class="col s12 m6 offset-m3">
-                    <ul class="collapsible" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header yellow-text blue-grey darken-4">
-                                <div class="col s6">
-                                    <i class="fas fa-caret-down"></i>
-                                    <strong>  {{ training }}: </strong>
-                                    {% for course in courses %}
-                                        {% if training in course.training_name %}
-                                            : {{ course.training_date }}
-                                            {% if course.complete_training == False %}
-                                                <i class="fas fa-times-circle red-text"></i>
-                                                <span class="red-text"><strong>Pendent</strong></span>
-                                            {% else %}
-                                                <i class="fas fa-check-circle green-text"></i>
-                                                <span class="green-text"><strong>Completed</strong></span>
-                                            {% endif %}
+    <div class="row register-card">
+        {% if username.student == True %}
+            {% for training in username.trainings %}
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header yellow-text blue-grey darken-4">
+                            <div class="col s12">
+                                <i class="fas fa-caret-down"></i>
+                                <strong>  {{ training }}: </strong>
+                                {% for course in courses %}
+                                    {% if training in course.training_name %}
+                                        : {{ course.training_date }}
+                                        {% if course.complete_training == False %}
+                                            <i class="fas fa-times-circle red-text"></i>
+                                            <span class="red-text"><strong>Pendent</strong></span>
+                                        {% else %}
+                                            <i class="fas fa-check-circle green-text"></i>
+                                            <span class="green-text"><strong>Completed</strong></span>
                                         {% endif %}
-                                    {% endfor %}
-                                </div>
+                                    {% endif %}
+                                {% endfor %}
                             </div>
-                            {% if username.trainings[training] %}
-                                {% for cycle in username.trainings[training] %}
-                                <div class="collapsible-body">
-                                    <div class="row center-align">
-                                        <div class="col s12 m6 offset-m3">
-                                            <div class="card">
-                                                <div class="card-content blue-grey darken-4">
-                                                    <div class="yellow-text blue-grey darken-4">
-                                                        <h5>
-                                                            {{ cycle }}
-                                                        </h5>
-                                                    </div>
-                                                    <ul class="collection black-text">
-                                                        <li class="collection-item">
-                                                            <b>Instructor:</b>
-                                                            <a href="{{ url_for('profile', username=session['user'], alias=username.trainings[training][cycle].instructor) }}">
-                                                                {{ username.trainings[training][cycle].instructor }}
-                                                            </a>
-                                                        </li>
-                                                        <li class="collection-item"><b>Date:</b> {{ username.trainings[training][cycle].training_date }}</li>
-                                                        <li class="collection-item"><b>Link:</b> {{ username.trainings[training][cycle].training_link }}</li>
-                                                        {% if username.trainings[training][cycle].completed == True %}
-                                                            <li class="collection-item green-text"><b>Completed</b></li>
-                                                        {% else %}
-                                                            <li class="collection-item red-text"><b>Pendent</b></li>
-                                                        {% endif %}
-                                                    </ul>
+                        </div>
+                        {% if username.trainings[training] %}
+                            {% for cycle in username.trainings[training] %}
+                            <div class="collapsible-body">
+                                <div class="row center-align">
+                                    <div class="col s12 m6 offset-m3">
+                                        <div class="card">
+                                            <div class="card-content blue-grey darken-4">
+                                                <div class="yellow-text blue-grey darken-4">
+                                                    <h5>
+                                                        {{ cycle }}
+                                                    </h5>
                                                 </div>
+                                                <ul class="collection black-text">
+                                                    <li class="collection-item">
+                                                        <b>Instructor:</b>
+                                                        <a href="{{ url_for('profile', username=session['user'], alias=username.trainings[training][cycle].instructor) }}">
+                                                            {{ username.trainings[training][cycle].instructor }}
+                                                        </a>
+                                                    </li>
+                                                    <li class="collection-item"><b>Date:</b> {{ username.trainings[training][cycle].training_date }}</li>
+                                                    <li class="collection-item"><b>Link:</b> {{ username.trainings[training][cycle].training_link }}</li>
+                                                    {% if username.trainings[training][cycle].completed == True %}
+                                                        <li class="collection-item green-text"><b>Completed</b></li>
+                                                    {% else %}
+                                                        <li class="collection-item red-text"><b>Pendent</b></li>
+                                                    {% endif %}
+                                                </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                {% endfor %}
-                            {% else %}
-                                <div class="collapsible-body center-align">
-                                    <i class="fas fa-paper-plane fa-2x"></i>
-                                    <h5>No cycle information yet!</h5>
-                                </div>
-                            {% endif %}
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+                            </div>
+                            {% endfor %}
+                        {% else %}
+                            <div class="collapsible-body center-align">
+                                <i class="fas fa-paper-plane fa-2x"></i>
+                                <h5>No cycle information yet!</h5>
+                            </div>
+                        {% endif %}
+                    </li>
+                </ul>
+            {% endfor %}
+        {% endif %}
+    </div>
     
 {% endblock %}

@@ -20,12 +20,13 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-@app.route("/")
 @app.route("/get_teams")
 def get_teams():
+    # Finds current user
     username = mongo.db.users.find_one(
         {'username': session['user']})
     if username.get('admin'):
+        # Finds staff per team
         teams = list(mongo.db.teams.aggregate([
             {'$lookup': {
                 'from': 'users',
@@ -38,9 +39,8 @@ def get_teams():
                     'users.alias': 1, 'users.team_leader': 1,
                         'users.student': 1, 'users.instructor': 1}}
         ]))
-        for document in teams:
-            print(document)
     else:
+        # User is not admin, gets user's team staff
         teams = mongo.db.teams.find({
             'team_name': username['team_name']
         })
@@ -67,9 +67,17 @@ def get_teams():
 def get_trainings():
     username = mongo.db.users.find_one(
         {'username': session['user']})
-    trainings = list(mongo.db.trainings.find())
-    students = list(mongo.db.users.find(
-        {"student": True}))
+    if username.get('admin'):
+        trainings = list(mongo.db.trainings.find())
+        students = list(mongo.db.users.find(
+            {'student': True}))
+    else:
+        trainings = list(mongo.db.trainings.find({
+            'team_name': username['team_name']
+        }))
+        students = list(mongo.db.users.find(
+            {'student': True,
+                'team_name': username['team_name']}))
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template("trainings.html",
     trainings=trainings, username=username,
@@ -116,12 +124,12 @@ def register():
     return render_template("register.html", teams=teams)
 
 
+@app.route("/")
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         existing_user = mongo.db.users.find_one(
             {'username': request.form.get('username').lower()})
-
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
@@ -139,7 +147,6 @@ def login():
             # username doesn't exist
             flash('Incorrect Username and/or Password')
             return redirect(url_for('login'))
-
     return render_template('login.html')
 
 
@@ -149,13 +156,16 @@ def profile(username):
         username = mongo.db.users.find_one({
             'alias': request.args.get('alias')
         })
+        access = mongo.db.users.find_one(
+            {'username': session['user']})
     else:
+        access = None
         # grab the session's user's username from db
         username = mongo.db.users.find_one(
             {'username': session['user']})
     courses = list(mongo.db.trainings.find())
     return render_template('profile.html', username=username,
-    courses=courses)
+    courses=courses, access=access)
 
 
 @app.route('/logout')
@@ -164,6 +174,14 @@ def logout():
     flash('You have been logged out')
     session.pop('user')
     return redirect(url_for('login'))
+
+
+# @app.route('/edit_access', methods=['GET', 'POST'])
+# def edit_access():
+#     if request.method == 'POST':
+#         username = mongo.db.users.find({
+#             'alias': request.args.get('alias')
+#         })
 
 
 # --------------------------------Training functions---------------------- #
@@ -374,7 +392,7 @@ def add_cycle(training_id):
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template('add_cycle.html',
         instructors=instructors, training=training,
-        training_types=training_types)
+            training_types=training_types)
 
 
 @app.route("/edit_cycle/<training_id>", methods=['GET', 'POST'])
@@ -416,7 +434,7 @@ def edit_cycle(training_id):
     cycle = request.args.get('cycle')
     return render_template('edit_cycle.html',
         instructors=instructors, training=training,
-        training_types=training_types, cycle=cycle)
+            training_types=training_types, cycle=cycle)
 
 
 @app.route("/complete_cycle/<training_id>", methods=['GET', 'POST'])

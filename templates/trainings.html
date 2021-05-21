@@ -2,7 +2,7 @@
 {% block content %}
 
     <h2 class="center-align">Trainings</h2>
-    {% if username.team_leader == True or username.instructor == True %}
+    {% if username.team_leader == True or username.instructor == True or username.admin == True %}
         <div class="row right-align">
             <a href="{{ url_for('add_training') }}" class="waves-effect green waves-light btn-large tooltipped" data-position="top" data-tooltip="Add Training">
                 <i class="fas fa-plus-circle prefix"></i>
@@ -15,7 +15,11 @@
             <div class="collapsible-header yellow-text blue-grey darken-4">
                 <div class="col s6">
                     <i class="fas fa-caret-down"></i>
-                    <strong>{{ training.training_name }}</strong>: {{ training.training_date }}
+                    {% if username.admin == True %}
+                        <b class="blue-text">{{ training.team_name }} </b><strong>{{ training.training_name }}</strong>: {{ training.training_date }}
+                    {% else %}
+                        <strong>{{ training.training_name }}</strong>: {{ training.training_date }}
+                    {% endif %}
                     {% if training.complete_training == True %}
                         <i class="fas fa-check-circle green-text"></i>
                     {% else %}
@@ -26,7 +30,7 @@
             <div class="collapsible-body">
                 <!--  Training control Panel -->
                 <div class="col s12 m6 center-align">
-                    {% if username.team_leader == True or username.instructor == True %}
+                    {% if username.team_leader == True or username.instructor == True or username.admin == True %}
                     <div class="row">
                         <div class="col s12 m6 offset-m3">
                             <div class="card">
@@ -216,7 +220,7 @@
                                     </ul>
                                 </div>
                                 <!-- Cycle control panel -->
-                                {% if username.team_leader == True or username.instructor == True %}
+                                {% if username.team_leader == True or username.instructor == True or username.admin == True %}
                                     <div class="card-action blue-grey darken-4">
                                         <h5 class="white-text">Cycle control panel</h5>
                                         <div class="form-wrapper">
