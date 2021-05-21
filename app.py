@@ -101,6 +101,7 @@ def add_team():
     # variables to be rendered by the template
     return render_template('add_team.html')
 
+
 # --------------------------------User functions---------------------- #
 @app.route("/get_trainings")
 def get_trainings():
@@ -236,22 +237,31 @@ def edit_access():
 # --------------------------------Training functions---------------------- #
 @app.route("/add_training", methods=['GET', 'POST'])
 def add_training():
+    # Finds user
+    username = mongo.db.users.find_one(
+            {'username': session['user']})
+    if username.get('admin'):
+        students = list(mongo.db.users.find(
+            {"student": True}).sort('alias', 1))
+    else:
+        students = list(mongo.db.users.find(
+            {"student": True,
+                "team_name":
+                    username['team_name']}).sort('alias', 1))
     # adds training to the database
     if request.method == 'POST':
         existing_training = mongo.db.users.find_one(
             {'training_name': request.form.get('training_name')})
-        alias = mongo.db.users.find_one(
-            {'username': session['user']})['alias']
         if existing_training:
             flash('Training already exists')
             return redirect(url_for('add_training'))
         training = {
-            "team_name": request.form.get('training_team'),
+            "team_name": username['team_name'],
             "training_name": request.form.get('training_name'),
             "training_description": request.form.get('training_description'),
             "training_date": request.form.get('due_date'),
             "training_cycle": {},
-            "created_by": alias,
+            "created_by": username['alias'],
             "complete_training": False
         }
         assigned_to = request.form.getlist('assign_to')
@@ -275,8 +285,8 @@ def add_training():
         return redirect(url_for('get_trainings'))
     # variables to be rendered by the template
     teams = mongo.db.teams.find().sort('team_name', 1)
-    students = list(mongo.db.users.find({"student": True}).sort('alias', 1))
-    return render_template('add_training.html', teams=teams, students=students)
+    return render_template('add_training.html', teams=teams, students=students,
+    username=username)
 
 
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])

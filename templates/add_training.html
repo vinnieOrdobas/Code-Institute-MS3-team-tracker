@@ -9,10 +9,14 @@
             <div class="input-field col s12">
                 <i class="fas fas fa-skull prefix"></i>
                 <select id="training_team" name="training_team" class="validate" required>
-                    <option value="" disabled selected>Choose the team</option>
-                    {% for team in teams %}
-                        <option value="{{ team.team_name }}">{{ team.team_name }}</option>
-                    {% endfor %}
+                    {% if username.admin == True %}
+                        <option value="" disabled selected>Choose team</option>
+                        {% for team in teams %}
+                            <option value="{{ team.team_name }}">{{ team.team_name }}</option>
+                        {% endfor %}
+                    {% else %}
+                        <option value="{{ username.team_name }}" disabled selected>{{ username.team_name }}</option>
+                    {% endif %}
                 </select>
                 <label for="training_type">Training type</label>
             </div>
@@ -43,9 +47,9 @@
                     <i class="fas fa-user-graduate prefix"></i>
                     <select id="assign_to" name="assign_to" class="validate" multiple>
                         {% for student in students %}
-                            <option value="{{ student.alias }}">
-                                {{ student.alias }}
-                            </option>
+                                <option value="{{ student.alias }}">
+                                    {{ student.alias }}
+                                </option>
                         {% endfor %}
                     </select>
                     <label for="assign_to">Assign training to:</label>
