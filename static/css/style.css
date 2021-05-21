@@ -21,3 +21,16 @@
 .form-wrapper form {
     display: inline;
 }
+
+.form-wrapper-modal {
+    margin-top: 30px
+}
+/* Teams page */
+.team-card {
+    margin-bottom: 50px;
+}
+
+/* Helpers */
+.page-tag {
+    margin-bottom: 50px;
+}

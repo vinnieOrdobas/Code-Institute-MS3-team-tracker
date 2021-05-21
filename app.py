@@ -20,6 +20,22 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
+# Helper functions
+def reset_access(user):
+    '''
+    Resets user's access in the database
+    '''
+    access = ['student', 'team_leader', 'instructor']
+    for key in access:
+        if key in user.keys():
+            mongo.db.users.update({
+                'username': user['username']
+            }, {
+                '$set': {key: False}
+            })
+# Server routes
+
+
 @app.route("/get_teams")
 def get_teams():
     # Finds current user
@@ -176,12 +192,22 @@ def logout():
     return redirect(url_for('login'))
 
 
-# @app.route('/edit_access', methods=['GET', 'POST'])
-# def edit_access():
-#     if request.method == 'POST':
-#         username = mongo.db.users.find({
-#             'alias': request.args.get('alias')
-#         })
+@app.route('/edit_access', methods=['GET', 'POST'])
+def edit_access():
+    alias = request.args.get('alias')
+    # user = mongo.db.users.find_one({'alias': alias})
+    if request.method == 'POST':
+        user = mongo.db.users.find_one({'alias': alias})
+        reset_access(user)
+        access = request.form.get('access')
+        mongo.db.users.update({
+            'username': user['username']
+        }, {
+            '$set': {access: True}
+        })
+        flash('Access updated')
+    return redirect(url_for('profile',
+        username=session['user'], alias=user['alias']))
 
 
 # --------------------------------Training functions---------------------- #

@@ -2,15 +2,15 @@
 {% block content %}
     <div class="row register-card">
         {% if username.admin == True %}
-            <div class="row right-align">
-                <a href="{{ url_for('add_training') }}" class="waves-effect green waves-light btn-large tooltipped" data-position="top" data-tooltip="Add Training">
+            <div class="row center-align">
+                <a href="{{ url_for('add_training') }}" class="waves-effect green waves-light btn-large tooltipped" data-position="top" data-tooltip="Add Team">
                     <i class="fas fa-plus-circle prefix"></i>
                 </a>
             </div>
         {% endif %}
         <div class="col s12 m6 offset-m3">
             {% for team in teams %}
-            <div class="card yellow-text blue-grey darken-4">
+            <div class="card yellow-text blue-grey darken-4 team-card">
                 <div class="card-title center-align">
                     <h4>{{ team.team_name }}</h4>
                     <h5>{{ team.team_region }}</h5>
