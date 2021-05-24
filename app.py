@@ -126,6 +126,14 @@ def edit_team(team_id):
                 'team_name': request.form.get('team_name')
             }
         })
+        # Find team's trainings and update their records
+        mongo.db.trainings.update_many({
+            'team_name': team['team_name']
+        }, {
+            '$set': {
+                'team_name': request.form.get('team_name')
+            }
+        })
         # Updates team parameters in the collection
         mongo.db.teams.update({'_id': ObjectId(team_id)}, new_team)
         flash('Team successfully edited')
