@@ -25,7 +25,13 @@
 .form-wrapper-modal {
     margin-top: 30px
 }
+/* Home page */
+
+.title-wrapper {
+    margin-top: 30px
+}
 /* Teams page */
+
 .team-card {
     margin-bottom: 50px;
 }

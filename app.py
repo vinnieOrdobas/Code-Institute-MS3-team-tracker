@@ -35,6 +35,11 @@ def reset_access(user):
             })
 # Server routes
 
+
+@app.route("/home")
+def home():
+    return render_template("home.html")
+
 # Team endpoints
 
 

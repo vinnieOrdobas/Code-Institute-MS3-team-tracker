@@ -7,7 +7,7 @@
         <form class="col s12" method="POST" action="{{ url_for('add_cycle', training_id=training._id) }}">
             <!-- team name -->
             <div class="input-field col s12">
-                <i class="fas fas fa-skull prefix"></i>
+                <i class="fas fa-shield-alt prefix"></i>
                 <select id="training_team" name="training_team" class="validate">
                     <option value="" disabled selected>{{ training.team_name }}</option>
                 </select>
