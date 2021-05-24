@@ -164,10 +164,6 @@
                         data-position="top" data-tooltip="Get training description">
                             <i class="fas fa-info-circle"></i>
                         </button>
-                        <p>
-                            <b>Created by:</b> 
-                                <a href="{{ url_for('profile', username=session['user'], alias=training.created_by) }}">{{ training.created_by }}</a>
-                        </p>
                         {% if training.training_cycle %}
                             <h4>Cycles</h4>
                         {% endif %}

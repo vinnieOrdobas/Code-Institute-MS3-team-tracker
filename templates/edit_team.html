@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="light-blue-text text-darken-4 center-align">Edit Team</h3>
+
+      <div class="row card-panel grey lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('edit_team', team_id=team._id) }}">
+            <!-- team name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="fas fas fa-skull prefix"></i>
+                    <input id="team_name" name="team_name" 
+                    maxlength="15" minlength="3" type="text" class="validate" required>
+                    <label for="team_name">Team Name</label>
+                </div>
+                <!-- team region -->
+                <div class="input-field col s12">
+                    <i class="fas fa-globe-americas prefix"></i>
+                    <input id="team_region" name="team_region" 
+                    maxlength="15" minlength="3" type="text" class="validate" required>
+                    <label for="team_region">Region</label>
+                </div>
+                <!-- team description -->
+                <div class="input-field col s12">
+                    <i class="fas fa-align-left prefix"></i>
+                    <textarea id="team_description" name="team_description" 
+                        maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required>
+                    </textarea>
+                    <label for="team_description">Team Description</label>
+                </div>
+            </div>
+            <!-- submit button -->
+            <div class="row">
+                <div class="col s12 center-align">
+                    <a href="{{ url_for('get_teams') }}" class="waves-effect waves-light red btn">
+                        Cancel <i class="fas fa-exclamation-circle"></i>
+                    </a>
+                    <button class="btn waves-effect waves-light  green accent-3" type="submit">Submit
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </form>
+  </div>
+        
+
+{% endblock %}

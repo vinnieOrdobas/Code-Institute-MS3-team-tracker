@@ -17,6 +17,17 @@
                 </div>
                 <div class="card-content center-align">
                   <p>{{ team.team_description }}</p>
+                  <div class="form-wrapper">
+                    <a href="{{ url_for('edit_team', team_id=team._id) }}" 
+                    class="waves-effect waves-light blue btn tooltipped" data-position="top" data-tooltip="{{ team._id }}">
+                        <i class="fas fa-pen-square"></i>
+                    </a>
+                    <button data-target="" 
+                    class="btn waves-effect red waves-light btn tooltipped modal-trigger"
+                    data-position="top" data-tooltip="Delete Team">
+                        <i class="fas fa-minus-circle"></i>
+                    </button>
+                  </div>
                 </div>
                 <div class="card-tabs blue-grey darken-2 yellow-text">
                   <ul class="tabs tabs-fixed-width">

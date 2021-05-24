@@ -35,6 +35,8 @@ def reset_access(user):
             })
 # Server routes
 
+# Team endpoints
+
 
 @app.route("/get_teams")
 def get_teams():
@@ -50,10 +52,10 @@ def get_teams():
                 'foreignField': 'team_name',
                 'as': 'users'
             }},
-            {'$project': {'_id': 0,
-                'team_name': 1, 'team_region': 1, 'team_description': 1,
-                    'users.alias': 1, 'users.team_leader': 1,
-                        'users.student': 1, 'users.instructor': 1}}
+            {'$project': {'team_name': 1, 'team_region': 1,
+                'team_description': 1, 'users.alias': 1,
+                    'users.team_leader': 1, 'users.student': 1,
+                                            'users.instructor': 1}}
         ]))
     else:
         # User is not admin, gets user's team staff
@@ -102,7 +104,37 @@ def add_team():
     return render_template('add_team.html')
 
 
+@app.route("/edit_team/<team_id>", methods=['GET', 'POST'])
+def edit_team(team_id):
+    # Finds team document
+    team = mongo.db.teams.find_one(
+        {'_id': ObjectId(team_id)})
+    print(team)
+    if request.method == 'POST':
+        alias = mongo.db.users.find_one(
+            {'username': session['user']})['alias']
+        new_team = {
+            "team_name": request.form.get('team_name'),
+            "team_region": request.form.get('team_region'),
+            "team_description": request.form.get('team_description'),
+            "created_by": alias
+        }
+        # Finds team's users and update their records
+        mongo.db.users.update_many({
+            'team_name': team['team_name']
+        }, {
+            '$set': {
+                'team_name': request.form.get('team_name')
+            }
+        })
+        # Updates team parameters in the collection
+        mongo.db.teams.update({'_id': ObjectId(team_id)}, new_team)
+        flash('Team Successfully Edited')
+        return redirect(url_for('get_teams'))
+    return render_template('edit_team.html', team=team)
 # --------------------------------User functions---------------------- #
+
+
 @app.route("/get_trainings")
 def get_trainings():
     username = mongo.db.users.find_one(
@@ -240,6 +272,7 @@ def add_training():
     # Finds user
     username = mongo.db.users.find_one(
             {'username': session['user']})
+    # If system admin
     if username.get('admin'):
         students = list(mongo.db.users.find(
             {"student": True}).sort('alias', 1))
@@ -286,7 +319,7 @@ def add_training():
     # variables to be rendered by the template
     teams = mongo.db.teams.find().sort('team_name', 1)
     return render_template('add_training.html', teams=teams, students=students,
-    username=username)
+        username=username)
 
 
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
@@ -478,7 +511,7 @@ def edit_cycle(training_id):
             mongo.db.users.update_one(
                 {'username': student['username']},
                 {'$set': {f'trainings.{training_name}':
-                    current_cycle}}, upsert= True)
+                        current_cycle}}, upsert= True)
         training_folder[cycle_name] = cycle[cycle_name]
         mongo.db.trainings.update_one(
             {'_id': ObjectId(training_id)},
