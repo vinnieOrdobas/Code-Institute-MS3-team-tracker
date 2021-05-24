@@ -109,7 +109,6 @@ def edit_team(team_id):
     # Finds team document
     team = mongo.db.teams.find_one(
         {'_id': ObjectId(team_id)})
-    print(team)
     if request.method == 'POST':
         alias = mongo.db.users.find_one(
             {'username': session['user']})['alias']
@@ -129,9 +128,25 @@ def edit_team(team_id):
         })
         # Updates team parameters in the collection
         mongo.db.teams.update({'_id': ObjectId(team_id)}, new_team)
-        flash('Team Successfully Edited')
+        flash('Team successfully edited')
         return redirect(url_for('get_teams'))
     return render_template('edit_team.html', team=team)
+
+
+@app.route('/delete_team/<team_id>')
+def delete_team(team_id):
+    # Finds team document
+    team = mongo.db.teams.find_one(
+        {'_id': ObjectId(team_id)})
+    # finds team's users
+    mongo.db.users.delete_many({
+        'team_name': team['team_name']})
+    # deletes team record in the database
+    mongo.db.teams.remove({
+        '_id': ObjectId(team_id)
+    })
+    flash('Team successfully deleted')
+    return redirect(url_for('get_teams'))
 # --------------------------------User functions---------------------- #
 
 
@@ -378,7 +393,7 @@ def delete_training(training_id):
                 {'$set': {'trainings': training_folder}})
     # deletes training from database
     mongo.db.trainings.remove({'_id': ObjectId(training_id)})
-    flash("Training successfully removed")
+    flash("Training successfully deleted")
     return redirect(url_for('get_trainings'))
 
 
