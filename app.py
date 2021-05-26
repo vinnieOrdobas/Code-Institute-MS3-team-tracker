@@ -36,6 +36,7 @@ def reset_access(user):
 # Server routes
 
 
+@app.route('/')
 @app.route("/home")
 def home():
     return render_template("home.html")
@@ -224,7 +225,7 @@ def register():
     return render_template("register.html", teams=teams)
 
 
-@app.route("/")
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':

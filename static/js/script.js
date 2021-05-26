@@ -9,6 +9,7 @@ $(document).ready(function(){
     $('.tabs').tabs();
     var elems = document.querySelectorAll('.modal');
     var instances = M.Modal.init(elems);
+    $('.scrollspy').scrollSpy()
     $('select').formSelect();
     $('.datepicker').datepicker({
       format: "dd mmmm, yyyy",

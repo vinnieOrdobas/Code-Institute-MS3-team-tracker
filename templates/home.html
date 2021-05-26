@@ -2,10 +2,155 @@
 {% block content %}
 
 
-
-    <div class="title-wrapper center-align">
-        <i class="fas fa-shield-virus fa-5x"></i>
-        <h2>Team Tracker</h2>
+    <!-- logo -->
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6 offset-m3">
+                <div class="title-wrapper center-align">
+                    <i class="fas fa-shield-virus fa-5x"></i>
+                    <h2>Team Tracker</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col hide-on-small-only m6 l2 pull-m3">
+            <ul class="section table-of-contents">
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#usage">Usage</a></li>
+                <li><a href="#functionalities">Intialization</a></li>
+            </ul>
+        </div>
     </div>
-    
+    <div class="container">
+        <div class="row amber lighten-5 z-depth-2">
+            <div class="col s12">
+                <div id="introduction" class="section scrollspy">
+                    <div class="section">
+                        <h5>What is it</h5><hr>
+                        <p>
+                            Team Tracker is a custom-made cloud-based solution intended for teams to track their training records in an intuitive interface - it is a mobile-first app, and its layout is simple, dynamic and visually appealing.
+                            There are no requirements for its usage: no need for heavy software or any external installation packages.
+                            It is meant to replace obsolete processes that are created as spreadsheets that are neither user-friendly or efficient - it's a time saver for companies/teams of every size.
+                            <b>Team Tracker</b> is a free-to-use, dynamic app powered by <strong>mongoDB.</strong>
+                        </p>
+                    </div>
+                    <div class="section">
+                        <h5>How it works</h5><hr>
+                        <p>
+                            Being cloud-based, Team Tracker runs in any device that can access the internet - its wired up with mongoDB, which runs a backend server to keep all the information secure and ready to use.
+                        </p>
+                    </div>
+                    <div class="section">
+                        <h5>Why is it relevant</h5><hr>
+                        <p>Team Tracker saves time by presenting records in an interactive way - it's dynamic structure is user-friendly, which means that members of teams do not need to dig for information, and saves times across the board. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row amber lighten-5 z-depth-2">
+            <div class="col s12">
+                <div id="usage" class="section scrollspy">
+                    <div class="section">
+                        <h5>Implementation</h5><hr>
+                        <p>
+                            The first step is to identify the need to keep track of training needs for your team - think about all of those 4000-row spreadsheets you currently have in your organisation.
+                            To install Team Tracker, please refer to the <a href="">documentation</a> and the GitHub repository.
+                        </p>
+                    </div>
+                    <div class="section">
+                        <h5>Using it</h5><hr>
+                        <p>
+                            After the solution is implemented, the only step before start using the system is to register users - that can be done through the <a href="{{ url_for('register') }}">Registration</a> page.
+                            To create a System Administrator, please refer to the <a href="">documentation.</a>
+                        </p>
+                    </div>
+                    <div class="section">
+                        <h5>Access tiers</h5><hr>
+                        <p>Team Tracker is organised in access-tiers, where different types of users can perform different actions
+                            - this framework allows for a seamless experience for all types of users, and caters for a diverse range of internal clients.
+                        For more information, check the table below.</p>
+                        <div class="collection">
+                            <a href="#sys_modal" class="collection-item modal-trigger">System Administrator<i class="fas fa-user-tie fa-lg black-text secondary-content"></i></a>
+                            <a href="#tl_modal" class="collection-item modal-trigger">Team Leader<i class="fas fa-user-secret fa-lg black-text secondary-content"></i></a>
+                            <a href="#instructor_modal" class="collection-item modal-trigger">Instructor<i class="fas fa-chalkboard-teacher fa-lg black-text secondary-content"></i></a>
+                            <a href="#student_modal" class="collection-item modal-trigger">Student<i class="fas fa-user fa-lg black-text secondary-content"></i></a>
+                        </div>
+                        <!-- access tiers modals -->
+                        <div id="sys_modal" class="modal">
+                            <div class="modal-content">
+                                <h4 class="center-align">System Administrator</h4>
+                                <p class="center-align">
+                                    <i class="fas fa-user-tie fa-lg black-text fa-2x"></i>
+                                </p>
+                                <p>The System Administrator is the user who'll provide the structure for <b>Team Tracker</b> - this user can create/edit/delete teams, trainings, cycles and edit user's access. There can be only one per system.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            </div>
+                        </div>
+                        <div id="tl_modal" class="modal">
+                            <div class="modal-content">
+                                <h4 class="center-align">Team Leader</h4>
+                                <p class="center-align">
+                                    <i class="fas fa-user-secret fa-lg black-text fa-2x"></i>
+                                </p>
+                                <p>The Team Leader is the manager of the process - this user has access to add/edit/delete trainings and cycles within his team, enroll students in different training sets and check student graduations.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            </div>
+                        </div>
+                        <div id="instructor_modal" class="modal">
+                            <div class="modal-content">
+                                <h4 class="center-align">Instructor</h4>
+                                <p class="center-align">
+                                    <i class="fas fa-chalkboard-teacher fa-lg black-text fa-2x"></i>
+                                </p>
+                                <p>The Instructor has the same tier of access as the Team Leader, with the difference that he works cross-teams - he's the one who's get his name printed on Cycle cards and on Student's Certificates.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            </div>
+                        </div>
+                        <div id="student_modal" class="modal">
+                            <div class="modal-content">
+                                <h4 class="center-align">Student</h4>
+                                <p class="center-align">
+                                    <i class="fas fa-user fa-lg black-text fa-2x"></i>
+                                </p>
+                                <p>The Student is star of this system: the app was created for him. Although he doesn't have CRUD functionalities with his access team, the system records Student's certification in it's own training folder.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row amber lighten-5 z-depth-2">
+            <div class="col s12">
+                <div id="functionalities" class="section scrollspy">
+                    <div class="section">
+                        <h5>What is it</h5><hr>
+                        <p>
+                            Team Tracker is a custom-made cloud-based solution intended for teams to track their training records in an intuitive interface - it is a mobile-first app, and its layout is simple, dynamic and visually appealing.
+                            There are no requirements for its usage: no need for heavy software or any external installation packages.
+                            It is meant to replace obsolete processes that are created as spreadsheets that are neither user-friendly or efficient - it's a time saver for companies/teams of every size.
+                            <b>Team Tracker</b> is a free-to-use, dynamic app powered by <strong>mongoDB.</strong>
+                        </p>
+                    </div>
+                    <div class="section">
+                        <h5>How it works</h5><hr>
+                        <p>
+                            Being cloud-based, Team Tracker runs in any device that can access the internet - its wired up with mongoDB, which runs a backend server to keep all the information secure and ready to use.
+                        </p>
+                    </div>
+                    <div class="section">
+                        <h5>Why is it relevant</h5><hr>
+                        <p>Team Tracker saves time by presenting records in an interactive way - it's dynamic structure is user-friendly, which means that members of teams do not need to dig for information, and saves times across the board. </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
