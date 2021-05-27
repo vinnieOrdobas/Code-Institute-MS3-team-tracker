@@ -6,6 +6,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" 
         integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" type="text/css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400&family=Rubik&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
     {% block styles %}
     {% endblock %}
@@ -52,11 +54,13 @@
         <!-- flash messages -->
         {% with messages = get_flashed_messages() %}
             {% if messages %}
+            <div class="card card-home amber lighten-5">
+                <div class="card-content black-text">
                 {% for message in messages %}
-                    <div class="row flashes">
-                        <h4 class="center-align">{{ message }}</h4>
-                    </div>
+                    <h4 class="center-align">{{ message }}</h4>
                 {% endfor %}
+                </div>
+            </div>
             {% endif %}
         {% endwith %}
     </section>

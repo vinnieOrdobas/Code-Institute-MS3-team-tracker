@@ -1,34 +1,14 @@
-
-.register-card {
-    margin-top: 50px;
+body {
+    font-family: 'Nunito', sans-serif;
 }
 
-.flashes h4 {
-    line-height: 2;
-}
+/*------------------------------------------------------- Pages */
 
-.btn-small {
-    margin: 5px;
-}
 
-.collapsible-header .col strong {
-    margin-right: 5px;
-    line-height: 42px;
-}
-
-.form-wrapper {
-    margin-bottom: 20px;
-}
-.form-wrapper form {
-    display: inline;
-}
-
-.form-wrapper-modal {
-    margin-top: 30px
-}
 /* Home page */
 
 .title-wrapper {
+    font-family: 'Rubik', sans-serif;
     margin-top: 30px
 }
 .card-home {
@@ -39,6 +19,41 @@
 .team-card {
     margin-bottom: 50px;
 }
+
+
+/*------------------------------------------------------- Objects */
+
+/* Cards */
+.register-card {
+    margin-top: 50px;
+}
+
+.flashes h4 {
+    line-height: 2;
+}
+/* Buttons */
+.btn-small {
+    margin: 5px;
+}
+
+/* Collapsibles */
+.collapsible-header .col strong {
+    margin-right: 5px;
+    line-height: 42px;
+}
+
+/* Form Objects */
+.form-wrapper {
+    margin-bottom: 20px;
+}
+.form-wrapper form {
+    display: inline;
+}
+
+.form-wrapper-modal {
+    margin-top: 30px
+}
+
 
 .team-description {
     margin-bottom: 20px;
