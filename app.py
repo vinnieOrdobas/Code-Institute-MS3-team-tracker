@@ -41,6 +41,7 @@ def reset_access(user):
 def home():
     return render_template("home.html")
 
+
 # Team endpoints
 
 

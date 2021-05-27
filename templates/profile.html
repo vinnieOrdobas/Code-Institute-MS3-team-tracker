@@ -145,7 +145,7 @@
                                 <strong>  {{ training }}: </strong>
                                 {% for course in courses %}
                                     {% if training in course.training_name %}
-                                        : {{ course.training_date }}
+                                         {{ course.training_date }}
                                         {% if course.complete_training == False %}
                                             <i class="fas fa-times-circle red-text"></i>
                                             <span class="red-text"><strong>Pendent</strong></span>
