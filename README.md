@@ -61,10 +61,10 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 >
 > - Layout using Mobile-first approach.
 > - Simple and functional design to increase usability.
-> - Access-based platform to display personalised data/metrics.
-> - Straightfowrad path to request training and to keep track of trainer's calendars.
+> - Access-based platform to display personalised data.
+> - Straightfowrad path to create trainings and to keep track of trainee's calendars.
 > - Effortless way to sign-up and to login, for an accelerated workflow.
-> - In-app communication for a trouble-free experience when messaging teams.
+> - Track information personal information and cross-data with other teams.
 
 #### 2. Scope
 
@@ -74,7 +74,6 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 > - Tier-based platform with different types of users and different types of accesses.
 > - CRUD functionality to add, edit and create trainings/teams/users.
 > - Users/teams profiles in order to centralize information.
-> - Metrics page for data-mining.
 
 #### 3. Structure
 
@@ -83,7 +82,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 #### 4. Skeleton
 
-> - [Wire frames](assets/docs/wireframes.pdf): Four-page website.
+> - [Wire frames](assets/docs/wireframes.pdf): Thirteen-page webapp.
 >
 > - Home, Refined Search, About, Results and Recipe pages.
 >
@@ -118,7 +117,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 ##### Existing Features
 
-> - Designed with HTML5, CSS3, JavaScript and Bootstrap.
+> - Designed with HTML5, CSS3, JavaScript and Materialize.
 > - Sticky navigation bar allows the user to easily navigate between pages.
 > - Footer allows the user quick accessibility to social media links.
 > - About page describing the project.
