@@ -22,7 +22,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 ### Motivation
 
-> Companies spend a lot of resource and time to train their teams and to make sure they're ready to hit the ground running, but unfortunately the tools they use to keep track of that information is often archaic and leads to the fragmentation of the information. 
+> Companies spend a lot of resource and time to train their teams and to make sure they're ready to hit the ground running, but unfortunately the tools they use to keep track of that information is often archaic and leads to the fragmentation of the information.
 
 ### Description
 
@@ -32,18 +32,17 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 #### User Stories
 
-> - _"As a trainer, my primary concern is to create content and to make sure my students have the best possible session, but I find myself wasting relevant time trying to keep track of who attended training sessions, and it'd be awesome to have a system to automate that."_
-> - _"I spend the majority of my time trying to allocate people to one particular task, but I can't never tell my own team's expertise. Having a visual aid to see their profile would be ideal because it would save me time. "_
+> - _"As a trainer, my primary concern is to create content and to make sure my students have the best possible session, but I find myself wasting time trying to keep track of who attended training sessions, and it'd be awesome to have a system to automate that."_
+> - _"I spend the majority of my time trying to allocate people to one particular task, but I can't never tell my own team's expertise. Having a visual aid to see their profile would be ideal because it would save me precious time. "_
 > - _"At least once I week, I have either a team leader or a trainer sending me a spreadsheet with thousands of rows for ME to update my current training profile - it takes me ages to do it so and it's stressful. An user-friendly system would be welcome."_
-> - _"Requesting training/coaching sessions are just so difficult that I simply gave up on it - the preparatory courses we need to get promoted never have a certain date, they're always overcrowded and that means waiting for months."_
-> - _"Part of my job is to oversee all the teams in the region and see whether they can take on more workload. Having an integrated system with metrics regarding people's training levels would make my job easier."_
+> - _"As someone who works cross-teams, I need a tool that can show me team boundaries so I can easily gather information and present metrics - organizational information shouldn't be time-consuming to be looked at."_
 
 ---
 
 ### UX
 
-> - Team Tracker is a system that simplifies team's interactions, providing a platform in which everyone can store and request information regarding training and it is embedded with tools and metrics for data mining. 
----
+> - Team Tracker is a system that simplifies team's interactions, providing a platform in which everyone can store and request information regarding training and it is embedded with tools and metrics for data mining.
+
 
 #### 1. Strategy
 
@@ -82,74 +81,86 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 #### 4. Skeleton
 
-> - [Wire frames](assets/docs/wireframes.pdf): Thirteen-page webapp.
+> - [Wire frames](assets/docs/wireframes.pdf): Webapp categorised in five different clusters.
 >
-> - Home, Refined Search, About, Results and Recipe pages.
+> - Home, Login, Profile, Teams and Training.
 >
-> - Sticky navigation bar - Links to each page.
+> - Navigation bar - Links to each page.
 >
-> - Footer with social media link and copyrights.
+> - Connected to external database (powered by MongoDB).
 
 ---
 
 #### 5. Surface
 
-> I used old cookbooks as an inspiration, and all of them had a clean laytout, mild tonalities to increase the constrast with the images of the recipes.
+> I've used Windows 98 layout as an inspiration, specially the colour scheme - the contrast between royal blue and pastel tones, which relates to user's experience to what a simple app should look like.
 
 > ##### Colours
 >
-> - I've opted for clean mild palettes such as light brown(#ddbea9) and fucshia (#fec5bb) for the nav bar and the footer.
-> - For the elements of the layout, I picked a whitesmoke and clean palette to follow convention.
-> - For body text, I've used a combination of shades of black. 
-> - For the button togglers and I've a bright orange mixed with a vivid green.
+> - For the nav bar I've opted for a blue-grey tonality(#455a64) to create a contrast with the mild palettes I've used for the background.
+> - For collapsible headers, profile cards, control panels and team cards I've chosen a darker blue-grey tone (#263238)
+> - For body text, I've used a combination of shades of black for mild-coloured backgrounds - white for darker backgrounds. 
+> - For the buttons in the control panel, please refer to the table below:
 
+| Button      | Colour |
+|    :----:   |    :----:   |
+| Add Team      | #4caf50       |
+| Add Training   | #4caf50        |
+| Add Team   | #4caf50        |
+| Add Cycle   | #4caf50        |
+| Enroll Student   | #f57f17        |
+| Get Student List  | #9575cd        |
+| Get Training Description   | #fbc02d        |
+| Edit Training   | #2196f3        |
+| Edit Cycle   | #2196f3        |
+| Delete Training   | #f44336        |
+| Delete Cycle   | #f44336        |
+| Mark as Complete   | #4caf50        |
+| Mark as Incomplete   | #f9a825        |
+| Change access level   | #f9a825        |
+| See Student's certifications   | #4caf50         |  
+---
 > ##### Typography
 > 
-> - "Nunito" font (with fall-back font of Sans-Serif) for body content.
-> - "Yusei Magic" for recipe headers and titles(fall-back font of Sans-Serif).
-> ##### Images
->
-> - Images are particular to each recipe and are hosted by the API itself [Spoonacular](https://rapidapi.com/user/spoonacular).
-> 
----
+> - "Nunito" font (with fall-back font of Sans-Serif) for body content and titles.
 
 ### Features
 
-##### Existing Features
+#### Existing Features
 
-> - Designed with HTML5, CSS3, JavaScript and Materialize.
-> - Sticky navigation bar allows the user to easily navigate between pages.
-> - Footer allows the user quick accessibility to social media links.
-> - About page describing the project.
-> - Connected to [Spoonacular](https://rapidapi.com/user/spoonacular) API.
-> - Search engine to find recipes, according to available ingredients.
-> - Breadcrumbs on Result and Recipe pages to easily navigate through recipes.
-> - Recommendation of the day widget, to select random recipes and recommend to the user.
-> - Refined search page to filter results.
-> - Collapsible nutritional information table.
+> - Designed with HTML5, CSS3, Python, JavaScript and Materialize.
+> - Navigation bar provides users the ability to engage with the system.
+> - Landing page describing the project.
+> - Connected to [MongoDB](https://www.mongodb.com/) Database/API
+> - Register/sign-in functions to access the system.
+> - Access tier based system to give users different experiences depending on their access level.
+> - Profile page describing each user, with training folder attached.
+> - CRUD functions wired to the database (MongoDB), ability to edit teams/trainings.
 
-##### Features to implement
+#### Features to implement
 
-> - Sign-in page to save favourite recipes, create meal plan and personalised macros.
-> - Add endpoint to recommend a wine pairing with the recipe. 
+> - Metrics page to further enhance KDD.
+> - In-app comms, such as messages/requests. 
 
 ---
 
 ### Technologies Used
 
-##### 1. Languages
+#### 1. Languages
 
 > - [HTML5](https://en.wikipedia.org/wiki/HTML5)
 >
 > - [CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
 >
 > - [JavaScript](https://www.javascript.com/)
+>
+> - [Python](https://www.python.org/)
 
 ##### 2. Integrations
 
-> - [Bootstrap](https://getbootstrap.com/) - Classes for the overall layout of the website
+> - [Materialize](https://materializecss.com/) - Classes for the overall layout of the website
 >
-> - [Bootstrap CDN](https://www.bootstrapcdn.com/)
+> - [MongoDB](https://www.mongodb.com/) - Database
 >
 > - [FontAwesome](https://fontawesome.com/) - Card Icons, footer social media links
 >
@@ -157,7 +168,10 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 >
 > - [jQuery](https://jquery.com/) - JavaScript Library
 >
-> - [RapidAPI](https://rapidapi.com/marketplace) - Spoonacular API 
+> - [Flask](https://flask.palletsprojects.com/en/2.0.x/) - Python Library
+>
+> - [PyMongo](https://pymongo.readthedocs.io/en/stable/) - Python Library/Integration with MongoDB
+
 ##### 3. Workspace, version control and Repository storage
 
 > - [VSCode](https://code.visualstudio.com/) - IDE
@@ -191,9 +205,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 > - [Adobe Resize Images](https://www.adobe.com/ie/photoshop/online/resize-image.html) - Resource for resizing images
 > - [Tiny PNG](https://www.tinypng.com) - Resource to compress gallery images.
 > - [Markdown Tutorial](https://www.markdowntutorial.com/) - Used to learn Markdown.
-> - [Behance Hend Elgohary "Daily Recipe" Concept](https://www.behance.net/gallery/108701551/Daily-Recipe) - Inspiration for the layout.
-> Code Institute **SLACK Channel** - Assistance.
----
+> - Code Institute **SLACK Channel** - Assistance.
 
 ### Testing
 
@@ -206,7 +218,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 > - Add training endpoint only writing to database first option of the "assign_to" form - request.form.get('assign_to') is only writing the first item (it is supposed to write an array) - using the request.form.getlist method, I was able to get all of the aliases on an array and pass it to a handler function.
 > - Nested accordion to show current cycle data in get_trainings page not opening due to an incompatibility between Materialize collapsibles and Google Chrome.
 > - Star rating for each recipe were not accessing pseudo-classes in CSS (:after) to change width and fill color(yellow) according to property returned from the request. Found solution on: [A Simple JavaScript Technique for Filling Star Ratings](https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450).
-> -  Script file wasn't able to find DOM Id's to be to render the recipe to another HTML page. The turnaround was offered by Victor (my mentor), by saving the target HTML element(the JSON object returned by the API and renderized as HTML) to 'localStorage', changing to another page using 'window.location.href' property and loading the saved content from 'localStorage'. 
+> - Script file wasn't able to find DOM Id's to be to render the recipe to another HTML page. The turnaround was offered by Victor (my mentor), by saving the target HTML element(the JSON object returned by the API and renderized as HTML) to 'localStorage', changing to another page using 'window.location.href' property and loading the saved content from 'localStorage'. 
 > - Requesting information from the API through the page "refined_searhc.html" would return errors: "Illegal Invocation" and "Failed to fetch" - the first one was the error handling function that would create a modal. Hard-coded the model in a hidden state to turn around and spit the error message. Second bug occurred when creating the string to pass as parameter for the API's endpoint. Turn around was to create a hidden form element in the form object which validates user inputs to send the request. To do so, I used this tutorial: [How to Transform FormData into a Query String](https://ultimatecourses.com/blog/transform-formdata-into-query-string). After creating the string object, I chained it with a promise - followed this tutorial: [JavaScript Promise Tutorial: Resolve, Reject, and Chaining in JS and ES6](https://www.freecodecamp.org/news/javascript-es6-promises-for-beginners-resolve-reject-and-chaining-explained/).
 > - Some particular recipes would come back with an "undefined" when rendering method for the recipe with the inside the function "renderRecipe", splitting the code and not loading the rest. The property [analyzedInstructions] of those recipes return and empty array. To handle the bug, I created a conditional statement to short-circuit the issue.
 > - Main recipe's image and recommended recipe image would render stretched on the main axis in medium devices. Implemented media queries to shrink the ratio of the image on smaller screens.
@@ -266,7 +278,7 @@ To work on the project within a local IDE (such as VScode):
 
 ### Credits
 
-> ##### Media
+> #### Media
 >
 > - Recipe images were provided by the API.
 > - Background image was taken from [Pexels](https://www.pexels.com/).

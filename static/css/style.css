@@ -20,7 +20,10 @@ body {
     margin-bottom: 50px;
 }
 
-
+.icon-footer {
+    display: flex;
+    justify-content: space-around;
+}
 /*------------------------------------------------------- Objects */
 
 /* Cards */
