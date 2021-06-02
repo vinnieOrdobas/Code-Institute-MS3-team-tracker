@@ -12,7 +12,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 > - [Technologies Used](#technologies-used)
 > - [Resources](#resources)
 > - [Testing](#testing)
-> - [Bugs and Turnarounds](#bugs)
+> - [Bugs and Turnarounds](#bugs-and-turnarounds)
 > - [Code validity](#code-validity)
 > - [Version Control](#version-control)
 > - [Deployment](#deployment)
@@ -41,22 +41,21 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 ### UX
 
-> - Team Tracker is a system that simplifies team's interactions, providing a platform in which everyone can store and request information regarding training and it is embedded with tools and metrics for data mining.
-
+> - Team Tracker is a system that simplifies team's interactions, providing a platform in which everyone can store and request information regarding trainings, users and teams.
 
 #### 1. Strategy
 
 > The aim of this app is to offer a platform for users, teams and admins to integrate relevant information in one channel.
 >
-> ##### Project Goals:
+> ##### Project Goals
 >
-> - To be a interactive platform for data storage, data mining and a tool to assess training metrics. 
+> - To be a interactive platform for data storage, data mining and a tool to assess training metrics.
 >
 > - Help users, team leaders and managers to find relevant information, metadata and to keep track of progression and evolution of their teams.
 >
 > - To simplify workflows, save time and fast-track training and progression.
 >
-> ##### Customer Goals:
+> ##### Customer Goals
 >
 > - Layout using Mobile-first approach.
 > - Simple and functional design to increase usability.
@@ -93,7 +92,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 #### 5. Surface
 
-> I've used Windows 98 layout as an inspiration, specially the colour scheme - the contrast between royal blue and pastel tones, which relates to user's experience to what a simple app should look like.
+> I've used Windows 98 layout as an inspiration, specially the colour scheme - the contrast between royal blue and pastel tones, which relates to user's experience of simplicity.
 
 > ##### Colours
 >
@@ -186,10 +185,11 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 >
 > - [Google Mobile-Friendly Test](https://search.google.com/test/mobile-friendly) Mobile-friendly check on site.
 >
-> - [Website Page Test](https://www.webpagetest.org/) Runs a website speed test from multiple locations around the globe using real browsers (IE and Chrome) and at real consumer connection speeds. 
+> - [Website Page Test](https://www.webpagetest.org/) Runs a website speed test from multiple locations around the globe using real browsers (IE and Chrome) and at real consumer connection speeds.
 >
 > - [Online-Spellcheck](https://www.online-spellcheck.com/) Online spelling and grammar checks.
-
+>
+> - [web.dev](https://web.dev/) Runs an audit on the website's performance.
 
 ### Resources
 
@@ -215,8 +215,8 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 ### Bugs and turnarounds
 
-> - Add training endpoint only writing to database first option of the "assign_to" form - request.form.get('assign_to') is only writing the first item (it is supposed to write an array) - using the request.form.getlist method, I was able to get all of the aliases on an array and pass it to a handler function.
-> - Nested accordion to show current cycle data in get_trainings page not opening due to an incompatibility between Materialize collapsibles and Google Chrome.
+> - In the add_training function, the form item "assign_to" is only getting the first select option, opposed to getting an array as this is a multiple HTML form; request.form.get('assign_to') it is supposed to get a list of names.Found the solution on: [Flask Documentation](https://flask.palletsprojects.com/en/2.0.x/api/#useful-functions-and-classes).I used the request.form.getlist method, to get all of the aliases on an array and pass it to a handler function.
+> - 
 > - Star rating for each recipe were not accessing pseudo-classes in CSS (:after) to change width and fill color(yellow) according to property returned from the request. Found solution on: [A Simple JavaScript Technique for Filling Star Ratings](https://webdesign.tutsplus.com/tutorials/a-simple-javascript-technique-for-filling-star-ratings--cms-29450).
 > - Script file wasn't able to find DOM Id's to be to render the recipe to another HTML page. The turnaround was offered by Victor (my mentor), by saving the target HTML element(the JSON object returned by the API and renderized as HTML) to 'localStorage', changing to another page using 'window.location.href' property and loading the saved content from 'localStorage'. 
 > - Requesting information from the API through the page "refined_searhc.html" would return errors: "Illegal Invocation" and "Failed to fetch" - the first one was the error handling function that would create a modal. Hard-coded the model in a hidden state to turn around and spit the error message. Second bug occurred when creating the string to pass as parameter for the API's endpoint. Turn around was to create a hidden form element in the form object which validates user inputs to send the request. To do so, I used this tutorial: [How to Transform FormData into a Query String](https://ultimatecourses.com/blog/transform-formdata-into-query-string). After creating the string object, I chained it with a promise - followed this tutorial: [JavaScript Promise Tutorial: Resolve, Reject, and Chaining in JS and ES6](https://www.freecodecamp.org/news/javascript-es6-promises-for-beginners-resolve-reject-and-chaining-explained/).
