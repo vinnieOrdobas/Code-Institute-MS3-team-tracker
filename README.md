@@ -244,7 +244,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 This project has been deployed on GitHub Pages with the following process:
 
 > - All code was written on VS Code, an IDE.
-> - The code was then pushed to GitHub where it is stored in my [Repository](https://github.com/vinnieOrdobas/Code-Institute-MS2-myVeganBuddy).
+> - The code was then pushed to GitHub where it is stored in my [Repository](hhttps://github.com/vinnieOrdobas/Code-Institute-MS3-team-tracker).
 > - Under **Settings** I scrolled down to **GitHub** Pages section.
 > - Under **Source** drop-down, the **Master branch** was selected.
 > - Once selected, this publishes the project to **GitHub** Pages and displays the site url.
@@ -262,13 +262,13 @@ Follow this steps:
 1. Install the [Gitpod Browser Extentions for Chrome](https://chrome.google.com/webstore/detail/gitpod-dev-environments-i/dodmmooeoklaejobgleioelladacbeki).
 2. After installation, restart the browser.
 3. Log into [Gitpod](https://www.gitpod.io/) with your gitpod account.
-4. Navigate to the [Project GitHub repository](https://github.com/vinnieOrdobas/Code-Institute-MS2-myVeganBuddy).
+4. Navigate to the [Project GitHub repository](https://github.com/vinnieOrdobas/Code-Institute-MS3-team-tracker).
 5. Click the green button "Gitpod" in the top right corner of the repository.
 6. This will create a gitpod workspace with the code from github where you can work locally.
 
 To work on the project within a local IDE (such as VScode):
 
-1. Follow this link to the [Project GitHub repository](https://github.com/vinnieOrdobas/Code-Institute-MS2-myVeganBuddy).
+1. Follow this link to the [Project GitHub repository](https://github.com/vinnieOrdobas/Code-Institute-MS3-team-tracker).
 2. Under the repository name, click "Clone or download".
 3. In the Clone with HTTPs section, copy the clone URL for the repository.
 4. In your local IDE open the terminal.
@@ -279,24 +279,16 @@ To work on the project within a local IDE (such as VScode):
 
 > #### Media
 >
-> - Recipe images were provided by the API.
-> - Background image was taken from [Pexels](https://www.pexels.com/).
-> - Logos were created by illustrious [https://www.fiverr.com/illustriouss]. 
+>
+> - Icons rendered by [Font Awesome](https://fontawesome.com/)
+>
 >
 > ##### Content
 >
-> Text content was written by myself.
+> - Text content was written by me.
 >
 >
 >
-> ##### Code Snippets
->
-> - [Rounding Decimals in JavaScript](https://www.jacklmoore.com/notes/rounding-in-javascript/) - To round ingredient units.
-> - [How to transform integers with decimal points into fractions](https://gist.github.com/redteam-snippets/3934258) - To transform units to fractions.
-> - [Sticky Navigation bar](https://bbbootstrap.com/snippets/responsive-navigation-bar-search-box-72587512)
->
->
----
 
 > ##### Acknowledgments
 >
@@ -304,7 +296,7 @@ To work on the project within a local IDE (such as VScode):
 >
 > - **Victor Miclovich**, my Mentor, for his insights, composure and experience. His invaluable assistance helped make this project reality.
 > - **Anderson Gonçalves** for taking the time to meet me and talk about this project, for tips and incredible insights, but above all, for his friendship.
-> - **Sofia Pereira** for her help on the general layout of the website.
+> - **Camila Severo de Araujo Leite (Camichu)** for her overall help on creating the app, pointing out features and layout of the website.
 > - **CI Mentors** for helping me identify and define problems.
 > - **CI staff** for their care and affableness, and for always make sure I was in the right path.
 > - **Slack Community** for their help with my code, for support and to make me feel part of the community.
