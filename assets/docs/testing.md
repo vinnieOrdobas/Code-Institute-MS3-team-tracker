@@ -14,7 +14,7 @@
 
 ### Flow testing:
 
-Usual flow through the website:
+Usual flow through the app:
 
 - Home > Results > Recipe 
 - Pages have an easy path through buttons and calls to action. Some pages have breadcrumbs to facilitate the navegation between them.
