@@ -162,6 +162,7 @@ def delete_team(team_id):
     })
     flash('Team successfully deleted')
     return redirect(url_for('get_teams'))
+
 # --------------------------------User functions---------------------- #
 
 
@@ -281,7 +282,6 @@ def logout():
 @app.route('/edit_access', methods=['GET', 'POST'])
 def edit_access():
     alias = request.args.get('alias')
-    # user = mongo.db.users.find_one({'alias': alias})
     if request.method == 'POST':
         user = mongo.db.users.find_one({'alias': alias})
         reset_access(user)
@@ -367,7 +367,7 @@ def edit_training(training_id):
             "training_date": request.form.get('due_date'),
             "training_cycle": training_cycle,
             "created_by": session['user'],
-            "complete_training": "False"
+            "complete_training": False
         }
         # --> Edits training for enrolled students <--
         # Find students on the database
