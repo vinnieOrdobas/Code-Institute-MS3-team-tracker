@@ -24,18 +24,18 @@ The landing page provides the background of the system -  The information is lai
 ### Testing user stories from "User Stories" section of README.md
 
 1. _"As a trainer, my primary concern is to create content and to make sure my students have the best possible session, but I find myself wasting time trying to keep track of who attended training, and it'd be awesome to have a system to automate that."_
-    1. At the moment of creation of a training, the instructor can assign it to student(s) and compare their attendance with the list of students. [Screenshot](../img/user_story-1.1.jpg)
-    2. Within each training, there is a button-trigger to check the list of students. [Screenshot](../img/user_story-1.2.jpg)
-    3. The list of students can be compared with the attendance and after each cycle, the trainer can mark it as complete and check back on the assigned student's profiles. [Screenshot](../img/user_story-1.3.jpg)
+    1. At the moment of creation of a training, the instructor can assign it to student(s) and compare their attendance with the list of students. [Screenshot](user_stories1.1.JPG)
+    2. Within each training, there is a button-trigger to check the list of students. [Screenshot](user_stories1.2.JPG)
+    3. The list of students can be compared with the attendance and after each cycle, the trainer can mark it as complete and check back on the assigned student's profiles. [Screenshot](user_stories1.3.JPG)
 2. _"I spend the majority of my time trying to allocate people to one particular task, but I can't never tell my own team's expertise. Having a visual aid to see their profile would be ideal because it would save me precious time."_
-    1. The students registered in the system have a "training folder" collapsible which can provide information on what training/cycles the student is enrolled in. [Screenshot](../img/user_story-2.1.jpg)
-    2. In the student's profile, there's a button which triggers the student's certifications. [Screenshot](../img/user_story-2.2.jpg)
+    1. The students registered in the system have a "training folder" collapsible which can provide information on what training/cycles the student is enrolled in. [Screenshot](user_stories2.1.JPG)
+    2. In the student's profile, there's a button which triggers the student's certifications. [Screenshot](user_stories2.2.JPG)
 3. _"At least once I week, I have either a team leader or a trainer sending me a spreadsheet with thousands of rows for ME to update my current training profile - it takes me ages to do it so and it's stressful. An user-friendly system would be welcome."_
-    1. Each student's profile has a training folder that's visible for everyone - the student himself does not need to update his/hers profile as Team Tracker has a built-in automated tracking system, and as soon as the training/cycle is marked as complete, the training folder gets updated. [Screenshot](../img/user_story-3.1.jpg)
-    2. In the training page, there are button triggers that once activated mark the training/cycle as complete or incomplete, and those actions update. [Screenshot](../img/user_story-3.2.jpg)
+    1. Each student's profile has a training folder that's visible for everyone - the student himself does not need to update his/hers profile as Team Tracker has a built-in automated tracking system, and as soon as the training/cycle is marked as complete, the training folder gets updated. [Screenshot](user_stories3.1.JPG)
+    2. In the training page, there are button triggers that once activated mark the training/cycle as complete or incomplete, and those actions update. [Screenshot](user_stories3.2.JPG)
 
 4. _"As someone who works cross-teams, I need a tool that can show me team boundaries so I can easily gather information and present metrics - organizational information shouldn't be time-consuming to be looked at."_
-    1. There is a segregation between teams, they work as "islands" - members of the same team can see their teammates, but it isn't possible to see other teams. The System Administrator has a bird's-eye view of Teams and is able to access information across the board. [Screenshot](../img/user_story-4.1.jpg)
+    1. There is a segregation between teams, they work as "islands" - members of the same team can see their teammates, but it isn't possible to see other teams. The System Administrator has a bird's-eye view of Teams and is able to access information across the board. [Screenshot](user_stories4.1.JPG)
 
 ### Manual testing
 
