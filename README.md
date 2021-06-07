@@ -16,6 +16,7 @@ A cloud-based database designed to serve as an aid for LMS systems, to keep trac
 > - [Code validity](#code-validity)
 > - [Version Control](#version-control)
 > - [Deployment](#deployment)
+> - [Installation](#installation)
 > - [Credits](#credits)
 > - [Acknowledgments](#acknowledgments)
 > - [Support](#support)
@@ -279,6 +280,15 @@ To work on the project within a local IDE (such as VScode):
 4. In your local IDE open the terminal.
 5. Change the current working directory to the location where you want the cloned directory to ve made.
 6. Type "git clone" on your terminal, then paste the URL of the project.
+
+### Installation
+
+To install the app, follow this steps:
+
+> - Follow this tutorial to create a MongoDB Cluster [MongoDB Basics | Tutorial 4: Create Atlas Cluster](https://www.youtube.com/watch?v=esKNjzDZItQ)
+> - After creating the database navegate to Heroku, log in, go to your dashboard and to the project you just cloned and deployed. Go to the Settings tab, click on "Reveal Config Vars" and add the IP, MONGO_DBNAME, MONGO_URI, PORT, SECRET_KEY AND KEY.
+>
+> - After logging in to your database in the Mongo website, navegate to the user you want to give the "System Administrator" level of access and add a field called "admin" with the value of True.
 
 ### Credits
 
