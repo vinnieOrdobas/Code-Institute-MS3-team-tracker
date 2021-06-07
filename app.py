@@ -510,7 +510,6 @@ def add_cycle(training_id):
     training = mongo.db.trainings.find_one({'_id': ObjectId(training_id)})
     instructors = mongo.db.users.find(
         {'instructor': True}).sort('alias', 1)
-    print(instructors)
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template('add_cycle.html',
         instructors=instructors, training=training,

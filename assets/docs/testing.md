@@ -12,11 +12,11 @@
 - [Google Mobile-Friendly Test](https://search.google.com/test/mobile-friendly) - To check if mobile-friendly.
 - [Web Page Test by Catchpoint](https://www.webpagetest.org/) - To test performance.
 
-### Flow testing:
+### Flow testing
 
 Usual flow through the app:
 
-- Home > Log In > Profile > Training 
+- Home > Log In > Profile > Training
 - Each page cluster (trainings/teams/profile) have an uncomplicated way to navigate the system and they all have trigger buttons linking to the adjacent endpoints/pages.
 
 The landing page provides the background of the system -  The information is laid out as a Documentation page to not affect the user's experience.
@@ -46,7 +46,6 @@ The landing page provides the background of the system -  The information is lai
     2. Change display sizes to check if elements positions are correct, specially the responsiveness of the nav bar.
     3. Within the 'burger' icon, check if elements are positioned to the right of the screen and if the JavaScript embedded in the menu loads properly.
     4. Check functionality and responsiveness on mobile phones, tablets and other devices.
-    5. Try all the links in the landing page, including buttons that trigger modals ("Access tiers section" and "Button Lexicon" sections), check round buttons ("Try the App" section and "About Links").
 
 2. Landing Page Links:
     1. Check the links on table in the "Access Tiers" section to trigger modals.
@@ -72,7 +71,7 @@ The landing page provides the background of the system -  The information is lai
 1. Register form:
     1. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
     2. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
-    3. Check if the switches for "I'm a team leader" and "I'm an instructor" work properly and if they write to the database correctly.
+    3. Check if the switches for "I'm a team leader" and "I'm an instructor" works properly.
     4. Check if the "Choose the Team" select form works properly and loads all of the Teams from the database.
 2. Call to action buttons:
     1. Check if the Register button triggers function and writes the input to database.
@@ -101,7 +100,7 @@ The landing page provides the background of the system -  The information is lai
     3. Check if the links for each member leads to the right profile and are not broken.
 2. Call to action buttons:
     1. Check if the "Add Team" button leads the user to the "Create Team" page.
-    2. Check if the "Edi Team" button leads the user to the "Edit Team" page.
+    2. Check if the "Edit Team" button leads the user to the "Edit Team" page.
     3. Check if the "Delete Team" triggers the delete modal - check if the "Yes" button deletes the team and all of its staff/check if the "No" button closes the modal.
 3. Review bullet points in different devices, such as tablets, phones and consoles.
 
@@ -131,55 +130,73 @@ The landing page provides the background of the system -  The information is lai
     1. Check if for each training document in the database a collapsible renders correctly, with Team/Training Name/Date/Icon on the collapsible header.
     2. Check if the opening of the collapsible works as it should, even with multiple trainings "open".
     3. Check if the "Training Control Panel" card renders inside of the collapsible.
-    4. Check if for each Cycle in the "training_cycle" key renders correctly.
+    4. Check if for each Cycle under the path: "{Training}/training_cycle" renders correctly.
     5. Check if "Cycle Control Panel" renders properly for each cycle inside of the collapsible.
     6. Check if the "Created By" data point renders properly and if the link to the user who created the training is not broken and leads to the right profile endpoint.
 2. Call to action buttons:
-    1. Training Control Panel:
-        1. Check if "Add Cycle" button leads to "add_cycle" page.
-        2. Check if "Enroll Students" button triggers "Enroll Student Modal" - check if the select form within the modal works, and if the button "Enroll" triggers function "enroll_training" and if the students selected in the select form have a key created in their "Training" key-object with the training name; check if the "Cancel" button closes the modal.
-        3. Check if the "Get Student List" button triggers modal; check if the list of students with the enrolled users lead to each student's profiles; check if the "OK" button closes the modal.
-        4. Check if the "Mark {Training} as Complete" button triggers the "complete_training" function and changes the status of the training to complete/edits training document under "complete_training" key in the database with the new boolean(True) value.
-        5. Check if the "Mark {Training} as Incomplete" button triggers the "incomplete_training" function and changes the status of the training to incomplete/edits training document under "complete_training" key in the database with the new boolean(False) value.
-        6. Check if the "Edit Training" button leads to the "Edit Training" page, taking the "training_id" parameter.
-        7. Check if the "Delete Training" button triggers delete training modal - check if the "Yes" button in the modal deletes training document and wipes the training record within the enrolled students's training folders/checks if the "No" button closes the modal.
+    1. Check if the "Add Training" button leads to the "Create Training Page".
+    2. Training Control Panel:
+        1. Check if "Add Cycle" button leads to "Add Cycle" page.
+        2. Check if "Enroll Students" button triggers "Enroll Student Modal" - check if the select form within the modal works, and if the button "Enroll" triggers function "enroll_training" and if the students selected in the select element have a key created under the path: "student/trainings/{Training}"; check if the "Cancel" button closes the modal.
+        3. Check if the "Get Student List" button triggers "Student List" modal; check if the list of students with the enrolled users lead to each student's profiles; check if the "OK" button closes the modal.
+        4. Check if the "Mark {Training} as Complete" button triggers the "complete_training" function and changes the status of the training to complete/edits training document under the path "{Training}/complete_training" and edits key in the database with the new boolean(True) value.
+        5. Check if the "Mark {Training} as Incomplete" button triggers the "incomplete_training" function and changes the status of the training to incomplete/edits training document under the path "{Training}/complete_training" and edits key in the database with the new boolean(False) value.
+        6. Check if the "Edit Training" button leads to the "Edit Training" page.
+        7. Check if the "Delete Training" button triggers "Delete Training" modal - check if the "Yes" button in the modal deletes training document and wipes the training record within the enrolled students's training folder under the path: "student/trainings/{Training}"; check if the "No" button closes the modal.
+    3. Cycle Control Panel:
+        1. Check if "Complete Cycle" button triggers the "complete_cycle" function and updates the training document under the "{Training}/Training Cycle/{Cycle}/completed" key in the database with the new boolean(True) value.
+        2. Check if "Incomplete Cycle" button triggers the "incomplete_cycle" function and updates the training document under the "{Training}/Training Cycle/{Cycle}/completed" key in the database with the new boolean(False) value.
+        3. Checks if the "Edit Cycle" button leads to the "Edit Cycle" page.
+        4. Checks if the "Delete Cycle" button triggers the "Delete Cycle" modal - check if the "Yes" button in the modal removes the folder under the path: "{Training}/Training Cycle/{Cycle}" from the training document and wipes the cycle record within the enrolled students's training folder under the path: "student/trainings/{Training}/{Cycle}"; check if the "No" button closes the modal.
 3. Review bullet points in different devices, such as tablets, phones and consoles.
 
-#### Recipe Page
+#### Add Training Page
 
-1. Sticky Navigation bar:
-    1. Replicate process applied to Home page, check if links are working.
-    2. Confirm that the Navigation Bar code and styling are the same on all breakpoints.
+1. Add Training form:
+    1. Check if the "Training Team" is in accordance with the user's team (the one creating the training).
+    2. Check if the "Assign Training to" select element shows all of the students within the user's team (the one creating the training).
+    3. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    4. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
+2. Call to action buttons:
+    1. Check if "Submit" button creates training document and the students selected under the "Assign to" select element are correctly enrolled in the training - check if the training key is created under the path: "student/trainings/{Training}".
+    2. Check if "Cancel" button leads back to the Trainings page.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
-2. Rendered recipe:
-    1. Check if card recipe was rendered correctly, if the image ratio is appropriate to the breakpoint.
-    2. Check if recipe title rendered the right size and if the card header has appropriate width according to the breakpoint.
-    3. Check if icon stats were rendered on the right format and on a formatted list.
+#### Edit Training Page
 
-3. Recommendation of the day widget:
-    1. Test the size of the image rendered for the recommendation of the day is correct.
-    2. Test if on smaller breakpoints, the widget gets moved to the bottom of the page with a call to action button.
+1. Edit Training form:
+    1. Check if the "Training Team" is in accordance with the user's team (the one editing the training).
+    2. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    3. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
+2. Call to action buttons:
+    1. Check if "Submit" button edits training and modifies enrolled students's training folder according to the form inputs and edits the right document in the database.
+    2. Check if "Cancel" button leads back to the Trainings page.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
-4. Nutritional Information widget:
-    1. Check if the nutritional information card widget rendered properly on various breakpoints.
-    2. Check if collapsible element is populated with API's request and if the units are properly rounded.
+#### Add Cycle Page
 
-5. Method and Ingredient list
-    1. Check if method and ingredients are properly rendered according to the API request and if layout, styling and positioning are as planned.
-    2. Check if units are properly rounded and transformated into fractions for the ingredient list. _Here I encountered a bug for repeating decimals (0.333); to solve the issue, rounded to the nearest float point._
-    3. Check if the elements render on smaller breakpoints, as their order is meant to change.
+1. Add Cycle form:
+    1. Check if the "Training Team" is in accordance with the user's team (the one adding the cycle to the training).
+    2. Check if the "Training Name" is in accordance with the training's name that the user is adding the cycle to.
+    3. Check if the "Cycle Type" select element shows all of the possible cycle types.
+    4. Check if the "Instructor" select element shows all of the possible instructors within the user's team (the one creating the cycle).
+    5. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    6. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
+2. Call to action buttons:
+    1. Check if "Submit" button creates cycle and the enrolled students have the cycle created within their training folder under the path: "student/trainings/{Training}/{Cycle}" according to the form inputs and edits the right training document in the database.
+    2. Check if "Cancel" button leads back to the Trainings page.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
-6. Call to action buttons:
-    1. Check if call to action button in the Recommendation of the Day widget works properly and triggers function.
-    2. On smaller screen sizes, check if the adjacent call to action button works as intended.
-    3. Check if call to action button to toggle nutritional information table functions regularly.
+#### Edit Cycle Page
 
-7. Breadcrumbs:
-    1. Check if breadcrumb links properly and if it renders properly on different breakpoints.
-8. Footer:
-    1. Replicate process applied to Home page, check if links are working.
-    2. Confirm that footer code and styling is identical on all pages.
-9. Review bullet points in different devices, such as tablets, phones and consoles.
+1. Edit Cycle form:
+    1. Check if the "Instructor" select element shows all of the possible instructors within the user's team (the one editing the cycle).
+    2. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    3. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
+2. Call to action buttons:
+    1. Check if "Submit" button edits cycle and modifies enrolled students's training folder according to the form inputs and edits the right document in the database.
+    2. Check if "Cancel" button leads back to the Trainings page.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
 ## Further testing
 

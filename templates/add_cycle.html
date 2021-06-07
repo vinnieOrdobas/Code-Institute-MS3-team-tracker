@@ -36,12 +36,12 @@
                     <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
                     <label for="due_date">Due date</label>
                 </div>
-                <!-- training type -->
+                <!-- cycle type -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="fas fa-clipboard-list prefix"></i>
                         <select id="training_type" name="training_type" class="validate" required>
-                            <option value="" disabled selected>Training type</option>
+                            <option value="" disabled selected>Cycle type</option>
                                 {% for training_type in training_types %}
                                     <option value="{{ training_type.training_type }}">{{ training_type.training_type }}</option>
                                 {% endfor %}
