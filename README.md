@@ -2,7 +2,7 @@
 
 A cloud-based database desgined to serve as an aid for LMS systems, to keep track of team's information, access and profiles.
 
-### Table of Contents
+## Table of Contents
 
 > - [Motivation](#motivation)
 > - [Description](#description)
@@ -20,17 +20,17 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 > - [Acknowledgments](#acknowledgments)
 > - [Support](#support)
 
-### Motivation
+## Motivation
 
 > Companies spend a lot of resource and time to train their teams and to make sure they're ready to hit the ground running, but unfortunately the tools they use to keep track of that information is often archaic and leads to the fragmentation of the information.
 
-### Description
+## Description
 
 > Team tracker is a system that simplifies data gathering and storage of information, specifically design to aid companies tracking the training aspect and integrate relevant information about their teams.
 
 ---
 
-#### User Stories
+### User Stories
 
 > - _"As a trainer, my primary concern is to create content and to make sure my students have the best possible session, but I find myself wasting time trying to keep track of who attended training sessions, and it'd be awesome to have a system to automate that."_
 > - _"I spend the majority of my time trying to allocate people to one particular task, but I can't never tell my own team's expertise. Having a visual aid to see their profile would be ideal because it would save me precious time. "_
@@ -93,12 +93,12 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 #### 5. Surface
 
 > I've used Windows 98 layout as an inspiration, specially the colour scheme - the contrast between royal blue and pastel tones, which relates to user's experience of simplicity.
-
+>
 > ##### Colours
 >
 > - For the nav bar I've opted for a blue-grey tonality(#455a64) to create a contrast with the mild palettes I've used for the background.
 > - For collapsible headers, profile cards, control panels and team cards I've chosen a darker blue-grey tone (#263238)
-> - For body text, I've used a combination of shades of black for mild-coloured backgrounds - white for darker backgrounds. 
+> - For body text, I've used a combination of shades of black for mild-coloured backgrounds - white for darker backgrounds.
 > - For the buttons in the control panel, please refer to the table below:
 
 | Button      | Colour |
@@ -119,8 +119,9 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 | Change access level   | #f9a825        |
 | See Student's certifications   | #4caf50         |  
 ---
-> ##### Typography
-> 
+
+> #### Typography
+>
 > - "Nunito" font (with fall-back font of Sans-Serif) for body content and titles.
 
 ### Features
@@ -139,7 +140,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 #### Features to implement
 
 > - Metrics page to further enhance KDD.
-> - In-app comms, such as messages/requests. 
+> - In-app comms, such as messages/requests.
 
 ---
 
@@ -289,7 +290,6 @@ To work on the project within a local IDE (such as VScode):
 >
 >
 >
-
 > ##### Acknowledgments
 >
 > I would like to thank:
@@ -304,5 +304,3 @@ To work on the project within a local IDE (such as VScode):
 ##### Support
 
 > For bug resolution, please reach Vinnie Ordobas on viniordobas@icloud.com
-
----

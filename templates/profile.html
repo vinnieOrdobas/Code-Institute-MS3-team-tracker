@@ -148,7 +148,7 @@
                                          {{ course.training_date }}
                                         {% if course.complete_training == False %}
                                             <i class="fas fa-times-circle red-text"></i>
-                                            <span class="red-text"><strong>Pendent</strong></span>
+                                            <span class="red-text"><strong>In Progress</strong></span>
                                         {% else %}
                                             <i class="fas fa-check-circle green-text"></i>
                                             <span class="green-text"><strong>Completed</strong></span>
@@ -181,7 +181,7 @@
                                                     {% if username.trainings[training][cycle].completed == True %}
                                                         <li class="collection-item green-text"><b>Completed</b></li>
                                                     {% else %}
-                                                        <li class="collection-item red-text"><b>Pendent</b></li>
+                                                        <li class="collection-item red-text"><b>In Progress</b></li>
                                                     {% endif %}
                                                 </ul>
                                             </div>
