@@ -1,6 +1,6 @@
 # Team Tracker
 
-A cloud-based database desgined to serve as an aid for LMS systems, to keep track of team's information, access and profiles.
+A cloud-based database designed to serve as an aid for LMS systems, to keep track of team's information, access and profiles.
 
 ## Table of Contents
 
@@ -33,15 +33,15 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 ### User Stories
 
 > - _"As a trainer, my primary concern is to create content and to make sure my students have the best possible session, but I find myself wasting time trying to keep track of who attended training sessions, and it'd be awesome to have a system to automate that."_
-> - _"I spend the majority of my time trying to allocate people to one particular task, but I can't never tell my own team's expertise. Having a visual aid to see their profile would be ideal because it would save me precious time. "_
+> - _"I spend the majority of my time trying to allocate people to one particular task, but I can't tell my own team's expertise. Having a visual aid to see their profile would be ideal because it would save me precious time. "_
 > - _"At least once I week, I have either a team leader or a trainer sending me a spreadsheet with thousands of rows for ME to update my current training profile - it takes me ages to do it so and it's stressful. An user-friendly system would be welcome."_
-> - _"As someone who works cross-teams, I need a tool that can show me team boundaries so I can easily gather information and present metrics - organizational information shouldn't be time-consuming to be looked at."_
+> - _"As someone who works cross-teams, I need a tool that can show me team's staff so I can easily gather information and present metrics - organizational information shouldn't be time-consuming to be looked at."_
 
 ---
 
 ### UX
 
-> - Team Tracker is a system that simplifies team's interactions, providing a platform in which everyone can store and request information regarding trainings, users and teams.
+> - Team Tracker is a system that simplifies team's interactions, providing a platform in which everyone can store and request information regarding training, users and teams.
 
 #### 1. Strategy
 
@@ -59,8 +59,8 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 >
 > - Layout using Mobile-first approach.
 > - Simple and functional design to increase usability.
-> - Access-based platform to display personalised data.
-> - Straightfowrad path to create trainings and to keep track of trainee's calendars.
+> - Access-based platform to display personalized data.
+> - Straightforward path to create training and to keep track of trainee's calendars.
 > - Effortless way to sign-up and to login, for an accelerated workflow.
 > - Track information personal information and cross-data with other teams.
 
@@ -76,11 +76,11 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 #### 3. Structure
 
 > The goal of the app is to render complex information in one simplified data stream, so the structure needs to translate that in a visual design - it was planned to stem from an already known convention to clarify the usage.
-> It takes the structure of a simplistic convention of data, in a schema known to the user such as a webmail design - it takes the same layout and adds functionality in straight-forward format to convey information in a condensed shape.
+> It takes the structure of a simplistic convention of data, in a schema known to the user such as a web mail design - it takes the same layout and adds functionality in straightforward format to convey information in a condensed shape.
 
 #### 4. Skeleton
 
-> - [Wire frames](assets/docs/wireframes.pdf): Webapp categorised in five different clusters.
+> - [Wire frames](assets/docs/wireframes.pdf): Web app categorised in five different clusters.
 >
 > - Home, Login, Profile, Teams and Training.
 >
@@ -96,9 +96,9 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 >
 > ##### Colours
 >
-> - For the nav bar I've opted for a blue-grey tonality(#455a64) to create a contrast with the mild palettes I've used for the background.
+> - For the navigation bar I've opted for a blue-grey tonality(#455a64) to create a contrast with the mild palettes I've used for the background.
 > - For collapsible headers, profile cards, control panels and team cards I've chosen a darker blue-grey tone (#263238)
-> - For body text, I've used a combination of shades of black for mild-coloured backgrounds - white for darker backgrounds.
+> - For body text, I've used a combination of shades of black for mild coloured backgrounds - white for darker backgrounds.
 > - For the buttons in the control panel, please refer to the table below:
 
 | Button      | Colour |
@@ -140,7 +140,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 #### Features to implement
 
 > - Metrics page to further enhance KDD.
-> - In-app comms, such as messages/requests.
+> - In-app communication, such as messages/requests.
 
 ---
 
@@ -201,10 +201,7 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 > - [Youtube](https://www.youtube.com/) - Tutorials.
 > - [CSS-Tricks](https://css-tricks.com/) - Quick CSS resources.
 > - [Common Mark](https://commonmark.org/help/) - For Markdown language reference.
-> - [Grid Citters](https://gridcritters.com/) - To learn CSS Grid technology.
-> - [Coolors](https://coolors.co/) - Colours palette research.
-> - [Adobe Resize Images](https://www.adobe.com/ie/photoshop/online/resize-image.html) - Resource for resizing images
-> - [Tiny PNG](https://www.tinypng.com) - Resource to compress gallery images.
+> - [Grid Critters](https://gridcritters.com/) - To learn CSS Grid technology.
 > - [Markdown Tutorial](https://www.markdowntutorial.com/) - Used to learn Markdown.
 > - Code Institute **SLACK Channel** - Assistance.
 
@@ -227,11 +224,15 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 ### Code validity
 
-> HTML - [W3C](https://validator.w3.org/) - Markup Validation
+> [W3C](https://validator.w3.org/) - Markup Validation
 >
-> CSS - [W3C](https://jigsaw.w3.org/css-validator/) - CSS Validation
+> [W3C](https://jigsaw.w3.org/css-validator/) - CSS Validation
 >
-> TAGS - [Closing Tag Checker for HTML5](https://www.aliciaramirez.com/closing-tags-checker/) - Validates if tags are correctly closed.
+> [Closing Tag Checker for HTML5](https://www.aliciaramirez.com/closing-tags-checker/) - Validates if tags are correctly closed.
+>
+> [JSHINT](https://jshint.com/) - JavaScript code warning & error check.
+>
+> [PEP8 online](http://pep8online.com/) - PEP8 validator.
 ---
 
 ### Version Control
@@ -242,14 +243,17 @@ A cloud-based database desgined to serve as an aid for LMS systems, to keep trac
 
 ### Deployment
 
-This project has been deployed on GitHub Pages with the following process:
+This project has been deployed on Heroku following this process:
 
 > - All code was written on VS Code, an IDE.
-> - The code was then pushed to GitHub where it is stored in my [Repository](hhttps://github.com/vinnieOrdobas/Code-Institute-MS3-team-tracker).
-> - Under **Settings** I scrolled down to **GitHub** Pages section.
-> - Under **Source** drop-down, the **Master branch** was selected.
-> - Once selected, this publishes the project to **GitHub** Pages and displays the site url.
-> - There is no difference between the deployed version and the development version.
+> - The code was then pushed to GitHub where it is stored in my [Repository](https://github.com/vinnieOrdobas/Code-Institute-MS3-team-tracker).
+> - Navigate to [Heroku](https://www.heroku.com/) and login.
+> - On the dashboard, click on the 'New' button and select 'Create new app'.
+> - Enter the app name and select a region.
+> - Under the 'Settings' tab, click on 'Config Vars' to add Configuration Variables from the env.py file. This includes the IP, Port, Secret key, MongoDB name and URI, as well as mail settings for Flask Mail.
+> - In the menu select the 'Deploy' option.
+> - Under 'Deployment method' select the GitHub option to connect to your GitHub repository. Ensure GitHub username is selected and use the search function to find the relevant repository.
+> - Select Automatic deploys from the main branch and click 'Deploy Branch'.
 
 #### How to run this project locally
 

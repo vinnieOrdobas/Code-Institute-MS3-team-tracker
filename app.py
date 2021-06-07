@@ -60,9 +60,9 @@ def get_teams():
                 'as': 'users'
             }},
             {'$project': {'team_name': 1, 'team_region': 1,
-                'team_description': 1, 'users.alias': 1,
-                    'users.team_leader': 1, 'users.student': 1,
-                                            'users.instructor': 1}}
+                          'team_description': 1, 'users.alias': 1,
+                          'users.team_leader': 1, 'users.student': 1,
+                          'users.instructor': 1}}
         ]))
     else:
         # User is not admin, gets user's team staff
@@ -82,9 +82,9 @@ def get_teams():
         'team_name': username['team_name']
     }))
     return render_template("teams.html", teams=teams,
-        students=students,
-            team_leader=team_leader, instructors=instructors,
-            username=username)
+                           students=students,
+                           team_leader=team_leader, instructors=instructors,
+                           username=username)
 
 
 @app.route("/add_team", methods=['GET', 'POST'])
@@ -183,8 +183,8 @@ def get_trainings():
                 'team_name': username['team_name']}))
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template("trainings.html",
-    trainings=trainings, username=username,
-        students=students,training_types=training_types)
+                           trainings=trainings, username=username,
+                           students=students, training_types=training_types)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -227,7 +227,6 @@ def register():
     return render_template("register.html", teams=teams)
 
 
-
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -236,7 +235,7 @@ def login():
         if existing_user:
             # ensure hashed password matches user input
             if check_password_hash(
-                existing_user['password'], request.form.get('password')):
+                    existing_user['password'], request.form.get('password')):
                 session['user'] = request.form.get('username').lower()
                 alias = existing_user['alias']
                 flash(f'Welcome, {alias}')
@@ -268,7 +267,7 @@ def profile(username):
             {'username': session['user']})
     courses = list(mongo.db.trainings.find())
     return render_template('profile.html', username=username,
-    courses=courses, access=access)
+                           courses=courses, access=access)
 
 
 @app.route('/logout')
@@ -293,7 +292,7 @@ def edit_access():
         })
         flash('Access updated')
     return redirect(url_for('profile',
-        username=session['user'], alias=user['alias']))
+                            username=session['user'], alias=user['alias']))
 
 
 # --------------------------------Training functions---------------------- #
@@ -349,7 +348,7 @@ def add_training():
     # variables to be rendered by the template
     teams = mongo.db.teams.find().sort('team_name', 1)
     return render_template('add_training.html', teams=teams, students=students,
-        username=username)
+                           username=username)
 
 
 @app.route("/edit_training/<training_id>", methods=['GET', 'POST'])
@@ -388,7 +387,7 @@ def edit_training(training_id):
     teams = mongo.db.teams.find().sort('team_name', 1)
     students = list(mongo.db.users.find({"student": True}).sort('alias', 1))
     return render_template('edit_training.html',
-            teams=teams, training=training, students=students)
+                           teams=teams, training=training, students=students)
 
 
 @app.route("/delete_training/<training_id>")
@@ -499,7 +498,7 @@ def add_cycle(training_id):
                 mongo.db.users.update_one(
                     {'username': student['username']},
                     {'$set': {f'trainings.{training_name}':
-                        current_cycle}}, upsert= True)
+                              current_cycle}}, upsert=True)
             training_folder[new_cycle] = cycle[new_cycle]
             mongo.db.trainings.update_one(
                 {'_id': ObjectId(training_id)},
@@ -512,8 +511,8 @@ def add_cycle(training_id):
         {'instructor': True}).sort('alias', 1)
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     return render_template('add_cycle.html',
-        instructors=instructors, training=training,
-            training_types=training_types)
+                           instructors=instructors, training=training,
+                           training_types=training_types)
 
 
 @app.route("/edit_cycle/<training_id>", methods=['GET', 'POST'])
@@ -540,7 +539,7 @@ def edit_cycle(training_id):
             mongo.db.users.update_one(
                 {'username': student['username']},
                 {'$set': {f'trainings.{training_name}':
-                        current_cycle}}, upsert= True)
+                          current_cycle}}, upsert=True)
         training_folder[cycle_name] = cycle[cycle_name]
         mongo.db.trainings.update_one(
             {'_id': ObjectId(training_id)},
@@ -554,8 +553,8 @@ def edit_cycle(training_id):
     training_types = mongo.db.training_types.find().sort('training_type', 1)
     cycle = request.args.get('cycle')
     return render_template('edit_cycle.html',
-        instructors=instructors, training=training,
-            training_types=training_types, cycle=cycle)
+                           instructors=instructors, training=training,
+                           training_types=training_types, cycle=cycle)
 
 
 @app.route("/complete_cycle/<training_id>", methods=['GET', 'POST'])
