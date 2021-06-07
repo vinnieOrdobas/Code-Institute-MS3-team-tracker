@@ -444,7 +444,7 @@ def complete_training(training_id):
     # marks training as complete
     if request.method == 'POST':
         # finds training name
-        mongo.db.trainings.update({
+        mongo.db.trainings.update_one({
             '_id': ObjectId(training_id)}, {
                 "$set": {
                     "complete_training": True
@@ -460,7 +460,7 @@ def incomplete_training(training_id):
     # marks training as complete
     if request.method == 'POST':
         # finds training name
-        mongo.db.trainings.update({
+        mongo.db.trainings.update_one({
             '_id': ObjectId(training_id)}, {
                 "$set": {
                     "complete_training": False

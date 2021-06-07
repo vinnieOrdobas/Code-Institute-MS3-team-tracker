@@ -41,79 +41,109 @@ The landing page provides the background of the system -  The information is lai
 
 #### Home Page
 
-1. Sticky Navigation bar:
-    1. Check nav bar links to double check links are not broken.
+1. Navigation bar:
+    1. Click nav bar links to double check if they're not broken.
     2. Change display sizes to check if elements positions are correct, specially the responsiveness of the nav bar.
-    3. Within the 'burger' icon, check if elements are positioned to the left of the screen and check if sizes are adequate.
+    3. Within the 'burger' icon, check if elements are positioned to the right of the screen and if the JavaScript embedded in the menu loads properly.
     4. Check functionality and responsiveness on mobile phones, tablets and other devices.
+    5. Try all the links in the landing page, including buttons that trigger modals ("Access tiers section" and "Button Lexicon" sections), check round buttons ("Try the App" section and "About Links").
 
-2. Background image:
-    1. Go to "Home" page from a desktop.
-    2. Check if image renders well on that breakpoint, if has 100vh of the screen and if logo and search form are positioned correctly.
-    3. Emulate different resolutions to check if image is properly rendered on mobile.
+2. Landing Page Links:
+    1. Check the links on table in the "Access Tiers" section to trigger modals.
+    2. Check if "Button Lexicon" modal gets triggered by clicking the link.
+    3. Check the "Test the app!" pulsing button to trigger demo accounts modal.
+    4. Check "About" section round buttons for external links.
 
-3. Search form:
-    1. Check "Spin" and "Refined Search" buttons are calling respective functions and leading the user where it was planned to.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
-4. Footer:
-    1. Make sure the footer was on the right place - there are two versions of it, one for mobile and one for larger screens. _Here I encountered margin issues and positioning issues for the mobile footers_
-    2. Try links on the footer to make sure they open a new tab and that they're not broken.
-    3. Play along with different widths to make sure the footer behaves as meant in each breakpoint.
+#### Log In Page
 
-5. Review bullet points in different devices, such as tablets, phones and consoles.
+1. Log In form:
+    1. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    2. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
+2. Call to action buttons:
+    1. Check if the log in button triggers function and compares the input with data written in the database.
+    2. Check if wrong login/password returns a valid response and directs the user to try again/or to register to use the app.
+    3. Checks if "Register Account" link directs the user to the register endpoint.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
-#### Refined Search
+#### Register Page
 
-1. Sticky Navigation bar:
-    1. Replicate process applied to Home page, check if links are working.
+1. Register form:
+    1. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    2. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
+    3. Check if the switches for "I'm a team leader" and "I'm an instructor" work properly and if they write to the database correctly.
+    4. Check if the "Choose the Team" select form works properly and loads all of the Teams from the database.
+2. Call to action buttons:
+    1. Check if the Register button triggers function and writes the input to database.
+    2. Check if username/alias are already registered and returns a valid response if that's the case it prompts the user to try again/login.
+    3. Checks if "Log In" link directs the user to the login endpoint.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
-2. Search form:
-    1. Check if all the inputs in the form have appropriate width, if it is possible to type on them and if the range-sliders have enough space, both on Desktop and on smaller screens.
-    2. Check if data input is valid and if API's accept request format. _Testing the data input I encountered a bug with the 'max calories' field, where you could pass a string rather than an integer. Changed input 'type' on HTML to fix it._
-3. Call to action buttons:
-    1. Check if call to action button is working and triggers function.
-4. Footer:
-    1. Replicate process applied to Home page, check if links are working.
-    2. Check if footer poisitioning worked in all breakpoints. _Here I encountered a bug with the positioning, as the footer was fixed to the bottom of the screen and covered call to action button "Spin". Added a media query and styling for the containers within the footer to fix the issue._
+#### Profile Page
 
-5. Review bullet points in different devices, such as tablets, phones and consoles.
-
-#### About Page
-
-1. Sticky Navigation bar:
-    1. Replicate process applied to Home page, check if links are working.
-    2. Confirm that the Navigation Bar code and styling are the same on all breakpoints. 
-
-2. Logo and Description:
-    1. Make sure the logo is correctly positioned, check sizes and if the elements behave properly with larger screens.
-    2. Double check if mobile version of the about page works properly, with positioning, borders and styling. 
-
-3. Footer:
-    1. Replicate process applied to Home page, check if links are working.
-    2. Confirm that footer code and styling is identical on all pages.
-
+1. Profile Card:
+    1. Check if the profile card renders correctly according to the user's profile, including "username", "alias", "team" and "access".
+    2. Check if the "Profile Control Panel" renders properly according to the user's level of access.
+    3. Check if profile card behaves as predicted on smaller devices.
+2. Call to action buttons:
+    1. Check if "See Certifications" button triggers the "Student Certification Modal" and renders the student's certifications.
+    2. Check if "Change access level" button triggers the "Access Modal": check if the "OK" button triggers the "reset_access" function to reset user's access and assign new level according to the select form in the modal. Check if the "Cancel" button within the modal triggers the closing of the modal.
+3. Training Folder:
+    1. Checks if Training Folder renders correctly according to the user's enrolled training/cycles.
 4. Review bullet points in different devices, such as tablets, phones and consoles.
 
-#### Results Page
+#### Teams Page
 
-1. Sticky Navigation bar:
-    1. Replicate process applied to Home page, check if links are working.
-    2. Confirm that the Navigation Bar code and styling are the same on all breakpoints.
+1. Team Cards:
+    1. Check if the team cards render properly with the Team's Name/Region/Description.
+    2. Check if the "tabs" section of the card renders with the Team's staff under Team Leaders/Instructors/Students categories.
+    3. Check if the links for each member leads to the right profile and are not broken.
+2. Call to action buttons:
+    1. Check if the "Add Team" button leads the user to the "Create Team" page.
+    2. Check if the "Edi Team" button leads the user to the "Edit Team" page.
+    3. Check if the "Delete Team" triggers the delete modal - check if the "Yes" button deletes the team and all of its staff/check if the "No" button closes the modal.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
-2. Card deck:
-    1. Double-check if API request has retrieved the appropriated recipes (according to the user's data input).
-    2. Check if recipe cards render side-to-side and with identical width, icon-sizes and positioning.
-    3. Check if card deck behaves as predicted on smaller devices.
+#### Create Team Page
 
-3. Call to action buttons:
-    1. Check if call to action button is working and triggers function.
+1. Create Team form:
+    1. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    2. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
+2. Call to action buttons:
+    1. Check if "Submit" button creates team and if the inputs from the form are adequately written to database.
+    2. Check if "Cancel" button leads back to the Teams page.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
-4. Breadcrumbs:
-    1. Check if breadcrumb links properly and if it renders properly on different breakpoints.
-5. Footer:
-    1. Replicate process applied to Home page, check if links are working.
-    2. Confirm that footer code and styling is identical on all pages.
-6. Review bullet points in different devices, such as tablets, phones and consoles.
+#### Edit Team Page
+
+1. Edit Team form:
+    1. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    2. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
+2. Call to action buttons:
+    1. Check if "Submit" button edits team and its members correctly according to the form inputs and edits the right document in the database.
+    2. Check if "Cancel" button leads back to the Teams page.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
+
+#### Trainings Page
+
+1. Training Collapsibles:
+    1. Check if for each training document in the database a collapsible renders correctly, with Team/Training Name/Date/Icon on the collapsible header.
+    2. Check if the opening of the collapsible works as it should, even with multiple trainings "open".
+    3. Check if the "Training Control Panel" card renders inside of the collapsible.
+    4. Check if for each Cycle in the "training_cycle" key renders correctly.
+    5. Check if "Cycle Control Panel" renders properly for each cycle inside of the collapsible.
+    6. Check if the "Created By" data point renders properly and if the link to the user who created the training is not broken and leads to the right profile endpoint.
+2. Call to action buttons:
+    1. Training Control Panel:
+        1. Check if "Add Cycle" button leads to "add_cycle" page.
+        2. Check if "Enroll Students" button triggers "Enroll Student Modal" - check if the select form within the modal works, and if the button "Enroll" triggers function "enroll_training" and if the students selected in the select form have a key created in their "Training" key-object with the training name; check if the "Cancel" button closes the modal.
+        3. Check if the "Get Student List" button triggers modal; check if the list of students with the enrolled users lead to each student's profiles; check if the "OK" button closes the modal.
+        4. Check if the "Mark {Training} as Complete" button triggers the "complete_training" function and changes the status of the training to complete/edits training document under "complete_training" key in the database with the new boolean(True) value.
+        5. Check if the "Mark {Training} as Incomplete" button triggers the "incomplete_training" function and changes the status of the training to incomplete/edits training document under "complete_training" key in the database with the new boolean(False) value.
+        6. Check if the "Edit Training" button leads to the "Edit Training" page, taking the "training_id" parameter.
+        7. Check if the "Delete Training" button triggers delete training modal - check if the "Yes" button in the modal deletes training document and wipes the training record within the enrolled students's training folders/checks if the "No" button closes the modal.
+3. Review bullet points in different devices, such as tablets, phones and consoles.
 
 #### Recipe Page
 
