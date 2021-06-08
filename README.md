@@ -71,7 +71,7 @@ A cloud-based database designed to serve as an aid for LMS systems, to keep trac
 >
 > - Authentication system for user to login/logout and sign-up.
 > - Tier-based platform with different types of users and different types of accesses.
-> - CRUD functionality to add, edit and create trainings/teams/users.
+> - Create, read, update and delete(CRUD) trainings/teams/users.
 > - Users/teams profiles in order to centralize information.
 
 #### 3. Structure

@@ -200,4 +200,4 @@ The landing page provides the background of the system -  The information is lai
 
 ## Further testing
 
-1. Published page on Heroku and shared on diverse social media - asked friends, family and fellow Code Institute students to test the website and let me know if any bugs should appear. _(Unsolved bug/Not able to reproduce) Bug reported on "index.html" - button "search" does not trigger function._
+1. Published page on Heroku and shared on diverse social media - asked friends, family and fellow Code Institute students to test the website and let me know if any bugs should appear.

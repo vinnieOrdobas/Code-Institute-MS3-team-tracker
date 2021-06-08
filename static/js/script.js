@@ -31,5 +31,4 @@ $(document).ready(function(){
     }
   };
   var instances_datepicker = M.Datepicker.init(elems_datepicker, option_datepicker);
-
 });

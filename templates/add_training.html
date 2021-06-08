@@ -27,20 +27,22 @@
                     <input id="training_name" name="training_name" 
                     maxlength="25" minlength="5" type="text" class="validate" required>
                     <label for="training_name">Training Name</label>
+                    <span class="helper-text" data-error="Training Names must have at least 5 characters!"></span>
                 </div>
                 <!-- training description -->
                 <div class="input-field col s12">
                     <i class="fas fa-align-left prefix"></i>
                     <textarea id="training_description" name="training_description" 
-                        maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required>
-                    </textarea>
+                        maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required></textarea>
                     <label for="training_description">Training Description</label>
+                    <span class="helper-text" data-error="Give this training a description!"></span>
                 </div>
                 <!-- due date -->
                 <div class="input-field col s12">
                     <i class="fas fa-calendar alt prefix"></i>
                     <input id="due_date" name="due_date" type="text" class="datepicker validate" required>
                     <label for="due_date">Due date</label>
+                    <span class="helper-text" data-error="Give this training a due date!"></span>
                 </div>
                 <!-- assign to -->
                 <div class="input-field col s12">

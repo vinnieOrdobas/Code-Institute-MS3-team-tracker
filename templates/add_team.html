@@ -8,10 +8,11 @@
             <!-- team name -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="fas fas fa-skull prefix"></i>
+                    <i class="fas fa-shield-alt prefix"></i>
                     <input id="team_name" name="team_name" 
                     maxlength="15" minlength="3" type="text" class="validate" required>
                     <label for="team_name">Team Name</label>
+                    <span class="helper-text" data-error="Team Names must have at least 5 characters!"></span>
                 </div>
                 <!-- team region -->
                 <div class="input-field col s12">
@@ -19,14 +20,15 @@
                     <input id="team_region" name="team_region" 
                     maxlength="15" minlength="3" type="text" class="validate" required>
                     <label for="team_region">Region</label>
+                    <span class="helper-text" data-error="Give this Team a Region!"></span>
                 </div>
                 <!-- team description -->
                 <div class="input-field col s12">
                     <i class="fas fa-align-left prefix"></i>
                     <textarea id="team_description" name="team_description" 
-                        maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required>
-                    </textarea>
+                        maxlength="50" minlength="5" type="text" class="materialize-textarea validate" required></textarea>
                     <label for="team_description">Team Description</label>
+                    <span class="helper-text" data-error="Give this Team a description!"></span>
                 </div>
             </div>
             <!-- submit button -->

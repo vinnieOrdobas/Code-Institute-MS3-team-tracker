@@ -13,6 +13,7 @@
                         <input id="username" name="username" type="text" inlength="5"
                          maxlength="15" pattern="^[a-zA-z0-9]{5,15}$" class="validate" required>
                         <label for="username">Username</label>
+                        <span class="helper-text" data-error="Usernames must have at least 5 characters!"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -20,6 +21,7 @@
                         <i class="fas fa-user-secret prefix white-text text-darken-4"></i>
                         <input id="alias" name="alias" type="text" pattern="^[a-zA-z0-9]{5,15}$" class="validate" required>
                         <label for="alias">Alias</label>
+                        <span class="helper-text" data-error="Alias must have at least 5 characters!"></span>
                     </div>
                 </div>
                 <!-- password -->
@@ -29,6 +31,7 @@
                         <input id="password" name="password" type="password" minlength="5"
                          maxlength="15" pattern="^[a-zA-z0-9]{5,15}$" class="validate" required>
                         <label for="password">Password</label>
+                        <span class="helper-text" data-error="Passwords must have at least 5 characters!"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -37,6 +40,7 @@
                         <input id="check_password" name="check_password" type="password" minlength="5"
                          maxlength="15" class="validate" required>
                         <label for="check_password">Check Password</label>
+                        <span class="helper-text" data-error="Please type your password again!"></span>
                     </div>
                 </div>
                 <div class="row">
@@ -64,7 +68,7 @@
                     </div>
                 </div>
                 <div class="input-field col s12">
-                    <i class="fas fas fa-skull prefix"></i>
+                    <i class="fas fa-shield-alt prefix"></i>
                     <select id="team_name" name="team_name" class="validate" required>
                         <option value="" disabled selected>Choose the team</option>
                         {% for team in teams %}
