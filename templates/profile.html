@@ -3,9 +3,11 @@
 
 
     <div class="row register-card">
-        <div class="center-align">
-            <a id="helper_button" href="#helper_modal" class="btn-floating blue btn-large modal-trigger pulse tooltipped" data-position="top" data-tooltip="First time here? Click the button for information"><i class="fas fa-info-circle"></i></a>
-        </div>
+        {% if not access %}
+            <div class="center-align">
+                <a id="helper_button" href="#helper_modal" class="btn-floating blue btn-large modal-trigger pulse tooltipped" data-position="top" data-tooltip="First time here? Click the button for information"><i class="fas fa-info-circle"></i></a>
+            </div>
+        {% endif %}
         <div class="col s12 m6 offset-m3">
             <div class="card">
                 <div class="card-content blue-grey darken-4">
