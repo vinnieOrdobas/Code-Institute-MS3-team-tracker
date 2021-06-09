@@ -106,9 +106,7 @@
                                 <form class="col s12" method="POST" action="{{ url_for('enroll_training', training_id=training._id) }}">
                                     <div class="input-field col s12">
                                         <select id="assign_to" name="assign_to" class="validate" multiple>
-                                        <option value="" disabled>
-                                            Choose student
-                                        </option>
+                                        <option value="" disabled>Choose student</option>
                                         {% for student in students %}
                                             {% if training.training_name not in student.trainings.keys() %}
                                                 <option value="{{ student.alias }}">
