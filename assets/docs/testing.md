@@ -27,7 +27,7 @@ The landing page provides the background of the system -  The information is lai
     1. At the moment of creation of a training, the instructor can assign it to student(s) and compare their attendance with the list of students. [Screenshot](user_stories1.1.JPG)
     2. Within each training, there is a button-trigger to check the list of students. [Screenshot](user_stories1.2.JPG)
     3. The list of students can be compared with the attendance and after each cycle, the trainer can mark it as complete and check back on the assigned student's profiles. [Screenshot](user_stories1.3.JPG)
-2. _"I spend the majority of my time trying to allocate people to one particular task, but I can't never tell my own team's expertise. Having a visual aid to see their profile would be ideal because it would save me precious time."_
+2. _"I spend the majority of my time trying to allocate people to one particular task, but I can never tell my own team's expertise. Having a visual aid to see their profile would be ideal because it would save me precious time."_
     1. The students registered in the system have a "training folder" collapsible which can provide information on what training/cycles the student is enrolled in. [Screenshot](user_stories2.1.JPG)
     2. In the student's profile, there's a button which triggers the student's certifications. [Screenshot](user_stories2.2.JPG)
 3. _"At least once I week, I have either a team leader or a trainer sending me a spreadsheet with thousands of rows for ME to update my current training profile - it takes me ages to do it so and it's stressful. An user-friendly system would be welcome."_
@@ -58,10 +58,10 @@ The landing page provides the background of the system -  The information is lai
 #### Log In Page
 
 1. Log In form:
-    1. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    1. Check if all the inputs in the form have appropriate width and if they're responsive on smaller screens.
     2. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
 2. Call to action buttons:
-    1. Check if the log in button triggers function and compares the input with data written in the database.
+    1. Check if the login button triggers function and compares the input with data written in the database.
     2. Check if wrong login/password returns a valid response and directs the user to try again/or to register to use the app.
     3. Checks if "Register Account" link directs the user to the register endpoint.
 3. Review bullet points in different devices, such as tablets, phones and consoles.
@@ -69,10 +69,10 @@ The landing page provides the background of the system -  The information is lai
 #### Register Page
 
 1. Register form:
-    1. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    1. Check if all the inputs in the form have appropriate width and if they're responsive on smaller screens.
     2. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
     3. Check if the switches for "I'm a team leader" and "I'm an instructor" works properly.
-    4. Check if the "Choose the Team" select form works properly and loads all of the Teams from the database.
+    4. Check if the "Choose the Team" select form works properly and loads all the Teams from the database.
 2. Call to action buttons:
     1. Check if the Register button triggers function and writes the input to database.
     2. Check if username/alias are already registered and returns a valid response if that's the case it prompts the user to try again/login.
@@ -107,7 +107,7 @@ The landing page provides the background of the system -  The information is lai
 #### Create Team Page
 
 1. Create Team form:
-    1. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    1. Check if all the inputs in the form have appropriate width and if they're responsive on smaller screens.
     2. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
 2. Call to action buttons:
     1. Check if "Submit" button creates team and if the inputs from the form are adequately written to database.
@@ -117,7 +117,7 @@ The landing page provides the background of the system -  The information is lai
 #### Edit Team Page
 
 1. Edit Team form:
-    1. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    1. Check if all the inputs in the form have appropriate width and if they're responsive on smaller screens.
     2. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
 2. Call to action buttons:
     1. Check if "Submit" button edits team and its members correctly according to the form inputs and edits the right document in the database.
@@ -127,7 +127,7 @@ The landing page provides the background of the system -  The information is lai
 #### Trainings Page
 
 1. Training Collapsibles:
-    1. Check if for each training document in the database a collapsible renders correctly, with Team/Training Name/Date/Icon on the collapsible header.
+    1. Check if for each training document in the database a collapsible render correctly, with Team/Training Name/Date/Icon on the collapsible header.
     2. Check if the opening of the collapsible works as it should, even with multiple trainings "open".
     3. Check if the "Training Control Panel" card renders inside of the collapsible.
     4. Check if for each Cycle under the path: "{Training}/training_cycle" renders correctly.
@@ -154,8 +154,8 @@ The landing page provides the background of the system -  The information is lai
 
 1. Add Training form:
     1. Check if the "Training Team" is in accordance with the user's team (the one creating the training).
-    2. Check if the "Assign Training to" select element shows all of the students within the user's team (the one creating the training).
-    3. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    2. Check if the "Assign Training to" select element shows all the students within the user's team (the one creating the training).
+    3. Check if all the inputs in the form have appropriate width and if they're responsive on smaller screens.
     4. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
 2. Call to action buttons:
     1. Check if "Submit" button creates training document and the students selected under the "Assign to" select element are correctly enrolled in the training - check if the training key is created under the path: "student/trainings/{Training}".
@@ -166,7 +166,7 @@ The landing page provides the background of the system -  The information is lai
 
 1. Edit Training form:
     1. Check if the "Training Team" is in accordance with the user's team (the one editing the training).
-    2. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    2. Check if all the inputs in the form have appropriate width and if they're responsive on smaller screens.
     3. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
 2. Call to action buttons:
     1. Check if "Submit" button edits training and modifies enrolled students's training folder according to the form inputs and edits the right document in the database.
@@ -178,9 +178,9 @@ The landing page provides the background of the system -  The information is lai
 1. Add Cycle form:
     1. Check if the "Training Team" is in accordance with the user's team (the one adding the cycle to the training).
     2. Check if the "Training Name" is in accordance with the training's name that the user is adding the cycle to.
-    3. Check if the "Cycle Type" select element shows all of the possible cycle types.
-    4. Check if the "Instructor" select element shows all of the possible instructors within the user's team (the one creating the cycle).
-    5. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    3. Check if the "Cycle Type" select element shows all the possible cycle types.
+    4. Check if the "Instructor" select element shows all the possible instructors within the user's team (the one creating the cycle).
+    5. Check if all the inputs in the form have appropriate width and if they're responsive on smaller screens.
     6. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
 2. Call to action buttons:
     1. Check if "Submit" button creates cycle and the enrolled students have the cycle created within their training folder under the path: "student/trainings/{Training}/{Cycle}" according to the form inputs and edits the right training document in the database.
@@ -190,8 +190,8 @@ The landing page provides the background of the system -  The information is lai
 #### Edit Cycle Page
 
 1. Edit Cycle form:
-    1. Check if the "Instructor" select element shows all of the possible instructors within the user's team (the one editing the cycle).
-    2. Check if all the inputs in the form have appropriate width and if they're resposive on smaller screens.
+    1. Check if the "Instructor" select element shows all the possible instructors within the user's team (the one editing the cycle).
+    2. Check if all the inputs in the form have appropriate width and if they're responsive on smaller screens.
     3. Check if the form validates inputs and if shows the red line underneath if the form is not filled properly.
 2. Call to action buttons:
     1. Check if "Submit" button edits cycle and modifies enrolled students's training folder according to the form inputs and edits the right document in the database.
