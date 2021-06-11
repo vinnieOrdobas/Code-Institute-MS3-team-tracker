@@ -79,6 +79,10 @@ A cloud-based database designed to serve as an aid for LMS systems, to keep trac
 > The goal of the app is to render complex information in one simplified data stream, so the structure needs to translate that in a visual design - it was planned to stem from an already known convention to clarify the usage.
 > It takes the structure of a simplistic convention of data, in a schema known to the user such as a web mail design - it takes the same layout and adds functionality in straightforward format to convey information in a condensed shape.
 
+##### Data Model
+
+> External data modelling documentation can be found following this [link](assets/docs/data_model.md).
+
 #### 4. Skeleton
 
 > - [Wire frames](assets/docs/wireframes.pdf): Web app categorised in five different clusters.
