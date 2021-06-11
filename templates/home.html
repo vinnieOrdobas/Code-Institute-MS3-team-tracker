@@ -7,8 +7,8 @@
         <div class="row">
             <div class="col s12 m6 offset-m3">
                 <div class="title-wrapper center-align">
-                    <i class="fas fa-shield-virus fa-5x"></i>
-                    <h2>Team Tracker</h2>
+                    <i class="fas fa-shield-virus fa-5x"></i><br>
+                    <h1 class="title">Team Tracker</h1>
                 </div>
             </div>
         </div>
@@ -16,7 +16,9 @@
             <div class="col s12">
                 <div id="introduction" class="section scrollspy">
                     <div class="section">
-                        <h5 class="center-align">What is it</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">What is it</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
                                 Team Tracker is a custom-made cloud-based solution intended for teams to track their training records in an intuitive interface - it is a mobile-first app, and its layout is simple, dynamic and visually appealing.
@@ -26,7 +28,9 @@
                         </div>
                     </div>
                     <div class="section">
-                        <h5 class="center-align">How it works</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">How it works</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
                                 Being cloud-based, Team Tracker runs in any device that can access the internet - there's a backend server to keep all the information secure and ready to use. 
@@ -34,7 +38,9 @@
                         </div>
                     </div>
                     <div class="section">
-                        <h5 class="center-align">Why is it relevant</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">Why is it relevant</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
                                 Team Tracker saves time by presenting records in an interactive way - its dynamic structure is user-friendly, which means  users do not need to dig for information, saving time across the board. 
@@ -48,7 +54,9 @@
             <div class="col s12">
                 <div id="usage" class="section scrollspy">
                     <div class="section">
-                        <h5 class="center-align">Implementation</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">Implementation</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
                                 The first step is to identify the need to keep track of training needs for your team - think about all of those 4000-row spreadsheets you currently have in your organisation.
@@ -57,7 +65,9 @@
                         </div>
                     </div>
                     <div class="section">
-                        <h5 class="center-align">Using it</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">Using it</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
                                 After the solution is implemented, the only step needed before start using the system is to register users - that can be done through the <a href="{{ url_for('register') }}">Registration</a> page.
@@ -66,7 +76,9 @@
                         </div>
                     </div>
                     <div class="section">
-                        <h5 class="section-title center-align">Access tiers</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">Access tiers</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
                               <p>Team Tracker is organised in access-tiers, where different types of users can perform different actions
@@ -83,50 +95,50 @@
                         <!-- access tiers modals -->
                         <div id="sys_modal" class="modal">
                             <div class="modal-content">
-                                <h4 class="center-align">System Administrator</h4>
-                                <p class="center-align">
-                                    <i class="fas fa-user-tie fa-lg black-text fa-2x"></i>
-                                </p>
+                                <div class="center-align">
+                                    <p class="center-align"><i class="fas fa-user-tie fa-lg black-text fa-2x"></i></p>
+                                    <span class="modal-title">System Administrator</span>
+                                </div>
                                 <p>The System Administrator is the user who'll provide the structure for <b>Team Tracker</b> - this user can create/edit/delete teams, trainings, cycles and edit user's access. There can be only one per system.</p>
                             </div>
                             <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                <button class="modal-close waves-effect waves-green btn-flat" aria-label="Agree">Agree</button>
                             </div>
                         </div>
                         <div id="tl_modal" class="modal">
                             <div class="modal-content">
-                                <h4 class="center-align">Team Leader</h4>
-                                <p class="center-align">
-                                    <i class="fas fa-user-secret fa-lg black-text fa-2x"></i>
-                                </p>
+                                <div class="center-align">
+                                    <p class="center-align"><i class="fas fa-user-secret fa-lg black-text fa-2x"></i></p>
+                                    <span class="modal-title">Team Leader</span>
+                                </div>
                                 <p>The Team Leader is the manager of the process - this user has access to add/edit/delete trainings and cycles within his team, enroll students in different training sets and check student graduations.</p>
                             </div>
                             <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                <button class="modal-close waves-effect waves-green btn-flat" aria-label="Agree">Agree</button>
                             </div>
                         </div>
                         <div id="instructor_modal" class="modal">
                             <div class="modal-content">
-                                <h4 class="center-align">Instructor</h4>
-                                <p class="center-align">
-                                    <i class="fas fa-chalkboard-teacher fa-lg black-text fa-2x"></i>
-                                </p>
+                                <div class="center-align">
+                                    <p class="center-align"><i class="fas fa-chalkboard-teacher fa-lg black-text fa-2x"></i></p>
+                                    <span class="modal-title">Instructor</span>
+                                </div>
                                 <p>The Instructor has the same tier of access as the Team Leader, with the difference that he works cross-teams - he's the one who's get his name printed on Cycle cards and on Student's Certificates.</p>
                             </div>
                             <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                <button class="modal-close waves-effect waves-green btn-flat" aria-label="Agree">Agree</button>
                             </div>
                         </div>
                         <div id="student_modal" class="modal">
                             <div class="modal-content">
-                                <h4 class="center-align">Student</h4>
-                                <p class="center-align">
-                                    <i class="fas fa-user fa-lg black-text fa-2x"></i>
-                                </p>
+                                <div class="center-align">
+                                    <p class="center-align"><i class="fas fa-user fa-lg black-text fa-2x"></i></p>
+                                    <span class="modal-title">Student</span>
+                                </div>
                                 <p>The Student is star of this system: the app was created for him. Although he doesn't have CRUD functionalities with his access team, the system records Student's certification in it's own training folder.</p>
                             </div>
                             <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                <button class="modal-close waves-effect waves-green btn-flat" aria-label="Agree">Agree</button>
                             </div>
                         </div>
                     </div>
@@ -137,7 +149,9 @@
             <div class="col s12">
                 <div id="functionalities" class="section scrollspy">
                     <div class="section">
-                        <h5 class="center-align">Cycle System</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">Cycle System</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
                                 <b>Team Tracker</b> uses a Cycle-based framework to break-up trainings in up to three different stages: the so-called cycles. Within this framework, each cycle has one particular function: 
@@ -160,19 +174,22 @@
                                 </ul>
                             </div>
                         </div>
-                         
                     </div>
                     <div class="section">
-                        <h5 class="center-align">Trigger Buttons</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">Trigger Buttons</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
-                              <p>Team Tracker's layout is visually appealing, and uses a wide range of buttons to trigger functionalities - please <a href="#trigger_modal" class="modal-trigger"><b>Click here</b></a> to check the lexicon.</p>
+                              <p>Team Tracker's layout is visually appealing, and uses a wide range of buttons to trigger functionalities - <a href="#trigger_modal" class="modal-trigger"><b>check the lexicon.</b></a></p>
                             </div>
                         </div>
                         <!-- button modal -->
                         <div id="trigger_modal" class="modal modal-fixed-footer">
                             <div class="modal-content">
-                                <h4 class="center-align">Button Lexicon</h4>
+                                <div class="center-align">
+                                    <span class="modal-title">Button Lexicon</span>
+                                </div>
                                 <table class="centered">
                                     <thead>
                                       <tr>
@@ -183,67 +200,67 @@
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect green waves-light btn-small"><i class="fas fa-plus-circle prefix"></i></button>
+                                                <button class="waves-effect green waves-light btn-small" aria-label="Add Team/Training"><i class="fas fa-plus-circle prefix"></i></button>
                                             </td>
                                             <td>Add Team/Training</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect green waves-light btn-small"><i class="fas fa-plus-square"></i></button>
+                                                <button class="waves-effect green waves-light btn-small" aria-label="Add Cycle"><i class="fas fa-plus-square"></i></button>
                                             </td>
                                             <td>Add Cycle</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect yellow darken-4 waves-light btn-small"><i class="fas fa-user-edit"></i></button>
+                                                <button class="waves-effect yellow darken-4 waves-light btn-small" aria-label="Add Cycle"><i class="fas fa-user-edit"></i></button>
                                             </td>
                                             <td>Enroll Students</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect deep-purple lighten-2 waves-light btn-small"><i class="fas fa-clipboard-list"></i></button>
+                                                <button class="waves-effect deep-purple lighten-2 waves-light btn-small" aria-label="Enroll Students"><i class="fas fa-clipboard-list"></i></button>
                                             </td>
                                             <td>Get Student list</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect yellow darken-2 waves-light btn-small"><i class="fas fa-info-circle"></i></button>
+                                                <button class="waves-effect yellow darken-2 waves-light btn-small" aria-label="Get training description"><i class="fas fa-info-circle"></i></button>
                                             </td>
                                             <td>Get training description</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect blue waves-light btn-small"><i class="fas fa-pen-square"></i></button>
+                                                <button class="waves-effect blue waves-light btn-small" aria-label="Edit Training/Cycle"><i class="fas fa-pen-square"></i></button>
                                             </td>
                                             <td>Edit Training/Cycle</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect red waves-light btn-small"><i class="fas fa-minus-circle"></i></button>
+                                                <button class="waves-effect red waves-light btn-small" aria-label="Delete Training/Cycle"><i class="fas fa-minus-circle"></i></button>
                                             </td>
                                             <td>Delete Training/Cycle</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect green waves-light btn-small"><i class="fas fa-check-circle"></i></button>
+                                                <button class="waves-effect green waves-light btn-small" aria-label="Mark as Complete Training/Cycle"><i class="fas fa-check-circle"></i></button>
                                             </td>
                                             <td>Mark as Complete Training/Cycle</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect yellow darken-3 waves-light btn-small"><i class="fas fa-times-circle"></i></button>
+                                                <button class="waves-effect yellow darken-3 waves-light btn-small" aria-label="Mark as Incomplete Training/Cycle"><i class="fas fa-times-circle"></i></button>
                                             </td>
                                             <td>Mark as Incomplete Training/Cycle</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect yellow darken-3 waves-light btn-small"><i class="fas fa-key"></i></button>
+                                                <button class="waves-effect yellow darken-3 waves-light btn-small" aria-label="Change access level"><i class="fas fa-key"></i></button>
                                             </td>
                                             <td>Change access level</td>
                                         </tr>
                                         <tr>
                                             <td>
-                                                <button class="waves-effect green waves-light btn-small"><i class="fas fa-user-graduate"></i></button>
+                                                <button class="waves-effect green waves-light btn-small" aria-label="See Student's certifications"><i class="fas fa-user-graduate"></i></button>
                                             </td>
                                             <td>See Student's certifications</td>
                                         </tr>
@@ -251,12 +268,14 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                <button class="modal-close waves-effect waves-green btn-flat" aria-label="Agree">Agree</button>
                             </div>
                         </div>
                     </div>
                     <div class="section">
-                        <h5 class="center-align">Test the app!</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">Test the App!</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
                               <p>Still unsure if Team Tracker would work for your process/team/company? 
@@ -270,7 +289,9 @@
                         <!-- users modal -->
                         <div id="users_modal" class="modal modal-fixed-footer">
                             <div class="modal-content">
-                                <h4 class="center-align">Demo Accounts</h4>
+                                <div class="center-align">
+                                    <span class="modal-title">Demo Accounts</span>
+                                </div>
                                 <table class="centered">
                                     <thead>
                                         <tr>
@@ -347,7 +368,7 @@
                                 </table>
                             </div>
                             <div class="modal-footer">
-                                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+                                <button class="modal-close waves-effect waves-green btn-flat" aria-label="Agree">Agree</button>
                             </div>
                         </div>
                     </div>
@@ -358,7 +379,9 @@
             <div class="col s12">
                 <div id="about" class="section scrollspy">
                     <div class="section">
-                        <h5 class="center-align">About</h5><hr>
+                        <div class="center-align">
+                            <span class="section-title">About</span><hr>
+                        </div>
                         <div class="card card-home amber lighten-5">
                             <div class="card-content black-text">
                                 <p>

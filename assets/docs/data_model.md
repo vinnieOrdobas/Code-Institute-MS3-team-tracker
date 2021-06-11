@@ -27,4 +27,4 @@ Managing large quantities of structured and unstructured data is a primary funct
 
 ## Data Schema
 
-> - For the data schema, please follow this [link](assets/docs/data_schema.png).
+> - For the data schema, please follow this [link](data_schema.png)
